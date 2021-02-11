@@ -32,11 +32,7 @@
 ### Scope of Work
 User Story:
 ```
-<!-- As a user: 
-I want to be able to search for books.
-I should be able to save results of certain books.
-I should also be able to view the saved books. 
-I should also be able to delete saved books.  -->
+
 ``` 
 
 ### React
