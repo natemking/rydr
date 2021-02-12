@@ -14,7 +14,7 @@
     "iall": "npm i && cd client && npm i",
     "startboth": "npm run server & npm run client",
     "seed": "node scripts/seeder.js",
-    "heroku-postbuild": "npm run build" 
+    "heroku-postbuild": "npm run build"
   },
   "author": "Green Light",
   "license": "GPL-3.0",
