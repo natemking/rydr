@@ -22,7 +22,7 @@ router.route('/venue/:id')
 .put(dbController.updateVenue);
 
 // create or find venue by name
-router.route('/venue/:name')
+router.route('/venue/name/:name')
 .get(dbController.findByVenueName)
 .post(dbController.createVenue);
 

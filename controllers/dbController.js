@@ -57,8 +57,20 @@ module.exports = {
     },
     // FIND VENUE BY NAME
     findByVenueName: function (req, res){
+        const name = req.params.name
         db.Venue
-        .find({name: {$elemMatch: {name: req.params.name}}})
+        .find({venueName: name}).collation( { locale: 'en', strength: 1 })
+        .then(dbModel => {
+            console.log(dbModel)
+            res.json(dbModel)})
+        .catch(err => res.status(422).json(err));
+    },
+    // FIND VENUE BY LOCATION
+    findByVenueLocation: function (req, res){
+        db.Venue
+        .find({})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err))
     },
     // CREATE VENUE
     createVenue: function (req, res) {
