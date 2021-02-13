@@ -21,6 +21,14 @@ label {
     text-decoration: underline;
 }
 
+a {
+    color: #66e877 !important;
+}
+
+th, td {
+    text-align: center;
+}
+
 .artistCreateButton{
     background-color: #333a2f;
     color: white;
