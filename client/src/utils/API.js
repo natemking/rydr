@@ -8,11 +8,11 @@ const API = {
     },
     // CREATE NEW band
     createUser(userData){
-        return axios.post(`/api/dbRoutes/band${userData}`)
+        return axios.post(`/api/dbRoutes/band/${userData}`)
     },
     // UPDATE USER INFO
     updateUserData(userData){
-        return axios.put(`/api/dbRoutes/band${userData}`)
+        return axios.put(`/api/dbRoutes/band/${userData}`)
     },
     // DELETE USER BY ID
     deleteUser(id){
@@ -20,7 +20,7 @@ const API = {
     },
     // GET VENUE BY ID
     getVenueById(id){
-        return axios.get(`api/venue/${id}`)
+        return axios.get(`api/dbRoutes/venue/${id}`)
     },
     // GET VENUE BY NAME
     getVenueByName(name){
