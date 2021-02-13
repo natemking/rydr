@@ -42,6 +42,12 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    findAllVenue: function (req, res) {
+        db.Venue
+            .find(req.query)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
     // FIND VENUE BY ID
     findByIdVenue: function (req, res) {
         db.Venue
