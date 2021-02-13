@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const dbRoutes = require('./dbRoutes');
-const fourSquareRoute = require('./fourSquareRoutes');
+const fourSquareRoute = require('./fourSquareRoute');
 
 // REFERENCE BOTH DB AND FOURSQUARE ROUTES
-router.use('/dbRoutes');
-router.use('/fourSquareRoute');
+router.use('/dbRoutes', dbRoutes);
+router.use('/fourSquareRoutes', fourSquareRoute);
 
 // SEND TO BUILD FILE
 router.use( (req, res) => {

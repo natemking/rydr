@@ -1,21 +1,21 @@
 import axios from 'axios';
 
-export default {
+const API = {
     // GET USER INFO BY ID
     getUser(id){
-        return axios.get(`/api/artist/${id}`)
+        return axios.get(`/api/band/${id}`)
     },
-    // CREATE NEW ARTIST
+    // CREATE NEW band
     createUser(userData){
-        return axios.post(`/api/artist${userData}`)
+        return axios.post(`/api/band${userData}`)
     },
     // UPDATE USER INFO
     updateUserData(userData){
-        return axios.put(`/api/artist${userData}`)
+        return axios.put(`/api/band${userData}`)
     },
     // DELETE USER BY ID
     deleteUser(id){
-        return axios.delete(`/api/artist/${id}`)
+        return axios.delete(`/api/band/${id}`)
     },
     // GET VENUE BY ID
     getVenueById(id){
@@ -39,3 +39,5 @@ export default {
     },
 
 };
+
+export default API;
