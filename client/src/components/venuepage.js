@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Rating from 'react-rating'
+import API from "../utils/API";
 
 const VenuePage = () => {
+    const [venues, setVenues] = useState([]);
+    const [formObject, setFormObject] = useState([]);
+
+    useEffect(() => {
+      
+    }, [])
+
+    function loadVenuesById() {
+        API.getVenueById()
+        .then(res=> 
+            setVenues(res.venues)
+            )
+            .catch(err => console.log(err));
+    }
+
+    function loadVenuesByName() {
+        API.getVenueByName()
+        .then(res=> 
+            setVenues(res.venues)
+            )
+            .catch(err => console.log(err));
+    }
+
     
+    function loadVenuesByName() {
+        API.getVenueByName()
+        .then(res=> 
+            setVenues(res.venues)
+            )
+            .catch(err => console.log(err));
+    }
+
+
    
     return (
 
