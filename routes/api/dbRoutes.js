@@ -3,10 +3,13 @@ const dbController = require('../../controllers/dbController');
 
 
 router.route('/artist/:id')
-.get(dbController.findByIdBand)
+.get(dbController.findByIdArtist)
 // should we use a patch instead of put?? Patch is suppposed to only update what is passed in versus the whole object.
-.put(dbController.updateBand)
-.delete(dbController.deleteBand);
+.put(dbController.updateArtist)
+.delete(dbController.removeArtist);
+
+router.route('/artist')
+.post(dbController.createArtist);
 
 router.route('/venue/:id')
 .get(dbController.findByIdVenue)
@@ -15,7 +18,7 @@ router.route('/venue/:id')
 .put(dbController.updateReview);
 
 router.route('/venue/:name')
-.get(dbController.findByName)
+.get(dbController.findByVenueName)
 .post(dbController.createVenue);
 
 router.route('/venue/:rating')
