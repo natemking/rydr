@@ -6,6 +6,11 @@ const CreatePage = () => {
     const[artist,setArtist] = useState([]);
 
     useEffect(() => {
+        createArtist();
+    });
+
+
+    const createArtist = () => {
         API.createUser()
         .then(res => setArtist({
             name: artist.name,
@@ -17,10 +22,8 @@ const CreatePage = () => {
             password: artist.password,
             avatar: artist.avatar
         }))
-    }, [])
-
-
- 
+        .catch(err => console.log(err));
+    };
 
     return (
 

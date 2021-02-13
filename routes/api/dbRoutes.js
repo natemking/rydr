@@ -1,17 +1,19 @@
 const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 
-// create a new artist user.
-router.route('/artist')
-.post(dbController.createArtist);
-
-// all routes to manipulate artist data by id
-router.route('/artist/:id')
-.get(dbController.findByIdArtist)
+// create a new band user.
+router.route('/band')
+.post(dbController.createBand)
+.get(dbController.findAllBand);
+// all routes to manipulate band data by id
+router.route('/band/:id')
+.get(dbController.findByIdBand)
 // should we use a patch instead of put?? Patch is suppposed to only update what is passed in versus the whole object.
-.put(dbController.updateArtist)
-.delete(dbController.removeArtist);
-
+.put(dbController.updateBand)
+.delete(dbController.removeBand);
+// get all venues from db
+router.route('/venue')
+.get(dbController.findAllVenue);
 // all routes to manipulate venue data by id
 router.route('/venue/:id')
 .get(dbController.findByIdVenue)

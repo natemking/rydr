@@ -3,6 +3,19 @@ import Rating from 'react-rating'
 import API from "../utils/API";
 
 const VenuePage = () => {
+    const [search, setSearch] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
+    
+    const handleOnChange = (e) => {
+        const {value} = e.target
+        setSearch(value)
+    }
+
+    const handleBtnSubmit = (e) => {
+        e.preventDefault();
+
+        const searchFor
+    }
     // const [venues, setVenues] = useState([]);
     // const [formObject, setFormObject] = useState([]);
 
