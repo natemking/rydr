@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const dbRoutes = require('./dbRoutes');
-const fourSquareRoute = require('./fourSquareRoutes');
+const fourSquareRoute = require('./fourSquareRoute');
 
-// referencing both db routes and fourSquare route
-router.use('/dbRoutes');
-router.use('/fourSquareRoute');
+// REFERENCE BOTH DB AND FOURSQUARE ROUTES
+router.use('/dbRoutes', dbRoutes);
+router.use('/fourSquareRoutes', fourSquareRoute);
 
-// 
+// SEND TO BUILD FILE
 router.use( (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build.index.html"));
 });
