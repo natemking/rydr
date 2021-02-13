@@ -5,16 +5,14 @@ const category = "4bf58dd8d48988d1e5931735";
 const limit = '';
 const city = '';
 const radius = '';
-const query = `${url}?client_id=${clientId}&client_secret=${clientSecret}&v=20180323&limit=${limit}&categoryId=${category}&near=${city}&radius=${radius}`;
+const query = `${url}?client_id=${process.env.clientId}&client_secret=${process.env.clientSecret}&v=20180323&limit=${limit}&categoryId=${category}&near=${city}&radius=${radius}`;
 const url = `https://api.foursquare.com/v2/venues/search${query}`;
 
-
 module.exports = {
-    async searchVenue(req,res) {
+    async searchVenueApi(req,res) {
         try {
             const response = await axios.get(url);
-            console.log(response);
-            res.send(response.data);
+            res.send(response.venues);
             
         } catch(err) {console.error(err)} 
     }
