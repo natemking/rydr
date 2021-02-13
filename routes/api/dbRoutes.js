@@ -2,7 +2,7 @@ const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 
 
-router.route('/band/:id')
+router.route('/artist/:id')
 .get(dbController.findByIdBand)
 .put(dbController.findByIdBand)
 .put(dbController.updateBand)
