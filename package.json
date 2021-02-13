@@ -19,7 +19,6 @@
   "author": "Green Light",
   "license": "GPL-3.0",
   "dependencies": {
-    "all": "0.0.0",
     "axios": "^0.21.1",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",

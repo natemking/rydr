@@ -3,7 +3,8 @@ const apiController = require('../../controllers/apiController');
 
 
 router.route("/search/:limit/:city")
-.post(apiController.searchVenue);
+.get(apiController.)
+.post(apiController.searchVenueApi);
 
 
 
