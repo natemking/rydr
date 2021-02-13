@@ -1,16 +1,17 @@
 import React from 'react';
-import Header from './components/header'
+import NavBar from './components/navbar'
 import Home from './components/home'
 import CreatePage from './components/createpage'
 import BandPage from './components/bandpage'
 import VenuePage from './components/venuepage'
+import './components/styles/main.css'
 import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Router>
-      <Header />
+      <NavBar />
     <Switch>
     <Route path="/" exact component={Home}/>
     <Route path="/createartist" component={CreatePage}/>
