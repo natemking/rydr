@@ -1,6 +1,26 @@
-import React, {} from 'react';
+import React, { useState, useEffect } from "react";
+import API from '../utils/API';
+// import { createArtist } from "../../../controllers/dbController";
+
+const CreatePage = () => {
+    const[artist,setArtist] = useState([]);
+
+    useEffect(() => {
+        API.createUser()
+        .then(res => setArtist({
+            name: artist.name,
+            location: artist.location,
+            description: artist.description,
+            outsideLink: artist.outsideLink,
+            email: artist.email,
+            username: artist.username,
+            password: artist.password,
+            avatar: artist.avatar
+        }))
+    }, [])
 
 
+ 
 
     return (
 
