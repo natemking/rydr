@@ -1,5 +1,6 @@
 # Project Rydr
 
+
 <!-- [Workout Tracker Deploy Link](https://workout-tracker-nmk.herokuapp.com/) -->
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/natemking/rydr/blob/main/LICENSE)
@@ -29,9 +30,28 @@
 
 ## Description
 
+In today's world with all the interconnectedness that we have, there still lacks a tried and true service for musical artists to interact with venues and share those experiences in a public manner. We have LinkedIn for employers and employees to connect. We have Glassdoor for employees  to rate employers but what services do musical artists have? Are they not entering an, albeit temporary, employee-employer relationship for the extent of the gig? 
+
+Along comes Rydr. A social network for both artists and venues to connect with the ability for artists to rate venues. Artists can display all of their info, press kits, riders and can also rate venues. Venues can create pages to share their info and easily reach out to artists to fill open slots. By allowing artists the ability to rate venues, gone will be the days of venues mistreating the artists. 
+
+By creating a social network of available places to play across the world, bands can easily book tours and be treated in a fair manner through transparency of the modern age. In the end its the fans who benefit. 
+
 ### Scope of Work
 User Story:
 ```
+As a musical artist 
+I would like to be able to create an artist page
+So that I can share my band info, press kit, band rates, and rider
+So that venues/promoters/booker can connect to books gigs
+I would like to be able to rate venues/promoter/booker
+So that other artists can know how a venue operates and treats artists
+
+As a musical venue/promoter/booker
+I would like to create a venue/promoter/booker page
+So that I can share information about my services rendered
+So that I connect with artists
+So that I can book artists to perform
+
 
 ``` 
 
@@ -56,6 +76,12 @@ _App Functionality_
 Licensed under the GNU GPLv3.0 License. Copyright © 2020
 
 ## Credits
+
+### Authors:
+* [David Wylie](https://github.com/wyliedavid1984)
+* [Dmitri So](https://github.com/dmitriso)
+* [John Hauth](https://github.com/jkhauth)
+* [Nate King](https://github.com/natemking)
 
 <!-- * [Add a comma to map results if there are more then one result](https://stackoverflow.com/questions/47881767/how-to-add-a-comma-in-array-map-after-every-element-except-last-element-in-react)
 
