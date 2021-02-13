@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 
 const Home = () => {
@@ -10,7 +11,9 @@ const Home = () => {
     <h1 className="font-italic">Better Your Artist Experience</h1>
     <div className="d-flex justify-content-center mt-2">
     <button className="mx-2 homeaccountbutton" >Log In</button>
+    <Link to="/createartist">
     <button className="mx-2 homeaccountbutton">Create Account</button>
+    </Link>
     </div>
     </div>
     

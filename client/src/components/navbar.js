@@ -24,18 +24,13 @@ const NavBar = () => {
       </Link><span className="sr-only">(current)</span>
       </li>
       <li className="nav-item">
-      <Link to="/createartist">
-          <button className="mx-2 navbutton">Create Artist</button>
-      </Link>
-      </li>
-      <li className="nav-item">
       <Link to="/bandpage">
-         <button className="mx-2 navbutton">Band Page</button>
+         <button className="mx-2 navbutton">My Band Page</button>
       </Link>
       </li>
       <li className="nav-item">
         <Link to="/venuepage">
-        <button className="mx-2 navbutton">Venues</button>
+        <button className="mx-2 navbutton">Search Venues</button>
         </Link>
       </li>
     </ul>
