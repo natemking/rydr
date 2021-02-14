@@ -19,9 +19,9 @@ module.exports = (mongoose, Schema) => {
         postedReviews: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Venue.venueReviews'
+                ref: 'Review',
             }
-        ]
+        ],
     },
     { timestamps: true });
 
