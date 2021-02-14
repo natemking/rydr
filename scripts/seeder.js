@@ -96,23 +96,6 @@ const venueSeed = [
             "Philadelphia, PA 19125",
             "United States"
         ],
-        venueReviews: [
-            {
-                author: null,
-                rating: 2,
-                reviewText: 'Green room was way too small. They offered a veggie platter and not a single thing from the grill downstairs.'
-            },
-            {
-                author: null,
-                rating: 4,
-                reviewText: 'Great Place to play! Awesome vibes.'
-            },
-            {
-                author: null,
-                rating: 4,
-                reviewText: 'Oh man is this place great! What a gem. The staff is great and philly really knows how to let loose'
-            },
-        ]
     },
     {
         venueName: 'Union Transfer',
@@ -122,26 +105,47 @@ const venueSeed = [
             'United States'
 
         ],
-        venueReviews: [
-            {
-                author: null,
-                rating: 5,
-                reviewText: 'Great sound and the crowd was really into it. Awesome building. Heard it was a Spaghetti Factory at on time.'
-            },
-            {
-                author: null,
-                rating: 5,
-                reviewText: 'Insane sound. Really great staff too. They know how to treat the artists.'
-            },
-            {
-                author: null,
-                rating: 5,
-                reviewText: 'Really great fun. I couldn\'t believe how good our guitars sounded in that room. The mix was on point. Talk about professional. They really know what they\'re doing. A+'
-            },
-        ]
     }
 ]
 
+const reviewSeed = [
+    {   
+        venue: '',
+        author: null,
+        rating: 2,
+        reviewText: 'Green room was way too small. They offered a veggie platter and not a single thing from the grill downstairs.'
+    },
+    {
+        venue: '',
+        author: null,
+        rating: 4,
+        reviewText: 'Great Place to play! Awesome vibes.'
+    },
+    {
+        venue: '',
+        author: null,
+        rating: 4,
+        reviewText: 'Oh man is this place great! What a gem. The staff is great and philly really knows how to let loose'
+    },
+    {
+        venue: '',
+        author: null,
+        rating: 5,
+        reviewText: 'Great sound and the crowd was really into it. Awesome building. Heard it was a Spaghetti Factory at on time.'
+    },
+    {
+        venue: '',
+        author: null,
+        rating: 5,
+        reviewText: 'Insane sound. Really great staff too. They know how to treat the artists.'
+    },
+    {
+        venue: '',
+        author: null,
+        rating: 5,
+        reviewText: 'Really great fun. I couldn\'t believe how good our guitars sounded in that room. The mix was on point. Talk about professional. They really know what they\'re doing. A+'
+    },
+]
 
 //*** Seed functions ***//
 //======================//
@@ -178,6 +182,19 @@ const seedVenue = async () => {
         await db.Venue.deleteMany({});
         const data = await db.Venue.insertMany(venueSeed);
         console.log(`${data.length} Venues inserted`);
+
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+}
+
+// Seed the review collection with the reviewSeed data
+const seedReview = async () => {
+    try {
+        await db.Review.deleteMany({});
+        const data = await db.Review.insertMany(reviewSeed);
+        console.log(`${data.length} Reviews inserted`);
 
     } catch (err) {
         console.error(err);
@@ -227,52 +244,73 @@ const addIdToUser = async () => {
 const addAuthorToReview = async () => {
     // Storage arrays for id data & db results
     const venueId = [];
-    const reviewId = [];
     const bandId = [];
+    const tempId = [];
     const results = [];
+    const results2 = [];
 
     // Get all venues and bands
     const allVenues = await db.Venue.find({});
-    const bands = await db.Band.find({});
+    const allBands = await db.Band.find({});
+    const allReviews = await db.Review.find({});
 
     // Pull of the id's for each venue, review, & band then send to respective storage array
-    allVenues.forEach(venue => { venueId.push(venue._id) })
-    allVenues.forEach(venue => { reviewId.push(venue.venueReviews) })
-    bands.forEach(band => { bandId.push(band._id) });
+    allVenues.forEach(venue => { venueId.push(venue._id) });
+    allBands.forEach(band => { bandId.push(band._id) });
+    allReviews.forEach(review => { tempId.push(review._id) })
 
+    // Divide the reviewId array into an array of 2 arrays
+    const reviewId = [tempId.slice(0, 3), tempId.slice(3) ];
+     
     // Iterate over the venues
     for (let i = 0; i < venueId.length; i++) {
         // Iterate over the venueReviews sub document
-        for (let j = 0; j < reviewId[i].length; j++) {
+        for (let j = 0; j < bandId.length; j++) {
             try {
                 // Associate the respective bandId to a review
-                const addBandIdToReview = await db.Venue.findOneAndUpdate(
-                    { '_id': venueId[i], 'venueReviews._id': reviewId[i][j]._id },
+                const addBandIdToReview = await db.Review.findOneAndUpdate(
+                    { '_id': reviewId[i][j]},
                         { $set: 
                             {
-                                'venueReviews.$.author': bandId[j]
+                                'author': bandId[j],
+                                'venue': venueId[i]
                             } 
                         }, { new: true });
+                // Display log results
+                console.log(`bandId: ${addBandIdToReview.author} added to reviewId: ${addBandIdToReview._id}`);
                 
-                console.log(`bandId: ${addBandIdToReview.venueReviews[j].author} added to reviewId: ${addBandIdToReview.venueReviews[j]._id}`);
-                
-                // Associate the relative postedReviews to the band
+                // Associate the relative review id to the postedReviews in Bands
                 const addReviewIdToBand = await db.Band.findByIdAndUpdate(bandId[j], 
                     { $push: 
                         {
-                            postedReviews: reviewId[i][j]._id
+                            postedReviews: reviewId[i][j]
                         }
                     }, { new: true });
-                // Push results to stor array for displayed results logs
+                // Push results to stor array for display
                 results.push(`reviewId's: [${addReviewIdToBand.postedReviews}] added to bandId: ${addReviewIdToBand._id}`);
+                
+                // Associate the relative review id to the venueReviews in Venues
+                const addReviewIdToVenue = await db.Venue.findByIdAndUpdate(venueId[i],
+                    { $push:
+                        {
+                            venueReviews: reviewId[i][j]
+                        }
+                    }, { new: true });
+                // Push results to stor array for display
+                results2.push(`reviewId's: [${addReviewIdToVenue.venueReviews}] added to venueId: ${addReviewIdToVenue._id}`);
+
+
             } catch (err) { console.error(err) }
         }
     }
-    console.log('-'.repeat(50));
+    console.log('\nAssociate reviewIds to bands\n' + '-'.repeat(50));
     // Loop for displayed results
     for (let i = 3; i < results.length; i++){
         console.log(results[i])
     }
+    console.log('\nAssociate reviewIds to venues\n' + '-'.repeat(50));
+    console.log(results2[2]);
+    console.log(results2[5]);
 }
 
 
@@ -282,9 +320,10 @@ const seed = async () => {
       await seedUser();
       await seedBand();
       await seedVenue();
+      await seedReview();
       console.log('\nAssociate bandId to userName\n' + '-'.repeat(50));
       await addIdToUser();
-      console.log('\nAssociate bandIds to venueReviews & vice versa\n' + '-'.repeat(50));
+      console.log('\nAssociate bandIds to Reviews\n' + '-'.repeat(50));
       await addAuthorToReview();
       process.exit(0);
   } catch (err) {
@@ -295,3 +334,4 @@ const seed = async () => {
 
 // Init seeding
 seed();
+
