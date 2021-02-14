@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 const CreatePage = () => {
+    const [artist, setArtist] = useState([{
+        "artistName": "",
+        "artistLocation": ""
+    }]);
+
+    const createArtist = (event) => {
+        const target = event.target.name
+        const value = event.target.value
+
+        setArtist({[target]: value})
+    }
+    
+    const submitArtist = (event) => {
+        console.log(artist)
+        event.preventDefault();
+    }
 
     return (
     <div className="d-flex flex-column justify-content-center align-items-center mt-5">
     <div className="formcontent p-2">
     <h1 className="text-center">Create Your Artist Profile</h1>
-    <form>
+    <form onSubmit={submitArtist}>
         <div className="form-group">
             <label for="artistname">Name:</label>
-            <input type="text" className="form-control" id="artistname" aria-describedby="artistNameHelp" placeholder="Enter Name"></input>
+            <input type="text" className="form-control" id="artistname" aria-describedby="artistNameHelp" placeholder="Enter Name" name="artistName" onChange={createArtist}></input>
         </div>
         <div className="form-group">
             <label for="artistLocation">Location (City, State):</label>
-            <input type="text" className="form-control" id="bandLocation" aria-describedby="artistLocation" placeholder="Enter Location"></input>
+            <input type="text" className="form-control" id="bandLocation" aria-describedby="artistLocation" placeholder="Enter Location" name="artistLocation" onChange={createArtist}></input>
         </div>
         <div className="form-group">
         <label for="artistBio">Description:</label>
@@ -40,7 +56,7 @@ const CreatePage = () => {
         <label for="bandAvatar">Upload an Avatar</label>
         <input type="file" className="form-control-file" id="bandAvatar"></input>
         </div>
-        <button type="submit" className="artistCreateButton">Submit</button>
+        <button type="submit" value={"Submit"} className="artistCreateButton">Submit</button>
         </form>
         </div>
     </div>
