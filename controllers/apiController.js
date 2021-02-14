@@ -5,18 +5,18 @@ const axios = require('axios');
 // const query = `&limit=100&near=${city}&radius=${radius}`;
 const url = `https://api.foursquare.com/v2/venues/search?client_id=GSIEWB3V0L4OOFEWHBX4R0K1MOB0CJOJWGLSHHEP0DPKHNP1&client_secret=IABLARJ3OWCNSLW1VR00W4IB33FK3H1MLP32XJF5JWW3LFL4&v=20180323&categoryId=4bf58dd8d48988d1e5931735`;
 // 
-const limit = '';
-const city = '';
-const radius = '';
+
 
 module.exports = {
-    async searchVenueApi(req,res) {
+    async getVenueApi(req, res) {
+        const { city } = req.params;
+        const { radius } = req.params;
         try {
-            const result = await axios.get(`${url}&limit=100&near=Philadelphia&radius=1`);
+            const result = await axios.get(`${url}&limit=100&near=${city}&radius=${radius}`);
             console.log(result.data.response.venues)
             res.send(result.data.response.venues)
-            
-        } catch(err) { console.error(err) } 
+
+        } catch (err) { console.error(err) }
     }
 }
 
