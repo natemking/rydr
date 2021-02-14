@@ -7,38 +7,10 @@ const CreatePage = () => {
     const [formObject, setFormObject] = useState({});
 
     useEffect(() => {
-        createArtist();
+        
     });
 
-
-    const createArtist = () => {
-        API.createUser()
-            .then(res => setArtist({
-                name: artist.name,
-                location: artist.location,
-                description: artist.description,
-                outsideLink: artist.outsideLink,
-                email: artist.email,
-                username: artist.username,
-                password: artist.password,
-                avatar: artist.avatar
-            }))
-            .catch(err => console.log(err));
-    };
-
-    function handleInputChange() {
-        setFormObject({
-            name: formObject.name,
-            location: formObject.location,
-            description: formObject.description,
-            outsideLink: formObject.outsideLink,
-            email: formObject.email,
-            username: formObject.username,
-            password: formObject.password,
-            avatar: formObject.avatar
-        });
-    };
-
+    
     function handleFormSubmit(e) {
         e.preventDefault();
         API.createUser({
