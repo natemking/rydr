@@ -1,6 +1,8 @@
 const express = require("express");
+var cloudinary = require('cloudinary').v2;
 const logger = require('morgan');
 const routes = require("./routes");
+require('dotenv').config()
 const app = express();
 const PORT = process.env.PORT || 3001;
 
