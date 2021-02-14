@@ -14,7 +14,7 @@ const cookieExtractor = req => {
 // authorization 
 passport.use(new JwtStrategy({
     jwtFromRequest: cookieExtractor,
-    secretOrKey: "NoobCoder"
+    secretOrKey: process.env.PASSPORT_SECRET_KEY
 }, (payload, done) => {
     User.findById({
         _id: payload.sub
@@ -41,6 +41,5 @@ passport.use(new LocalStrategy((username, password, done) => {
             return done(null, false);
         // check if password is correct
         user.comparePassword(password, done);
-
     });
 }));

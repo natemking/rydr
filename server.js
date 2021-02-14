@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require('morgan');
 const routes = require("./routes");
 const app = express();
+const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 3001;
 
 // MIDDLEWARE
@@ -9,6 +10,7 @@ app.use(logger('dev'));
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(cookieParser());
 app.use(express.json());
 // SERVE STATIC ASSETS DEPLOYED (usually on heroku)
 if (process.env.NODE_ENV === "production") {

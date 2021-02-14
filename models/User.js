@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 //*** User Model ***//
 //==================//
 module.exports = (mongoose, Schema) => {
@@ -28,31 +30,37 @@ module.exports = (mongoose, Schema) => {
     },
     { timestamps: true });
 
+
+UserSchema.pre('save', function(next){
+    if(!this.isModified('password')){
+        return next();
+    }
+    bcrypt.hash(this.password, 15, (err, passwordHash) =>{
+        if(err){
+            return next(err);
+        }
+        this.password= passwordHash;
+        next();
+    })
+});
+
+UserSchema.methods.comparePassword = function(password, cb){
+    bcrypt.compare(password, this.password, (err, isMatch)=>{
+        if (err){
+            return cb(err)
+        } else{
+            if(!isMatch){
+                return cb(null, isMatch);
+            }
+            return cb(bull, this);    
+        }
+    })  
+};
+
+
     const User = mongoose.model('User', UserSchema);
 
     return User;
 }
 
 
-// UserSchema.pre('save', function(next){
-//     if(!this.isModified('password'))
-//         return next();
-//     bcrypt.hash(this.password, 15, (err, passwordHash) =>{
-//         if(err)
-//             return next(err);
-//             this.password= passwordHash;
-//             next();
-//     })
-// })
-
-// UserSchema.methods.comparePassword = function(password, cb){
-//     bcrypt.compare(password, this.password, (err, isMatch)=>{
-//         if (err)
-//             return cb(err)
-//         else{
-//             if(!isMatch)
-//                 return cb(null, isMatch);
-//             return cb(bull, this);    
-//         }
-//     })  
-// }
