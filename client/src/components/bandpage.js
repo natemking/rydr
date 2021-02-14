@@ -4,7 +4,6 @@ import Rating from 'react-rating'
 const BandPage = () => {
 
     return (
-
     <div className="d-flex flex-column mt-2 p-2">
     <div className="d-flex flex-row flex-wrap align-items-start">
     <img alt="bandphoto" className="img-fluid" src="https://via.placeholder.com/420"></img>
@@ -45,7 +44,6 @@ const BandPage = () => {
     </div>
     <hr></hr>
     </div>
-    
      )
 }
     
