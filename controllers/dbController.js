@@ -2,7 +2,18 @@ const db = require('../models');
 
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
 module.exports = {
-     // JUST IN CASE: DON'T THINK WE'LL NEED IT
+    // Create user and band document. Add User._id the Band.userId
+    async createUser(req,res) {
+        try {
+            const { userName, password, bandName } = req.body;
+            // Create the user document
+            const user = await db.User.create({ userName: userName, password: password});
+            // Create the band document and add the User._id
+            const band = await db.Band.create({ bandName: bandName, userId: user._id});
+            res.json(band);
+        } catch (err) { res.status(422).json(err) }
+    },
+    // JUST IN CASE: DON'T THINK WE'LL NEED IT
     findAllBand: function (req, res) {
         db.Band
             .find(req.query).populate("postedReviews")
@@ -27,9 +38,7 @@ module.exports = {
     // UPDATE Band INFO
     updateBand: function (req, res) {
         db.Band
-            .findOneAndUpdate({
-                _id: req.params.id
-            }, req.body)
+            .findByIdAndUpdate( req.params.id, req.body )
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -97,15 +106,21 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    createReview: function (req, res){
-        db.Review
-        .create(req.body)
-        .then(dbModel =>res.json(dbModel))
-        .catch(err => res.status(422).json(err))
+    // NOTE -- venue will need to come in w/ the body as it's _id
+    async createReview(req, res){
+        try {
+            // Add review to review model
+            const review = await db.Review.create({ ...req.body, author: req.params.id });
+            // Push the review id to the band document
+            await db.Band.findByIdAndUpdate(req.params.id, { $push: { postedReviews: review._id } }, { new: true });
+            // Push the review id to the venue document
+            await db.Venue.findByIdAndUpdate(req.body.venue, { $push: { venueReviews: review._id } }, { new: true });
+            res.json(review)
+        } catch (err) { res.status(422).json(err) }
     },
     updateReview: function (req, res){
         db.Review
-        .findOneAndUpdate({_id : req.params.id}, req.body)
+        .findByIdAndUpdate(req.params.id, req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
