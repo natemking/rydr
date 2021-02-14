@@ -2,6 +2,10 @@ const db = require('../models');
 
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
 module.exports = {
+    createUser:  async function(req, res){
+        await db.User.create(req.body)
+        createBand(req.body);
+    },
     // JUST IN CASE: DON'T THINK WE'LL NEED IT
     findAllBand: function (req, res) {
         db.Band
@@ -18,6 +22,7 @@ module.exports = {
     },
     // CREATE NEW Band
     createBand: function (req, res) {
+        console.log(req.body)
         db.Band
             .create(req.body)
             .then(dbModel => res.json(dbModel))
@@ -110,13 +115,13 @@ module.exports = {
     },
     getReviewByBand: function (req, res){
         db.Review
-        .find({author: req.params.author})
+        .find({author: req.params.authorId})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
     getReviewByVenue: function(req, res){
         db.Review
-        .find({venue: req.params.venue})
+        .find({venue: req.params.venueId})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
