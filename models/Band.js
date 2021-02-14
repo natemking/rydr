@@ -2,6 +2,10 @@
 //============//
 module.exports = (mongoose, Schema) => {
     const BandSchema = new Schema({
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
         bandName: {
             type: String,
             required: true
