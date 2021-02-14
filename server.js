@@ -1,10 +1,11 @@
 const express = require("express");
-
+const logger = require('morgan');
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // MIDDLEWARE
+app.use(logger('dev'));
 app.use(express.urlencoded({
     extended: true
 }));

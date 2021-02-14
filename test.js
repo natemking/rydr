@@ -74,15 +74,24 @@ const util = require('util')
 //     }
 // }
 
-const test = async () => {
+// const test = async () => {
+//   try {
+//       const data = await db.Venue.find({}).populate('venueReviews');
+//     console.log(data[1]); 
+//       process.exit(0);
+//   } catch (err) {
+//       console.error(err);
+//       process.exit(1)
+//   }
+// }
+
+const test = async() => {
   try {
-      const data = await db.Venue.find({}).populate('venueReviews');
-    console.log(data[1]); 
-      process.exit(0);
-  } catch (err) {
-      console.error(err);
-      process.exit(1)
-  }
+    // const { userName, password, bandName } = req.body;
+    const user = await db.User.create({ userName: 'test', password: 'password '});
+    const band = await db.Band.create({ bandName: 'BigBand', userId: user._id });
+    res.json(band);
+  } catch (err) { console.error(err); }
 }
 
 test();
