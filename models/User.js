@@ -21,12 +21,10 @@ module.exports = (mongoose, Schema) => {
             type: String,
             required: true
         },
-        bandId: [
-            {
+        bandId:{
                 type: Schema.Types.ObjectId,
                 ref: 'Band'
-            }
-        ],
+        },
     },
     { timestamps: true });
 
