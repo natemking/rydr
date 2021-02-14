@@ -12,9 +12,9 @@ const radius = '';
 module.exports = {
     async searchVenueApi(req,res) {
         try {
-            const response = await axios.get(`${url}&limit=100&near=Philadelphia&radius=1`);
-            console.log(response.response.venues)
-            res.send(response.response.venues)
+            const result = await axios.get(`${url}&limit=100&near=Philadelphia&radius=1`);
+            console.log(result.data.response.venues)
+            res.send(result.data.response.venues)
             
         } catch(err) { console.error(err) } 
     }
