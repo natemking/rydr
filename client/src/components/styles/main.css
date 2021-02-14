@@ -29,6 +29,10 @@ th, td {
     text-align: center;
 }
 
+.venueSearch{
+    max-width: 200px;
+}
+
 .artistCreateButton{
     background-color: #333a2f;
     color: white;
