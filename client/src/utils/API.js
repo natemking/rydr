@@ -25,6 +25,10 @@ const API = {
     getVenueByName(name){
         return axios.get(`/api/dbRoutes/venue/name/${name}`)
     },
+    // GET ALL VENUES
+    getVenues(){
+        return axios.get(`/api/dbRoutes/venue/`)
+    },
     // CREATE NEW VENUE FROM FOURSQUARE SEARCH BY ID
     createVenueById(id){
         return axios.post(`/api/dbRoutes/venue/${id}`)
