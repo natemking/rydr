@@ -2,6 +2,9 @@ const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 const db = require('../../models');
 
+router.route("/user")
+.post(dbController.createUser)
+
 // create a new band user.
 router.route('/band')
 .post(dbController.createBand)
@@ -39,10 +42,10 @@ router.route('/reviews/:id')
 .put(dbController.updateReview)
 .delete(dbController.removeReview);
 
-router.route('/reviews/band/:band')
+router.route('/reviews/band/:authorId')
 .get(dbController.getReviewByBand);
 
-router.route('/reviews/venue/:venue')
+router.route('/reviews/venue/:venueId')
 .get(dbController.getReviewByVenue)
 
 module.exports = router
