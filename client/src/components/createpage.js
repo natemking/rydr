@@ -26,7 +26,6 @@ const CreatePage = () => {
     };
 
     return (
-
     <div className="d-flex flex-column justify-content-center align-items-center mt-5">
     <div className="formcontent p-2">
     <h1 className="text-center">Create Your Artist Profile</h1>
