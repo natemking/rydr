@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Venue from '../components/venue.js'
 import API from "../utils/API";
@@ -7,6 +8,18 @@ const VenuePage = () => {
   const [selectedVenue, setSelectedVenue] = useState([])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch ] = useState("")
+  const [venueAPI, setVenueAPI] = useState([])
+
+  useEffect(() => {
+    const fetchVenuesAPI = async () => {
+      const client_id= 'GSIEWB3V0L4OOFEWHBX4R0K1MOB0CJOJWGLSHHEP0DPKHNP1';
+      const secret= 'IABLARJ3OWCNSLW1VR00W4IB33FK3H1MLP32XJF5JWW3LFL4';
+      const result = await axios(`https://api.foursquare.com/v2/venues/search?`)
+
+      console.log(result.data)
+    }
+    fetchVenuesAPI();
+  }, [])
 
   useEffect(() => {
     const fetchVenues = async () => {
