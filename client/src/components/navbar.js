@@ -20,17 +20,17 @@ const NavBar = () => {
     <ul className="navbar-nav ml-auto">
       <li className="nav-item">
       <Link to="/">
-            <button className="mx-2 navbutton">Home</button>
+            <h4 className="mx-2 navbutton">Home</h4>
       </Link><span className="sr-only">(current)</span>
       </li>
       <li className="nav-item">
       <Link to="/bandpage">
-         <button className="mx-2 navbutton">My Band Page</button>
+         <h4 className="mx-2 navbutton">My Band Page</h4>
       </Link>
       </li>
       <li className="nav-item">
         <Link to="/venuepage">
-        <button className="mx-2 navbutton">Search Venues</button>
+        <h4 className="mx-2 navbutton">Search Venues</h4>
         </Link>
       </li>
     </ul>

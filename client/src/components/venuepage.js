@@ -23,16 +23,9 @@ const VenuePage = () => {
   }))
   }, [venueAll, search]);
 
-  function consoleFunc(){
-    console.log(search)
-    console.log(selectedVenue)
-    console.log(venueAll)
-  }
-
     return (
         <div className="d-flex flex-column mt-2 p-2">
         <input type="text" placeholder="Search.." value={search} className="mb-2 venueSearch" onChange={(e) => setSearch(e.target.value)}></input>
-        <button onClick={consoleFunc}>PRESS ME</button>
         <Venue isLoading={isLoading} venue={selectedVenue}/>
         </div>
      )

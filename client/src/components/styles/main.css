@@ -29,10 +29,22 @@ th, td {
     text-align: center;
 }
 
+.bandphoto{
+    max-width: 305px !important;
+    height: auto;
+}
+
 .venueSearch{
     max-width: 200px;
 }
 
+.bandbio{
+    max-width: 560px;
+}
+
+.bandreviews{
+    max-width: 1000px;
+}
 .artistCreateButton{
     background-color: #333a2f;
     color: white;
@@ -50,10 +62,8 @@ th, td {
 }
 
 .navbutton {
-    background-color: #5b754b;
+    background-color: #5b754b00;
     color: white;
-    border-radius: 5px;
-    border: 1px solid white;
     font-size: 20px;
     padding: 4px;
 }
@@ -75,5 +85,5 @@ th, td {
     background-color: #405a31;
 }
 .navbutton:hover {
-    background-color: #3f443c;
+    text-decoration: underline;
 }
