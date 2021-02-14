@@ -2,8 +2,6 @@ const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 const db = require('../../models');
 
-router.route("/user")
-.post(dbController.createUser)
 
 // create a new band user.
 router.route('/band')

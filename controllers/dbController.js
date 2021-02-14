@@ -2,11 +2,7 @@ const db = require('../models');
 
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
 module.exports = {
-    createUser:  async function(req, res){
-        await db.User.create(req.body)
-        createBand(req.body);
-    },
-    // JUST IN CASE: DON'T THINK WE'LL NEED IT
+     // JUST IN CASE: DON'T THINK WE'LL NEED IT
     findAllBand: function (req, res) {
         db.Band
             .find(req.query).populate("postedReviews")
