@@ -41,7 +41,24 @@ const API = {
     postVenueReview(reviewData){
         return axios.put(`/api/dbRoutes/venue/${reviewData}`)
     },
-
+    searchFourSquare(queryData){
+        return axios.post(`/api/fourSquareRoutes/${queryData}/`)
+    },
+    createReview(){
+        return axios.post('/api/dbRoutes/reviews')
+    },
+    updateReview(id){
+        return axios.put(`/api/dbRoutes/reviews/${id}`)
+    },
+    deleteReview(id){
+        return axios.delete(`/api/dbRoutes/reviews/${id}`)
+    },
+    getReviewByBand(name){
+        return axios.get(`/api/dbRoutes/reviews/venue/${name}`)
+    },
+    getReviewByVenue(name){
+        return axios.get(`/api/dbRoutes/reviews/venue/${name}`)
+    }
 };
 
 export default API;
