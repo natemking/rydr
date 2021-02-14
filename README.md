@@ -77,6 +77,7 @@ Licensed under the GNU GPLv3.0 License. Copyright © 2020
 
 ## Credits
 
+<<<<<<< HEAD
 ### Authors:
 * [David Wylie](https://github.com/wyliedavid1984)
 * [Dmitri So](https://github.com/dmitriso)
@@ -84,8 +85,11 @@ Licensed under the GNU GPLv3.0 License. Copyright © 2020
 * [Nate King](https://github.com/natemking)
 
 <!-- * [Add a comma to map results if there are more then one result](https://stackoverflow.com/questions/47881767/how-to-add-a-comma-in-array-map-after-every-element-except-last-element-in-react)
+=======
+<!-- * [Ref a sub document in mongoose](https://stackoverflow.com/questions/24853383/mongoose-objectid-that-references-a-sub-document)
+>>>>>>> fe3d7c7084e093c531944f629a91e6f95349a999
 
-* [Get child element of event.target](https://stackoverflow.com/questions/48494416/get-child-element-from-event-target)
+* [Find and update sub document](https://stackoverflow.com/questions/48494416/get-child-element-from-event-target)
 
 * [Creating relationships w/ Mongoose](https://dev.to/oluseyeo/how-to-create-relationships-with-mongoose-and-node-js-11c8)  
 

@@ -8,7 +8,7 @@ const API = {
     },
     // CREATE NEW band
     createUser(userData){
-        return axios.post(`/api/dbRoutes/band/${userData}`)
+        return axios.post(`/api/dbRoutes/band/${userData}`, userData)
     },
     // UPDATE USER INFO
     updateUserData(userData){
