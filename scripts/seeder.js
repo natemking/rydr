@@ -227,8 +227,12 @@ const addIdToUser = async () => {
        // Iterate and assign a bandId to the user collection
         for (let i = 0; i < userId.length; i++) {
             try {
-                const updateId = await db.User.findByIdAndUpdate(userId[i], { bandId: bandId[i] }, { new: true });
-                console.log(`bandId: ${updateId.bandId} added to userName: ${updateId.userName}`);
+                const addBandIdToUser = await db.User.findByIdAndUpdate(userId[i], { bandId: bandId[i] }, { new: true });
+                console.log(`bandId: ${addBandIdToUser.bandId} added to userName: ${addBandIdToUser.userName}`);
+
+                const addUserIdToBand = await db.Band.findByIdAndUpdate(bandId[i], { userId: userId[i]}, { new: true});
+                console.log(`userId: ${addUserIdToBand.userId} added to bandName: ${addUserIdToBand.bandName}`);
+                console.log('-'.repeat(20));
             } catch (err) {
                 console.error(err);
                 process.exit(1);
