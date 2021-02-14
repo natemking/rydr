@@ -34,3 +34,27 @@ module.exports = (mongoose, Schema) => {
 
     return User;
 }
+
+
+// UserSchema.pre('save', function(next){
+//     if(!this.isModified('password'))
+//         return next();
+//     bcrypt.hash(this.password, 15, (err, passwordHash) =>{
+//         if(err)
+//             return next(err);
+//             this.password= passwordHash;
+//             next();
+//     })
+// })
+
+// UserSchema.methods.comparePassword = function(password, cb){
+//     bcrypt.compare(password, this.password, (err, isMatch)=>{
+//         if (err)
+//             return cb(err)
+//         else{
+//             if(!isMatch)
+//                 return cb(null, isMatch);
+//             return cb(bull, this);    
+//         }
+//     })  
+// }
