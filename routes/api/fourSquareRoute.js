@@ -4,7 +4,8 @@ const apiController = require('../../controllers/apiController');
 
 // ROUTES FOR FOURSQUARE DB
 router.route("/search/:limit/:city/:radius")
-.post(apiController.searchVenueApi);
+.post(apiController.postVenueApi)
+.get(apiController.getVenueApi);
 
 module.exports = router
 
