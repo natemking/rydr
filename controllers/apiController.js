@@ -1,4 +1,5 @@
 const axios = require('axios');
+var cloudinary = require('cloudinary').v2;
 const clientId= 'GSIEWB3V0L4OOFEWHBX4R0K1MOB0CJOJWGLSHHEP0DPKHNP1';
 const clientSecret= 'IABLARJ3OWCNSLW1VR00W4IB33FK3H1MLP32XJF5JWW3LFL4';
 const category = "4bf58dd8d48988d1e5931735";
@@ -16,5 +17,10 @@ module.exports = {
             res.json(response.data)
             
         } catch(err) {console.error(err)} 
+    },
+    async cloudinaryAPI(req, res) {
+        try {
+           
+        } catch (err)  { console.error(err) } 
     }
 }
