@@ -27,7 +27,7 @@ router.route('/venue/name/:name')
 .post(dbController.createVenue);
 
 // find venue by ratings
-router.route('/venue/:rating')
+router.route('/venue/rating/:rating')
 .get(dbController.findByRating);
 
 module.exports = router

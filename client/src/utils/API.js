@@ -23,7 +23,7 @@ const API = {
     },
     // GET VENUE BY NAME
     getVenueByName(name){
-        return axios.get(`/api/dbRoutes/venue/${name}`)
+        return axios.get(`/api/dbRoutes/venue/name/${name}`)
     },
     // CREATE NEW VENUE FROM FOURSQUARE SEARCH BY ID
     createVenueById(id){
@@ -37,7 +37,9 @@ const API = {
     postVenueReview(reviewData){
         return axios.put(`/api/dbRoutes/venue/${reviewData}`)
     },
-
+    searchFourSquare(queryData){
+        return axios.post(`api/fourSquareRoutes/${queryData}/`)
+    }
 };
 
 export default API;
