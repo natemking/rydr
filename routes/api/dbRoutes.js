@@ -5,7 +5,7 @@ const db = require('../../models');
 
 // create a new band user.
 router.route('/band')
-.post(dbController.createBand)
+.post(dbController.createUser)
 .get(dbController.findAllBand);
 
 // all routes to manipulate band data by id
@@ -37,6 +37,7 @@ router.route('/reviews')
 .post(dbController.createReview);
 
 router.route('/reviews/:id')
+.post(dbController.createReview)
 .put(dbController.updateReview)
 .delete(dbController.removeReview);
 
