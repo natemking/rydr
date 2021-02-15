@@ -12,7 +12,7 @@ const Venue = ({venue, isLoading}) => {
           const reviews = await API.getReviewByVenue(venue._id)
           const allReviews = reviews.data
           if (allReviews === undefined){
-              console.log("DIS UNDEFINED")
+              console.log("cannot retrieve reviews")
           }
           else{
             console.log(allReviews)
