@@ -4,6 +4,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const db = require('./models');
 require('dotenv').config()
 
+
 const cookieExtractor = req => {
     let token = null;
     if (req && req.cookies) {
@@ -38,7 +39,7 @@ passport.use(new LocalStrategy((userName, password, done) => {
     db.User.find({
         userName: userName
     }, (err, user) => {
-        console.log("hello from call back", user)
+        console.log("hello from call back local", user)
         // SOMETHING WENT WRONG WITH DATABASE WHEN LOOKING FOR USER
         if (err){
             console.log("issue with database");
@@ -57,3 +58,5 @@ passport.use(new LocalStrategy((userName, password, done) => {
         
     });
 }));
+
+module.exports = passport

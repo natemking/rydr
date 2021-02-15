@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
-const db = require('../../models');
-const passport = require('passport');
-const passportConfig = require('../../passport');
+const passport = require('../../passport');
 const JWT = require('jsonwebtoken');
-require('dotenv').config();
+console.log(passport.authenticate("local", {session:false}), "hello");
 
 const signToken = userID =>{
     return JWT.sign({
@@ -13,17 +11,17 @@ const signToken = userID =>{
     },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
 }
 
-
-router.post('/user/login', passport.authenticate('local',{session : false}),(req,res)=>{
-    console.log("hello from the post route")
+router.route('/user/login')
+.post(passport.authenticate('local',{session : false}),(req,res)=>{
+    console.log("hello from the post route for login ")
     if(req.isAuthenticated()){
        const {_id, userName} = req.user;
        const token = signToken(_id);
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
        return res.status(200).json({isAuthenticated : true, user : userName});
     }
-});
-
+})
+.get(dbController.getUser);
 
 router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
@@ -54,7 +52,7 @@ router.route('/venue')
 router.route('/venue/:id')
 .get(dbController.findByIdVenue)
 .post(dbController.createVenue)
-.delete(dbController.removeVenue)
+.delete(dbController.removeVenue);
 
 // create or find venue by name
 router.route('/venue/name/:name')
@@ -77,6 +75,6 @@ router.route('/reviews/band/:authorId')
 .get(dbController.getReviewByBand);
 
 router.route('/reviews/venue/:venueId')
-.get(dbController.getReviewByVenue)
+.get(dbController.getReviewByVenue);
 
 module.exports = router

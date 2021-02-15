@@ -147,11 +147,11 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    loginUser: function(req, res){
-        console.log(req.body.username)
+    getUser: function(req, res){
     db.User
         .findOne({userName: req.body.userName})
         .then(response => {
+            console.log(response)
             res.send(response)
         })
         .catch(err => {
