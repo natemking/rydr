@@ -1,5 +1,7 @@
 const db = require('../models');
 
+
+
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
 module.exports = {
     // Create user and band document. Add User._id the Band.userId

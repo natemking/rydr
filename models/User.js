@@ -35,7 +35,7 @@ UserSchema.pre('save', function(next){
     if(!this.isModified('password')){
         return next();
     }
-    bcrypt.hash(this.password, 15, (err, passwordHash) =>{
+    bcrypt.hash(this.password, 10, (err, passwordHash) =>{
         if(err){
             return next(err);
         }
@@ -47,12 +47,12 @@ UserSchema.pre('save', function(next){
 UserSchema.methods.comparePassword = function(password, cb){
     bcrypt.compare(password, this.password, (err, isMatch)=>{
         if (err){
-            return cb(err)
+            return cb(err, {message:"Couldn't connect to data base"})
         } else{
             if(!isMatch){
-                return cb(null, isMatch);
+                return cb(null, isMatch, {message:"Passwords don't match"});
             }
-            return cb(bull, this);    
+            return cb(null, this, {message: "Successful login"});    
         }
     })  
 };

@@ -32,17 +32,23 @@ passport.use(new JwtStrategy({
 }));
 
 // AUTHENTICATED LOCAL STRATEGY USING USERNAME AND PASSWORD
-passport.use(new LocalStrategy((username, password, done) => {
+passport.use(new LocalStrategy((userName, password, done) => {
     User.findOne({
-        username
+        userName: userName
     }, (err, user) => {
         // SOMETHING WENT WRONG WITH DATABASE WHEN LOOKING FOR USER
-        if (err)
+        if (err){
+            console.log("issue with database");
             return done(err);
+        }
         // NO USER WITH THE INPUTTED USERNAME
-        if (!user)
+        if (!user){
+            console.log("No user with that userName exist")
             return done(null, false);
+        }
         // LASTLY CHECK IF THE PASSWORD MATCHES
+        console.log(userName, password, "I'm in passport.js in local strategy")
         user.comparePassword(password, done);
+        
     });
 }));
