@@ -16,7 +16,18 @@ module.exports = {
             console.log(result.data.response.venues)
             res.send(result.data.response.venues)
 
-        } catch (err) { console.error(err) }
+        } catch (err) { res.status(422).json(err) }
+    },
+    // API call for reCAPTCHA to verify the user 
+    async recaptchaUserVerify(req,res) {
+        try {
+            const { userToken } = req.params
+            
+            const verify = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${userToken}`)
+
+            console.log('reCAPTCHA user verify status:');
+            console.log(verify.data);
+            res.json(verify.data)
+        } catch (err) { res.status(422).json(err) }
     }
 }
-
