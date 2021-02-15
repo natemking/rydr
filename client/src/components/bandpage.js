@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ReviewsTable from "./reviewstable"
-// import Rating from 'react-rating'
 import Artist from "./artist"
 import API from "../utils/API";
 
