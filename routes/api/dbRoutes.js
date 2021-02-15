@@ -1,37 +1,38 @@
 const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
-const db = require('../../models');
-const passport = require('passport');
-const passportConfig = require('../../passport');
+const passport = require('../../passport');
 const JWT = require('jsonwebtoken');
-require('dotenv').config()
-
+console.log(passport.authenticate("local", {session:false}), "hello");
 
 const signToken = userID =>{
     return JWT.sign({
-        iss: "rydr admin",
+        iss: process.env.PASSPORT_SECRET_KEY,
         sub : userID
     },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
 }
 
-
-router.post('/user/login', passport.authenticate('local',{session : false}),(req,res)=>{
+router.route('/user/login')
+.post(passport.authenticate('local',{session : false}),(req,res)=>{
+    console.log("hello from the post route for login ")
     if(req.isAuthenticated()){
-       const {_id, userName} = req.user;
+        console.log(req.user)
+       const {_id, userName} = req.user[0];
        const token = signToken(_id);
+       console.log(userName)
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
-       res.status(200).json({isAuthenticated : true, user : userName});
+       return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
     }
-});
+})
+.get(dbController.getUser);
 
 router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
-    res.json({user:{userName : ""},success : true});
+     return res.json({user:{userName : ""},success : true});
 });
 
 router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
     const {username} = req.user;
-    res.status(200).json({isAuthenticated : true, user : {userName}});
+    return res.status(200).json({isAuthenticated : true, user : {userName}});
 });
 
 // create a new band user.
@@ -53,7 +54,7 @@ router.route('/venue')
 router.route('/venue/:id')
 .get(dbController.findByIdVenue)
 .post(dbController.createVenue)
-.delete(dbController.removeVenue)
+.delete(dbController.removeVenue);
 
 // create or find venue by name
 router.route('/venue/name/:name')
@@ -76,6 +77,6 @@ router.route('/reviews/band/:authorId')
 .get(dbController.getReviewByBand);
 
 router.route('/reviews/venue/:venueId')
-.get(dbController.getReviewByVenue)
+.get(dbController.getReviewByVenue);
 
 module.exports = router
