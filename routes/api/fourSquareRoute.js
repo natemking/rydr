@@ -6,7 +6,7 @@ const apiController = require('../../controllers/apiController');
 router.route("/search/:limit/:city/:radius")
 // .post(apiController.postVenueApi)
 .get(apiController.getVenueApi);
-
+// .post(apiController.postVenueApi)
 module.exports = router
 
 
