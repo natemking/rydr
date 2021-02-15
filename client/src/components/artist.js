@@ -1,6 +1,7 @@
 import React from 'react';
-
+import ArtistLinks from './artistlinks'
 const Artist = ({artist, isLoading}) => {
+
     return isLoading ? (<h1>Loading....</h1>) : (
         <div className="d-flex flex-row flex-wrap align-items-center">
         <img alt="bandphoto" className="img-fluid bandphoto" src={artist.bandImg}></img>
@@ -12,10 +13,8 @@ const Artist = ({artist, isLoading}) => {
             <p>{artist.bandBio}</p>
             </div>
             <a href={"mailto:" + artist.contact}>{artist.contact}</a>
-            {/* <a href="#">{artist.bandLinks}</a> */}
-            {/* <a href={artistLinks[0].siteUrl}>{artistLinks[0].siteName}</a>
-            <a href={artistLinks[1].siteUrl}>{artistLinks[1].siteName}</a>
-            <a href={artistLinks[2].siteUrl}>{artistLinks[2].siteName}</a> */} 
+            <ArtistLinks artist={artist} isLoading={isLoading}/>
+            
         </div>
         </div>
     )
