@@ -71,13 +71,10 @@ const VenuePage = () => {
     <div className="d-flex flex-column mt-2 p-2">
       <input type="text" placeholder="Search.." value={search} className="mb-2 venueSearch" onChange={(e) => setSearch(e.target.value)}></input>
       <input type="text" placeholder="Specifiy City.." value={city} className="mb-2 venueSearch" onChange={(e) => setCity(e.target.value)}></input>
-      <input type="text" placeholder="Set Search Radius.." value={radius} className="mb-2 venueSearch" onChange={(e) => setRadius(e.target.value)}></input>
+      <input type="text" placeholder="Set Search Radius(Miles).." value={radius} className="mb-2 venueSearch" onChange={(e) => setRadius(e.target.value)}></input>
       <button onClick={consoleFunc}>PRESS ME</button>
-
       <button onClick={handleBtnSubmit}>SUBMIT</button>
-
       <Venue isLoading={isLoading} venue={venueAPI} />
-
     </div>
   )
 }

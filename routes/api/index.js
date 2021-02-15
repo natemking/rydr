@@ -5,7 +5,7 @@ const path = require('path')
 
 // REFERENCE BOTH DB AND FOURSQUARE ROUTES
 router.use('/dbRoutes', dbRoutes);
-router.use('/fourSquareRoutes', fourSquareRoute);
+router.use('/fourSquareRoute', fourSquareRoute);
 
 // SEND TO BUILD FILE
 router.use( (req, res) => {
