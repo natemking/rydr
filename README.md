@@ -63,6 +63,23 @@ So that I can book artists to perform
 
 ### HTML/CSS
 
+### Dependencies
+```
+|---------------------------------------------------|
+|Server             |Client                         |
+|-------------------|-------------------------------|
+|axios              |axios                          |
+|compression        |bootstrap                      |
+|dotenv             |react-cloudinary-upload widget |
+|express            |react-rating                   |
+|if-env             |react-router-dom               |
+|mongoose           |                               |
+|morgan             |                               |
+|concurrently (dev) |                               |
+|---------------------------------------------------|
+*** client dependencies are on top of the boilerplate's from create-react-app ***
+```
+
 ## Screenshots
 
 <!-- ![app gif](public/assets/screenshots/workout-tracker.gif)
