@@ -22,8 +22,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(passport.initialize());
 app.use( session({
     secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   }));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());

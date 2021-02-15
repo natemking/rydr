@@ -2,8 +2,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const db = require('./models');
-require('dotenv').config()
-
+const {comparePassword} = require('./models/User')
+require('dotenv').config();
+const bcrypt = require('bcrypt')
 
 const cookieExtractor = req => {
     let token = null;
@@ -34,12 +35,13 @@ passport.use(new JwtStrategy({
 }));
 
 // AUTHENTICATED LOCAL STRATEGY USING USERNAME AND PASSWORD
-passport.use(new LocalStrategy((userName, password, done) => {
-    console.log("hello from local")
+ passport.use(new LocalStrategy({
+     usernameField: "userName",
+     passwordField: "password"
+ },(userName, password, done) => {
     db.User.find({
         userName: userName
     }, (err, user) => {
-        console.log("hello from call back local", user)
         // SOMETHING WENT WRONG WITH DATABASE WHEN LOOKING FOR USER
         if (err){
             console.log("issue with database");
@@ -53,9 +55,18 @@ passport.use(new LocalStrategy((userName, password, done) => {
             });
         }
         // LASTLY CHECK IF THE PASSWORD MATCHES
-        console.log(userName, password, "I'm in passport.js in local strategy")
-        db.User.comparePassword(password, done);
-        
+        console.log(userName, password, "I'm in passport.js in local strategy", user[0].password)
+        // db.User.comparePassword(password, done);
+        bcrypt.compare(password, user[0].password)
+        .then (response =>{
+            if (err) {throw err;}
+            else{
+                if(!response){
+                    return done(null, isMatch, {message: "Passwords don't match"})
+                }
+                return done(null, user, {message: "Successful Login"})
+            }
+        })
     });
 }));
 

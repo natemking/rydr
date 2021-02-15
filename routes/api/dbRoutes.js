@@ -15,10 +15,12 @@ router.route('/user/login')
 .post(passport.authenticate('local',{session : false}),(req,res)=>{
     console.log("hello from the post route for login ")
     if(req.isAuthenticated()){
-       const {_id, userName} = req.user;
+        console.log(req.user)
+       const {_id, userName} = req.user[0];
        const token = signToken(_id);
+       console.log(userName)
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
-       return res.status(200).json({isAuthenticated : true, user : userName});
+       return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
     }
 })
 .get(dbController.getUser);
