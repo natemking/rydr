@@ -54,11 +54,11 @@ const API = {
     deleteReview(id){
         return axios.delete(`/api/dbRoutes/reviews/${id}`)
     },
-    getReviewByBand(name){
-        return axios.get(`/api/dbRoutes/reviews/band/${name}`)
+    getReviewByBand(bandId){
+        return axios.get(`/api/dbRoutes/reviews/band/${bandId}`)
     },
-    getReviewByVenue(name){
-        return axios.get(`/api/dbRoutes/reviews/venue/${name}`)
+    getReviewByVenue(venueId){
+        return axios.get(`/api/dbRoutes/reviews/venue/${venueId}`)
     }
 };
 

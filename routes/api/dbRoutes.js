@@ -1,7 +1,38 @@
 const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 const db = require('../../models');
+const passport = require('passport');
+const passportConfig = require('../../passport');
+const JWT = require('jsonwebtoken');
+require('dotenv').config()
 
+
+const signToken = userID =>{
+    return JWT.sign({
+        iss: "rydr admin",
+        sub : userID
+    },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
+}
+
+
+router.post('/user/login', passport.authenticate('local',{session : false}),(req,res)=>{
+    if(req.isAuthenticated()){
+       const {_id, userName} = req.user;
+       const token = signToken(_id);
+       res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
+       res.status(200).json({isAuthenticated : true, user : userName});
+    }
+});
+
+router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
+    res.clearCookie('access_token');
+    res.json({user:{userName : ""},success : true});
+});
+
+router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const {username} = req.user;
+    res.status(200).json({isAuthenticated : true, user : {userName}});
+});
 
 // create a new band user.
 router.route('/band')
