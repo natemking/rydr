@@ -4,18 +4,18 @@ const db = require('../../models');
 const passport = require('passport');
 const passportConfig = require('../../passport');
 const JWT = require('jsonwebtoken');
-require('dotenv').config()
-
+require('dotenv').config();
 
 const signToken = userID =>{
     return JWT.sign({
-        iss: "rydr admin",
+        iss: process.env.PASSPORT_SECRET_KEY,
         sub : userID
     },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
 }
 
 
 router.post('/user/login', passport.authenticate('local',{session : false}),(req,res)=>{
+    console.log("hello from the post route")
     if(req.isAuthenticated()){
        const {_id, userName} = req.user;
        const token = signToken(_id);
@@ -23,6 +23,7 @@ router.post('/user/login', passport.authenticate('local',{session : false}),(req
        return res.status(200).json({isAuthenticated : true, user : userName});
     }
 });
+
 
 router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
