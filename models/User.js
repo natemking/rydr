@@ -40,7 +40,6 @@ UserSchema.pre('save', function(next){
             return next(err);
         }
         this.password= passwordHash;
-        console.log(this.password)
         next();
     })
 });

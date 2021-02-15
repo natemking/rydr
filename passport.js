@@ -12,7 +12,7 @@ const cookieExtractor = req => {
     return token;
 }
 
-// authorization 
+// AUTHORIZATION WILL HELP PROTECT END POINTS 
 passport.use(new JwtStrategy({
     jwtFromRequest: cookieExtractor,
     secretOrKey: process.env.PASSPORT_SECRET_KEY
@@ -20,27 +20,29 @@ passport.use(new JwtStrategy({
     User.findById({
         _id: payload.sub
     }, (err, user) => {
-        if (err)
+        if (err){
             return done(err, false);
-        if (user)
-            return done(null, user);
-        else
+        }
+        if (user){
+             return done(null, user);
+        }else{
             return done(null, false);
+        }
     });
 }));
 
-// authenticated local strategy using username and password
+// AUTHENTICATED LOCAL STRATEGY USING USERNAME AND PASSWORD
 passport.use(new LocalStrategy((username, password, done) => {
     User.findOne({
         username
     }, (err, user) => {
-        // something went wrong with database
+        // SOMETHING WENT WRONG WITH DATABASE WHEN LOOKING FOR USER
         if (err)
             return done(err);
-        // if no user exist
+        // NO USER WITH THE INPUTTED USERNAME
         if (!user)
             return done(null, false);
-        // check if password is correct
+        // LASTLY CHECK IF THE PASSWORD MATCHES
         user.comparePassword(password, done);
     });
 }));

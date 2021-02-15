@@ -15,21 +15,22 @@ const signToken = userID =>{
 }
 
 
-router.post('/login',passport.authenticate('local',{session : false}),(req,res)=>{
+router.post('/user/login', passport.authenticate('local',{session : false}),(req,res)=>{
     if(req.isAuthenticated()){
-       const {_id,username} = req.user;
+       const {_id, username} = req.user;
+       console.log(req.user)
        const token = signToken(_id);
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
-       res.status(200).json({isAuthenticated : true,user : {username,role}});
+       res.status(200).json({isAuthenticated : true,user : username});
     }
 });
 
-router.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
     res.json({user:{username : ""},success : true});
 });
 
-router.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
     const {username} = req.user;
     res.status(200).json({isAuthenticated : true, user : {username}});
 });
