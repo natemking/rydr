@@ -62,6 +62,10 @@ const API = {
     },
     recaptchaUserVerify(responseToken){
         return axios.post(`/api/userverify/${responseToken}`)
+            .then(response => {
+                return response ? console.log('You are human!') : console.log('No Robots allowed!');
+            }
+        )
     }
 };
 

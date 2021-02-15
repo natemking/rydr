@@ -79,6 +79,7 @@ const CreatePage = () => {
         </div>
             <ReCAPTCHA
                 sitekey={ process.env.REACT_APP_GOOGLE_RECAP_SITE_KEY }
+                render='explicit'
                 onChange={ captchaOnChange }
             />,
         <button type="submit" value={"Submit"} className="artistCreateButton" disabled={ btnDisable }>Submit</button>
