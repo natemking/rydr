@@ -78,7 +78,7 @@ const CreatePage = () => {
             <CloudinaryWidget onSuccess={ handleCloudResults }/>
         </div>
             <ReCAPTCHA
-                sitekey={ process.env.REACT_APP_GOOGLE_RECAP_SITE_KEY }
+                sitekey='6LdAclkaAAAAAKWaafseSwj69OaCCI3O88u55DzX'
                 render='explicit'
                 onChange={ captchaOnChange }
             />,
