@@ -71,9 +71,9 @@ So that I can book artists to perform
 |axios              |axios                          |
 |compression        |bootstrap                      |
 |dotenv             |react-cloudinary-upload widget |
-|express            |react-rating                   |
-|if-env             |react-router-dom               |
-|mongoose           |                               |
+|express            |react-google-recaptcha         |
+|if-env             |react-rating                   |
+|mongoose           |react-router-dom               |
 |morgan             |                               |
 |concurrently (dev) |                               |
 |---------------------------------------------------|

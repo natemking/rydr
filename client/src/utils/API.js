@@ -59,6 +59,9 @@ const API = {
     },
     getReviewByVenue(venueId){
         return axios.get(`/api/dbRoutes/reviews/venue/${venueId}`)
+    },
+    recaptchaUserVerify(responseToken){
+        return axios.post(`/api/userverify/${responseToken}`)
     }
 };
 
