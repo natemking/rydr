@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CloudinaryWidget from './CloudinaryWidget'
 
 
 const CreatePage = () => {
@@ -6,6 +7,7 @@ const CreatePage = () => {
         "artistName": "",
         "artistLocation": ""
     }]);
+    const [cloudResults, setCloudResults] = useState('');
 
     const createArtist = (event) => {
         const target = event.target.name
@@ -19,6 +21,12 @@ const CreatePage = () => {
         event.preventDefault();
     }
 
+    const handleCloudResults = (results) => {
+        setCloudResults(results)
+    }    
+    
+        // URL Path from results - cloudResults.info.url;
+       
     return (
     <div className="d-flex flex-column justify-content-center align-items-center mt-5">
     <div className="formcontent p-2">
@@ -54,7 +62,8 @@ const CreatePage = () => {
         </div>
         <div className="form-group">
         <label for="bandAvatar">Upload an Avatar</label>
-        <input type="file" className="form-control-file" id="bandAvatar"></input>
+        {/* <input type="file" className="form-control-file" id="bandAvatar"></input> */}
+        <CloudinaryWidget onSuccess={ handleCloudResults }/>
         </div>
         <button type="submit" value={"Submit"} className="artistCreateButton">Submit</button>
         </form>
