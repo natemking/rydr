@@ -18,12 +18,12 @@ const VenuePage = () => {
 //MAKES THE API CALL DEPENDING ON WHAT THE CITY AND RADIUS IS
   useEffect(() => {
     const fetchVenuesAPI = async () => {
-      try{
+      try {
       const url = `https://api.foursquare.com/v2/venues/search?client_id=GSIEWB3V0L4OOFEWHBX4R0K1MOB0CJOJWGLSHHEP0DPKHNP1&client_secret=IABLARJ3OWCNSLW1VR00W4IB33FK3H1MLP32XJF5JWW3LFL4&v=20180323&categoryId=4bf58dd8d48988d1e5931735`;
       const result = await axios(`${url}&limit=10&near=${search.city}&radius=${search.radius}`)
       setVenueAPI(result.data.response.venues);
-      setisLoading(false)
-    }
+      setisLoading(false);
+      } catch (err) {console.error(err);}
     fetchVenuesAPI();
   }, [search.city, search.radius]);
 
