@@ -11,8 +11,9 @@ const BandPage = () => {
 useEffect(() => {
   const fetchArtist = async () => {
     const result = await API.getUser("60298124ba192320784b1d79")
-    setArtist(result.data)
-    setisLoading(false)
+    const userArtist = result.data
+      setArtist(userArtist)
+      setisLoading(false)
   }
   fetchArtist()
 }, []);
