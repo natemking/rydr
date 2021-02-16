@@ -4,13 +4,14 @@ import AuthServices from "../Services/AuthorizationService";
 export const AuthContext = createContext();
 
 export default ({children}) =>{
-    const [user, setUser]= useState(null);
+    const [currentUser, setCurrentUser]= useState({});
     const [isAuth, setIsAuth] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(()=>{
         AuthServices.isAuthenticated().then(data =>{
-            setUser(data.user);
+            console.log(data, "this is data from auth route in context")
+            setCurrentUser(data.user);
             setIsAuth(data.isAuthenticated);
             setIsLoaded(true);
         })
@@ -19,7 +20,7 @@ export default ({children}) =>{
     return (
         <div>
             {!isLoaded?<h1>Loading</h1>: 
-            <AuthContext.Provider value={user, setUser, isAuth,setIsAuth}>
+            <AuthContext.Provider value={currentUser, setCurrentUser, isAuth,setIsAuth}>
                 {children}
             </AuthContext.Provider>}
         </div>

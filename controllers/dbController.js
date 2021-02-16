@@ -160,7 +160,7 @@ module.exports = {
                          console.log("Verify: Async test 1: " + err.message);
                      }})
                 res.cookie("access_token", token, {httpOnly: true, sameSite:true}); 
-                return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
+                return res.status(200).json({isAuthenticated : true, token:token,  user : userName});
              }
     },
     userLogout: function(req, res){
@@ -169,7 +169,7 @@ module.exports = {
     },
     userAuthenticate: function(req, res){
         const {userName} = req.user;
-            return res.status(200).send({isAuthenticated : true, userName : userName});
+            return res.status(200).send({isAuthenticated : true, user : {userName}});
     }
 };
 
