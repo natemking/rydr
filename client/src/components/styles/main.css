@@ -47,13 +47,10 @@ th, td {
 }
 
 .searchedVenues{
-    background-color: #343a40;
-    max-width: fit-content;
+    /* background-color: #343a40; */
+    border-top: 2px solid black;
 }
 
-.apiVenues{
-    background-color: #343a40;
-}
 
 .bandbio{
     max-width: 560px;

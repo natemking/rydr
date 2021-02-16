@@ -5,7 +5,7 @@ const VenueReviewsTable = ({reviews, isLoading}) => {
    
     return isLoading ? (<h1>Loading....</h1>) : 
     (
-        <table className="table table-sm table-responsive table-dark table-striped table-bordered bandreviews">
+        <table className="table table-sm table-responsive table-dark table-striped table-bordered bandreviews mb-0">
         <thead>
             <tr>
             <th className="text-center">Date</th>

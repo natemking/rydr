@@ -2,9 +2,9 @@ import React from 'react';
 import VenueBody from './venueAPIBody'
 const APIVenue = ({venuesAPI, isLoading}) => {
    
-    return isLoading ? (<h1>Loading....</h1>) : 
+    return isLoading ? ("") : 
     (
-        <div className="d-flex flex-column flex-wrap align-items-start">
+        <div className="d-flex flex-column flex-wrap">
         {venuesAPI.map(venue => (<VenueBody key={venue.id} venue={venue}/>))}
         </div>
 
