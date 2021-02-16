@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import VenueSelector from './createReviewVenueSelector'
 import API from '../utils/API'
+import { useHistory } from 'react-router-dom';
 
 const CreateReview = () => {
     const [allVenues, setAllVenues] = useState([])
@@ -9,7 +10,7 @@ const CreateReview = () => {
         "rating": "",
         "reviewText": ""
     })
-
+    let history = useHistory();
     useEffect(() => {
         const fetchVenues = async () => {
           const result = await API.getVenues()
@@ -36,7 +37,8 @@ const CreateReview = () => {
         event.preventDefault();
         try {
              await API.createReview("60298124ba192320784b1d79", venueReview)
-             console.log("SUCCESS")
+             alert("Review created!")
+             history.push("/venuepage")
         }catch(err){
             console.log(err)
         }
