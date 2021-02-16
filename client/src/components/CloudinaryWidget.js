@@ -2,6 +2,8 @@ import React from 'react';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
 
 const CloudinaryWidget = (props) => {
+
+    
    
     const onSuccess = results => { props.onSuccess(results) }
     const onFailure =  err => console.error(err); 
