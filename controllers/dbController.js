@@ -7,13 +7,15 @@ module.exports = {
     // Create user and band document. Add User._id the Band.userId
     async createUser(req,res) {
         try {
-            const { userName, password, bandName } = req.body;
+            const { userName, password, bandName, location } = req.body;
             // Create the user document
             const user = await db.User.create({ userName: userName, password: password});
             // Create the band document and add the User._id
-            const band = await db.Band.create({ bandName: bandName, userId: user._id});
+            const band = await db.Band.create({ bandName: bandName, userId: user._id, location: location });
+            // Add the Band._id to User.bandId
+            await db.User.findByIdAndUpdate(user._id, { $set: {bandId: band._id}}, {new: true});
             res.json(band);
-        } catch (err) { res.status(422).json(err) }
+        } catch (err) { res.json(err) }
     },
 
     getUser: function(req,res) {

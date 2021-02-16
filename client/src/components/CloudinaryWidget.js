@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
 
 const CloudinaryWidget = (props) => {
-
-    
+    // State for widget btn display toggle per upload status
+    const [btnToggle, setBtnToggle] = useState('block');    
    
-    const onSuccess = results => { props.onSuccess(results) }
+    const onSuccess = results => { 
+        props.onSuccess(results); 
+        setBtnToggle('none');
+    }
     const onFailure =  err => console.error(err); 
 
     return (
@@ -17,14 +20,15 @@ const CloudinaryWidget = (props) => {
                 resourceType={'image'}
                 cloudName={ process.env.REACT_APP_CLOUD_NAME }
                 uploadPreset={ process.env.REACT_APP_UP_PRESET }
-                buttonText={'Open'}
+                buttonText={'Add a pic'}
                 style={{
                     color: 'white',
                     border: 'none',
                     width: '120px',
-                    backgroundColor: 'green',
+                    backgroundColor: '#343A40',
                     borderRadius: '4px',
-                    height: '25px'
+                    height: '25px',
+                    display: btnToggle
                 }} // inline styling only or style id='cloudinary_upload_button'
                 cropping={true} // set ability to crop images -> default = true
                 onSuccess={ onSuccess } // add success callback -> returns result

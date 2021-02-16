@@ -23,11 +23,8 @@ module.exports = {
         try {
             const { userToken } = req.params
             
-            const verify = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${userToken}`)
-
-            console.log('reCAPTCHA user verify status:');
-            console.log(verify.data);
-            res.json(verify.data)
+            const verify = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${userToken}`);
+            res.json(verify.data);
         } catch (err) { res.status(422).json(err) }
     }
 }
