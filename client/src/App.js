@@ -3,6 +3,7 @@ import NavBar from './components/navbar'
 import Home from './components/main-home'
 import LogIn from './components/main-login'
 import CreateArtist from './components/createArtist'
+import UpdateArtist from './components/artist-Update'
 import BandPage from './components/main-artist'
 import VenuePage from './components/main-venuepage'
 import CreateReview from './components/createReview';
@@ -25,13 +26,20 @@ function App() {
       <NavBar />
     <Switch>
     <Route path="/" exact component={Home}/>
-    <NonUserRoutes path="/login" component={LogIn}/>
+    <Route path="/login" component={LogIn}/>
+    <Route path="/createartist" component={CreateArtist}/>
+    <Route path="/createReview" component={CreateReview} />
+    <Route path="/createVenue" component={CreateVenue} />
+    <Route path="/bandpage" component={BandPage}/>
+    <Route path="/updateartist" component={UpdateArtist}/>
+    <Route path="/venuepage" component={VenuePage} />
+    {/* <NonUserRoutes path="/login" component={LogIn}/>
     <NonUserRoutes path="/createartist" component={CreateArtist}/>
     <UserRoutes path="/bandpage" component={BandPage}/>
     <UserRoutes path="/venuepage" component={VenuePage} />
     <UserRoutes path="/createReview" component={CreateReview} />
     <UserRoutes path="/createVenue" component={CreateVenue} />
-    <UserRoutes path="/bandpage" component={BandPage}/>
+    <UserRoutes path="/bandpage" component={BandPage}/> */}
     </Switch>
     </Router>
   );
