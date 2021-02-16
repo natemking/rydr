@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import {AuthorizationContext} from '../Context/AuthorizationContext'
+import {AuthContext} from '../Context/AuthorizationContext'
 
 const UserRoutes = ({component: Component, ...rest}) => {
-    const {isAuthenticated, user} = useContext(AuthorizationContext)
+    const {isAuthenticated, user} = useContext(AuthContext)
     return (
         <Route {...rest} render={props =>{
             if(isAuthenticated){

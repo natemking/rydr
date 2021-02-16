@@ -22,11 +22,11 @@ if (process.env.NODE_ENV === "production") {
 app.use(
   session({
     secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   })
 );
-app.use(cookieParser());
+app.use(cookieParser("secretcodes"));
 app.use(passport.initialize());
 app.use(passport.session());
 // SERVE UP STATIC ASSETS LOCALLY

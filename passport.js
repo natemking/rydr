@@ -1,12 +1,9 @@
 const passport = require('passport');
-const JWT = require('passport-jwt')
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
 const db = require('./models');
-const {comparePassword} = require('./models/User')
 require('dotenv').config();
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 
 const cookieExtractor = req => {
@@ -14,25 +11,19 @@ const cookieExtractor = req => {
     if (req && req.cookies) {
         token = req.cookies["access_token"];
     }
-    console.log(token, "this is token in cookieExtractor")
     return token;
 }
-// JWT.ExtractJwt.fromAuthHeaderAsBearerToken()
+
 let opts = {}
     opts.jwtFromRequest = cookieExtractor,
     opts.secretOrKey = process.env.PASSPORT_SECRET_KEY,
     opts.issuer = "Rydr",
     opts.audience = "rydr.com"
 
-console.log(opts)
-console.log(JWT.ExtractJwt.fromAuthHeaderAsBearerToken())
 // AUTHORIZATION WILL HELP PROTECT END POINTS 
 passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
-    console.log(jwt_payload, "this is the payload")
-    console.log(jwt_payload.sub)
-    db.User.findById({
-        _id: jwt_payload.sub
-    }, (err, user) => {
+    db.User.findById( jwt_payload.sub
+    , (err, user) => {
         if (err) {
             return done(err, false);
         }
@@ -43,27 +34,6 @@ passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
         }
     });
 }));
-
-// AUTHORIZATION WILL HELP PROTECT END POINTS 
-// passport.use(new JwtStrategy({
-//     jwtFromRequest: cookieExtractor,
-//     secretOrKey: process.env.PASSPORT_SECRET_KEY
-// }, (payload, done) => {
-//     console.log(payload,"this is the payload")
-//     console.log(payload.sub, "this is sub")
-//     db.User.findById({
-//         _id: payload.sub
-//     }, (err, user) => {
-//         if (err){
-//             return done(err, false);
-//         }
-//         if (user){
-//              return done(null, user);
-//         }else{
-//             return done(null, false);
-//         }
-//     });
-// }));
 
 // AUTHENTICATED LOCAL STRATEGY USING USERNAME AND PASSWORD
  passport.use(new LocalStrategy({
@@ -86,8 +56,6 @@ passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
             });
         }
         // LASTLY CHECK IF THE PASSWORD MATCHES
-        console.log(userName, password, "I'm in passport.js in local strategy", user.password)
-        // db.User.comparePassword(password, done);
         bcrypt.compare(password, user.password)
         .then (response =>{
             if (err) {throw err;}

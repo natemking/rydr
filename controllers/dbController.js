@@ -1,5 +1,5 @@
 const db = require('../models');
-
+const JWT = require('jsonwebtoken');
 
 
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
@@ -147,15 +147,37 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    getUser: function(req, res){
-    db.User
-        .findOne({userName: req.body.userName})
-        .then(response => {
-            console.log(response)
-            res.send(response)
-        })
-        .catch(err => {
-            res.status(422).json(err)
-        })
+    userLogin: function(req, res){
+     if (req.isAuthenticated()) {
+                const {_id, userName} = req.user;
+                const token = signToken(_id);
+                JWT.verify(token, process.env.PASSPORT_SECRET_KEY, function (err, decoded) {
+                     if (!err) {
+                         console.log('Verify: Async test 1: Audience decoded: ' + decoded.aud)
+                     } else {
+                         console.log("Verify: Async test 1: " + err.message);
+                     }})
+                res.cookie("access_token", token, {httpOnly: true, sameSite:true}); 
+                return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
+             }
+    },
+    userLogout: function(req, res){
+        res.clearCookie('access_token');
+            return res.json({user:{userName : ""},success : true});
+    },
+    userAuthenticate: function(req, res){
+        const {userName} = req.user;
+            return res.status(200).send({isAuthenticated : true, userName : userName});
     }
 };
+
+const signToken = userID => {
+    return JWT.sign({
+        iss: "Rydr",
+        sub: userID,
+        aud: "rydr.com"
+    }, process.env.PASSPORT_SECRET_KEY, {
+        expiresIn: "1h"
+    });
+
+}
