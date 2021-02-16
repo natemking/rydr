@@ -1,7 +1,7 @@
 import React from 'react';
-import VenueReviewBody from './venueReviewBody'
+import ReviewBody from "./artist-ReviewBody"
 
-const VenueReviewsTable = ({reviews, isLoading}) => {
+const ReviewsTable = ({reviews, isLoading}) => {
    
     return isLoading ? (<h1>Loading....</h1>) : 
     (
@@ -9,17 +9,18 @@ const VenueReviewsTable = ({reviews, isLoading}) => {
         <thead>
             <tr>
             <th className="text-center">Date</th>
-            <th className="text-center">Band</th>
+            <th className="text-center">Venue Name</th>
             <th className="text-center">Rating</th>
+            <th className="text-center">Venue Average</th>
             <th className="text-center">Review</th>
             </tr>
         </thead>
       <tbody>
-          {reviews.map(review => (<VenueReviewBody review={review} key={review._id}/>))}
+          {reviews.map(review => (<ReviewBody review={review} key={review._id}/>))}
       </tbody>
     </table>
     )
 
 }
 
-export default VenueReviewsTable;
+export default ReviewsTable;

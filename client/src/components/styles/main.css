@@ -5,13 +5,16 @@
     background-color: grey;
 }
 
-h3 {
+h5, h3, h2, h1 {
     color: white;
     font-family: "Inter";
 }
 
-h1 {
-    font-family: "Inter";
+.modal-title{
+    color: black !important;
+}
+
+p {
     color: white;
 }
 
@@ -36,6 +39,20 @@ th, td {
 
 .venueSearch{
     max-width: 200px;
+}
+
+.smallstars{
+    font-size: 1em;
+    color: white;
+}
+
+.searchedVenues{
+    background-color: #343a40;
+    max-width: fit-content;
+}
+
+.apiVenues{
+    background-color: #343a40;
 }
 
 .bandbio{
@@ -75,6 +92,18 @@ th, td {
     border: 1px solid white;
     font-size: 20px;
     padding: 4px;
+}
+
+.createReviewbtn{
+    color: white !important;
+}
+
+.apiVenueReviews{
+    max-width: fit-content;
+}
+
+.apitext{
+    min-width: 250px;
 }
 
 .homeaccountbutton:hover {
