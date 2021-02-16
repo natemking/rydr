@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import NavBar from './components/navbar'
 import Home from './components/main-home'
 import LogIn from './components/main-login'
@@ -9,17 +9,13 @@ import CreateReview from './components/createReview';
 import './components/styles/main.css'
 import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {AuthContext} from './Context/AuthorizationContext'
 import UserRoutes from './hocs/UserRoutes'
 import NonUserRoutes from './hocs/NonUserRoutes'
 import CreateVenue from './components/createVenue';
 
 
 function App() {
-  const {user, setUser, isAuthenicated, setIsAuthenicated} = useContext(AuthContext)
-
-  console.log(user)
-  console.log(isAuthenicated)
+  
   return (
     <Router>
       <NavBar />
