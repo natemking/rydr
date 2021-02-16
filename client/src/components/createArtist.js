@@ -5,7 +5,7 @@ import API from '../utils/API'
 
 
 
-const CreatePage = () => {
+const CreateArtist = () => {
     const [artist, setArtist] = useState([{
         "artistName": "",
         "artistLocation": ""
@@ -79,6 +79,7 @@ const CreatePage = () => {
         </div>
             <ReCAPTCHA
                 sitekey={ process.env.REACT_APP_GOOGLE_RECAP_SITE_KEY }
+                render='explicit'
                 onChange={ captchaOnChange }
             />,
         <button type="submit" value={"Submit"} className="artistCreateButton" disabled={ btnDisable }>Submit</button>
@@ -89,4 +90,4 @@ const CreatePage = () => {
      )
 }
 
-export default CreatePage;
+export default CreateArtist;

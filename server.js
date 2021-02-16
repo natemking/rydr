@@ -26,7 +26,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(cookieParser("secretcode"));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 // SERVE UP STATIC ASSETS LOCALLY

@@ -1,5 +1,5 @@
 import React from 'react';
-import ArtistLinks from './artistlinks'
+import ArtistLinks from './artist-Links'
 const Artist = ({artist, isLoading}) => {
 
     return isLoading ? (<h1>Loading....</h1>) : (
@@ -14,7 +14,6 @@ const Artist = ({artist, isLoading}) => {
             </div>
             <a href={"mailto:" + artist.contact}>{artist.contact}</a>
             <ArtistLinks artist={artist} isLoading={isLoading}/>
-            
         </div>
         </div>
     )

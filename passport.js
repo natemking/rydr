@@ -1,29 +1,31 @@
 const passport = require('passport');
+const JWT = require('passport-jwt')
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-const {ExtractJwt} = require('passport-jwt')
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const db = require('./models');
 const {comparePassword} = require('./models/User')
 require('dotenv').config();
 const bcrypt = require('bcrypt')
 
-// const cookieExtractor = req => {
-//     let token = null;
-//     if (req && req.cookies) {
-//         token = req.cookies["access_token"];
-//     }
-//     console.log(token, "this is token in cookieExtractor")
-//     return token;
-// }
 
-let opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.PASSPORT_SECRET_KEY,
-    issuer: "Rydr",
-    audience: "rydr.com"
+const cookieExtractor = req => {
+    let token = null;
+    if (req && req.cookies) {
+        token = req.cookies["access_token"];
+    }
+    console.log(token, "this is token in cookieExtractor")
+    return token;
 }
+// JWT.ExtractJwt.fromAuthHeaderAsBearerToken()
+let opts = {}
+    opts.jwtFromRequest = cookieExtractor,
+    opts.secretOrKey = process.env.PASSPORT_SECRET_KEY,
+    opts.issuer = "Rydr",
+    opts.audience = "rydr.com"
 
-
+console.log(opts)
+console.log(JWT.ExtractJwt.fromAuthHeaderAsBearerToken())
 // AUTHORIZATION WILL HELP PROTECT END POINTS 
 passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
     console.log(jwt_payload, "this is the payload")
@@ -107,7 +109,7 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser((id, cb) => {
-    models.user.findOne(id, (err, user) => {
+    db.User.findOne(id, (err, user) => {
         cb(err, user);
     });
 });

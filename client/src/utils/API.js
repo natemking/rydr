@@ -35,8 +35,8 @@ const API = {
         return axios.post(`/api/dbRoutes/venue/${id}`)
     },
     // CREATE NEW VENUE BY NAME IF NOT FOUND IN FOURSQUARE SEARCH
-    createVenueByName(name){
-        return axios.post(`/api/dbRoutes/venue/${name}`)
+    createVenueByName(name, venueData){
+        return axios.post(`/api/dbRoutes/venue/${name}`, venueData)
     },
     // POST NEW REVIEW TO VENUE
     postVenueReview(reviewData){
@@ -45,8 +45,8 @@ const API = {
     searchFourSquare(queryData){
         return axios.post(`/api/fourSquareRoutes/${queryData}/`)
     },
-    createReview(id){
-        return axios.post(`/api/dbRoutes/reviews/${id}`)
+    createReview(id, reviewData){
+        return axios.post(`/api/dbRoutes/reviews/${id}`, reviewData)
     },
     updateReview(id){
         return axios.put(`/api/dbRoutes/reviews/${id}`)
@@ -62,6 +62,10 @@ const API = {
     },
     recaptchaUserVerify(responseToken){
         return axios.post(`/api/userverify/${responseToken}`)
+            .then(response => {
+                return response ? console.log('You are human!') : console.log('No Robots allowed!');
+            }
+        )
     }
 };
 

@@ -7,7 +7,8 @@ const JWT = require('jsonwebtoken');
 const signToken = userID =>{
     return JWT.sign({
         iss: "Rydr",
-        sub : userID
+        sub : userID,
+        aud: "rydr.com"
     }, process.env.PASSPORT_SECRET_KEY,{expiresIn : "3h"});
     
 }
@@ -19,13 +20,17 @@ router.route('/user/login')
        const {_id, userName} = req.user;
        const token = signToken(_id);
        console.log('right before verify')
-       console.log(token)
-       JWT.verify(token, process.env.PASSPORT_SECRET_KEY)
-       res.cookie('access_token',"Bearer"+ token, {httpOnly: true, sameSite:true}); 
+       JWT.verify(token, process.env.PASSPORT_SECRET_KEY, function (err, decoded) {
+            if (!err) {
+                console.log('Verify: Async test 1: Audience decoded: ' + decoded.aud)
+            } else {
+                console.log("Verify: Async test 1: " + err.message);
+            }})
+       res.cookie("access_token", token, {httpOnly: true, sameSite:true}); 
        return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
     }
 })
-.get(dbController.getUser);
+// .get(dbController.getUser);
 
 router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
     res.clearCookie('access_token');
@@ -34,9 +39,10 @@ router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,r
 });
 
 router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    console.log("hello")
     console.log(req.user)
     const {userName} = req.user;
-    return res.status(200).json({isAuthenticated : true, userName : userName});
+    return res.status(200).send({isAuthenticated : true, userName : userName});
 });
 
 // create a new band user.
