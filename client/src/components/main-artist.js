@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ReviewsTable from "./artist-ReviewsTable"
-import Artist from "./artist-artistBody"
+import ReviewsTable from "./artist-ReviewsTable";
+import Artist from "./artist-artistBody";
+import UpdateArtist from "./artist-Update";
 import API from "../utils/API";
 
 const BandPage = () => {

@@ -1,9 +1,13 @@
 import React from 'react';
 import ArtistLinks from './artist-Links'
 import { Link } from 'react-router-dom';
+import UpdateArtist from './artist-Update';
 
 const Artist = ({artist, isLoading}) => {
     
+    const handleBtnClick = (e) => {
+        e.prevent
+    }
 
 
     return isLoading ? (<h1>Loading....</h1>) : (
@@ -18,9 +22,8 @@ const Artist = ({artist, isLoading}) => {
             </div>
             <a href={"mailto:" + artist.contact}>{artist.contact}</a>
             <ArtistLinks artist={artist} isLoading={isLoading}/>
-            <Link to='/artist/update'>
             <button>Update Band Info</button>
-            </Link>
+            <UpdateArtist artist={artist} />
         </div>
         </div>
     )

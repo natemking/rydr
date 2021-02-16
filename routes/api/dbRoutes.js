@@ -32,7 +32,7 @@ router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,r
 });
 
 router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    const {username} = req.user;
+    const {userName} = req.user;
     return res.status(200).json({isAuthenticated : true, user : {userName}});
 });
 
