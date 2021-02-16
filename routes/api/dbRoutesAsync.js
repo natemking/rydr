@@ -14,7 +14,7 @@ module.exports = {
             const data = await db.User.create(req.body);
             res.json(data);
         } catch (err) { res.status(422).json(err) };
-    }
+    },
     // findAllBand: function (req, res) {
     //     db.Band
     //         .find(req.query).populate("postedReviews")

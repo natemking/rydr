@@ -16,7 +16,7 @@ module.exports = (mongoose, Schema) => {
                         return result  ? false : true;
                     } catch (err) { throw new Error(err) }
                 },
-                message: props => `${props.value} already exists`
+                message: props => `${props.value} already exists in Rydr!`
             }
         },
         password: {
