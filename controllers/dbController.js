@@ -17,6 +17,20 @@ module.exports = {
             res.json(band);
         } catch (err) { res.json(err) }
     },
+
+    getUser: function(req,res) {
+        console.log(req.body.userName)
+        db.User
+        .findOne({userName: req.body.userName})
+        .then(response => {
+            res.send(response)
+        })
+        .catch(err => {
+            res.status(422).json(err)
+        })
+    },
+    
+
     // JUST IN CASE: DON'T THINK WE'LL NEED IT
     findAllBand: function (req, res) {
         db.Band
