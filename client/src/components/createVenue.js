@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import API from '../utils/API'
 
 const CreateVenue = () => {
-    const [address, setNewAddress] = useState([])
+    let history = useHistory();
+    const [address] = useState([])
     const [newVenueName, setNewVenueName] = useState("")
     const [newVenue, setNewVenue] = useState({
             "venueName": newVenueName,
@@ -18,15 +19,15 @@ const CreateVenue = () => {
     
     const postNewVenue = async (event) => {
         event.preventDefault();
+        
         try {
              await API.createVenueByName(newVenue.venueName, newVenue)
+             alert(newVenue.venueName + " was created")
+             history.push("/venuepage")
         }catch(err){
             console.log(err)
-        }finally{
-            <Redirect to="/venuepage" />
         }
     }
-
 
     const createVenueName = (event) => {
         const value = event.target.value
@@ -54,7 +55,7 @@ const CreateVenue = () => {
         <input type="text" id="venueAddress" name="1" onChange={createAddress} placeholder="Street Address 2"></input>
         <input type="text" id="venueAddress" name="2" onChange={createAddress} placeholder="City, State"></input>
         </div>
-        </div>        
+        </div>
         <button type="submit" value={"Submit"} className="artistCreateButton" onClick={postNewVenue}>Submit</button>
         </form>
         </div>
