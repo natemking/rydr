@@ -45,8 +45,8 @@ const API = {
     searchFourSquare(queryData){
         return axios.post(`/api/fourSquareRoutes/${queryData}/`)
     },
-    createReview(){
-        return axios.post('/api/dbRoutes/reviews')
+    createReview(id){
+        return axios.post(`/api/dbRoutes/reviews/${id}`)
     },
     updateReview(id){
         return axios.put(`/api/dbRoutes/reviews/${id}`)
