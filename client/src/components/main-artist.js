@@ -10,7 +10,7 @@ const BandPage = () => {
 
 useEffect(() => {
   const fetchArtist = async () => {
-    const result = await API.getUser("60298124ba192320784b1d79")
+    const result = await API.getUser("60288184a737655090c921ba")
     const userArtist = result.data
       setArtist(userArtist)
       setisLoading(false)
@@ -20,7 +20,7 @@ useEffect(() => {
 
 useEffect(() => {
   const fetchReviews = async () => {
-    const reviews = await API.getReviewByBand("60298124ba192320784b1d79")
+    const reviews = await API.getReviewByBand("60288184a737655090c921ba")
     setReviews(reviews.data)
     setisLoading(false)
   }

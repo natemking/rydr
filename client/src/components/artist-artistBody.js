@@ -1,6 +1,10 @@
 import React from 'react';
 import ArtistLinks from './artist-Links'
+import { Link } from 'react-router-dom';
+
 const Artist = ({artist, isLoading}) => {
+    
+
 
     return isLoading ? (<h1>Loading....</h1>) : (
         <div className="d-flex flex-row flex-wrap align-items-center">
@@ -14,6 +18,9 @@ const Artist = ({artist, isLoading}) => {
             </div>
             <a href={"mailto:" + artist.contact}>{artist.contact}</a>
             <ArtistLinks artist={artist} isLoading={isLoading}/>
+            <Link to='/artist/update'>
+            <button>Update Band Info</button>
+            </Link>
         </div>
         </div>
     )
