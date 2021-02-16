@@ -3,14 +3,14 @@ import { useHistory } from "react-router-dom";
 import API from '../utils/API'
 
 const CreateVenue = () => {
-    let history = useHistory();
     const [address] = useState([])
     const [newVenueName, setNewVenueName] = useState("")
     const [newVenue, setNewVenue] = useState({
             "venueName": newVenueName,
             "venueAddress": address
     })
-   
+    let history = useHistory();
+
     const createVenue = (event) => {
         const target = event.target.name
         const value = event.target.value
@@ -19,7 +19,6 @@ const CreateVenue = () => {
     
     const postNewVenue = async (event) => {
         event.preventDefault();
-        
         try {
              await API.createVenueByName(newVenue.venueName, newVenue)
              alert(newVenue.venueName + " was created")
