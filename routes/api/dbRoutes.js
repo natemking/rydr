@@ -2,39 +2,12 @@ const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 const passport = require('../../passport');
 const JWT = require('jsonwebtoken');
-console.log(passport.authenticate("local", {session:false}), "hello");
 
-const signToken = userID =>{
-    return JWT.sign({
-        iss: process.env.PASSPORT_SECRET_KEY,
-        sub : userID
-    },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
-}
-
+//User routes for login, logout, and authenticate
 router.route('/user/login')
-.post(passport.authenticate('local',{session : false}),(req,res)=>{
-    console.log("hello from the post route for login ")
-    if(req.isAuthenticated()){
-        console.log(req.user)
-       const {_id, userName} = req.user[0];
-       const token = signToken(_id);
-       console.log(userName)
-       JWT.verify(token, process.env.PASSPORT_SECRET_KEY)
-       res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
-       return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
-    }
-})
-.get(dbController.getUser);
-
-router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
-    res.clearCookie('access_token');
-     return res.json({user:{userName : ""},success : true});
-});
-
-router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    const {userName} = req.user;
-    return res.status(200).json({isAuthenticated : true, user : {userName}});
-});
+.post(passport.authenticate('local', {session:false}),dbController.userLogin);
+router.get('/user/logout', passport.authenticate('jwt',{session : false}),dbController.userLogout);
+router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),dbController.userAuthenticate);
 
 // create a new band user.
 router.route('/band')
