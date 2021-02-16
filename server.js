@@ -19,16 +19,16 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
-app.use(passport.initialize());
-app.use( session({
+app.use(
+  session({
     secret: "secretcode",
     resave: false,
     saveUninitialized: false,
-  }));
-app.use(cookieParser("secretcode"));
+  })
+);
+app.use(cookieParser("secretcodes"));
 app.use(passport.initialize());
 app.use(passport.session());
-
 // SERVE UP STATIC ASSETS LOCALLY
 app.use(express.static('client/public'));
 
