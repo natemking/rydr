@@ -12,17 +12,17 @@ const LogIn = () => {
     <h1 className="font-italic">Better Your Artist Experience</h1>
     <div className="d-flex justify-content-center mt-4">
     <form className="formcontent p-2">
-    <div class="form-group ">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
+    <div className="form-group ">
+    <label htmlFor="exampleInputEmail1">Email address</label>
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
     </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+    <div className="form-group">
+    <label htmlFor="exampleInputPassword1">Password</label>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
     </div>
-    <button type="submit" class="mx-2 artistCreateButton">Log In</button>
+    <button type="submit" className="mx-2 artistCreateButton">Log In</button>
     <Link to="/createartist">
-    <button type="submit" class="mx-2 artistCreateButton">Create Account</button>
+    <button type="submit" className="mx-2 artistCreateButton">Create Account</button>
     </Link>
     </form>
     </div>
