@@ -8,12 +8,12 @@ const JWT = require('jsonwebtoken');
 require('dotenv').config()
 
 
-// const signToken = userID =>{
-//     return JWT.sign({
-//         iss: 'rydr admin',
-//         sub : userID
-//     },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
-// }
+const signToken = userID =>{
+    return JWT.sign({
+        iss: process.env.PASSPORT_SECRET_KEY,
+        sub : userID
+    },process.env.PASSPORT_SECRET_KEY,{expiresIn : "1h"});
+}
 
 // router.post('/user/login',passport.authenticate('local',{session : false}),(req,res)=>{
 //     if(req.isAuthenticated()){
@@ -25,49 +25,48 @@ require('dotenv').config()
 //     }
 // });
 
-// router.route('/user/login')
-// .post(passport.authenticate('local',{session : false}),(req,res)=>{
-//     console.log(signToken);
-//     if(req.isAuthenticated()){
-//        const {_id, userName} = req.user;
-//        const token = signToken(_id);
-//        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
-//        res.status(200).json({isAuthenticated : true, user : userName});
-//     }
-//     console.log(token);
-// })
-// .get(dbController.getUser);
+router.route('/user/login')
+.post(passport.authenticate('local',{session : false}),(req,res)=>{
+    if(req.isAuthenticated()){
+       const {_id, userName} = req.user;
+       const token = signToken(_id);
+       res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
+       res.status(200).json({isAuthenticated : true, user : userName});
+    }
+    console.log(token);
+})
+.get(dbController.getUser);
 
-// router.post('/user/register', (req,res) => {
-//     console.log(req.body)
-//     const{ userName, password } =req.body;
-//     db.User.find({userName}, (err,user)=>{
-//         console.log(user);
-//         if(err)
-//         res.status(500).json({message: 'Error has occured', msgError: true })
-//         if(user)
-//         res.status(400).json({message: 'Username is already taken', msgError: true })
-//         else{
-//             const newUser = new User({userName, password});
-//             newUser.save(err=>{
-//                 if (err) {
-//                     res.status(500).json({message: 'Error has occured', msgError: true })
-//                 } else 
-//                 res.status(201).json({message: 'Account successfull', msgError: false })
-//             })
-//         }
-//     })
-// })
+router.post('/user/register', (req,res) => {
+    console.log(req.body)
+    const{ userName, password } =req.body;
+    db.User.find({userName}, (err,user)=>{
+        console.log(user);
+        if(err)
+        res.status(500).json({message: 'Error has occured', msgError: true })
+        if(user)
+        res.status(400).json({message: 'Username is already taken', msgError: true })
+        else{
+            const newUser = new User({userName, password});
+            newUser.save(err=>{
+                if (err) {
+                    res.status(500).json({message: 'Error has occured', msgError: true })
+                } else 
+                res.status(201).json({message: 'Account successfull', msgError: false })
+            })
+        }
+    })
+})
 
-// router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
-//     res.clearCookie('access_token');
-//     res.json({user:{userName : ""},success : true});
-// });
+router.get('/user/logout', passport.authenticate('jwt',{session : false}),(req,res)=>{
+    res.clearCookie('access_token');
+    res.json({user:{userName : ""},success : true});
+});
 
-// router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-//     const {username} = req.user;
-//     res.status(200).json({isAuthenticated : true, user : {userName}});
-// });
+router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const {userName} = req.user;
+    res.status(200).json({isAuthenticated : true, user : {userName}});
+});
 
 // create a new band user.
 router.route('/band')
