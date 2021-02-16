@@ -5,7 +5,7 @@ import API from '../utils/API'
 
 
 
-const CreatePage = () => {
+const CreateArtist = () => {
     const [artist, setArtist] = useState([{
         "artistName": "",
         "artistLocation": ""
@@ -90,4 +90,4 @@ const CreatePage = () => {
      )
 }
 
-export default CreatePage;
+export default CreateArtist;

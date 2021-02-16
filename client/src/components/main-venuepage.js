@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import APIVenue from './apivenue'
-import Venue from '../components/venue.js'
+import { Link } from 'react-router-dom';
+import APIVenue from './venueAPI'
+import Venue from './venueDB.js'
+import CreatedVenues from './venueCreated.js'
 import API from "../utils/API";
 
+
 const VenuePage = () => {
-  // const [venueAll, setVenuesAll] = useState([])
   const [selectedVenue, setSelectedVenue] = useState([])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch] = useState({
@@ -29,8 +31,6 @@ const VenuePage = () => {
         setisLoading(false)
       } catch (err) { console.error(err); }
     }
-
-
 
   //MAKES DATABASE CALL TO FIND VENUE MADE ON DB
   useEffect(() => {
@@ -62,21 +62,19 @@ const VenuePage = () => {
     })
   }
 
-  function consoleFunc(event) {
-    event.preventDefault()
-    console.log(selectedVenue)
-  }
-
   return (
-    <div className="d-flex flex-column mt-2 p-2">
-      <form onSubmit={consoleFunc}>
+    <div className="d-flex flex-column mt-2 p-2 justify-content-center align-items-center">
+      <form>
         <input type="text" placeholder="Search.." name={"venueName"} value={search.venueName} className="mb-2 venueSearch" onChange={handleChange}></input>
         <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 venueSearch" onChange={handleChange}></input>
         <input type="number" placeholder="Set Search Radius.." name={"radius"} value={search.radius} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <input type="submit" value={"Submit"} className="mb-2 venueSearch" ></input>
+        <button onClick={handleBtnSubmit} className="venueSearch">Search Venues</button>
+        <Link to="/createVenue">
+        <button>Create Venue</button>
+        </Link>
       </form>
-      <button onClick={handleBtnSubmit}>PRESS ME</button>
       <Venue isLoading={isLoading} venue={selectedVenue} />
+      {/* <CreatedVenues isLoading={isLoading} venue={selectedVenue} /> */}
       <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} />
     </div>
   )
