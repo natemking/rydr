@@ -19,6 +19,7 @@ router.route('/user/login')
        const {_id, userName} = req.user[0];
        const token = signToken(_id);
        console.log(userName)
+       JWT.verify(token, process.env.PASSPORT_SECRET_KEY)
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
        return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
     }
