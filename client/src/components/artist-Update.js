@@ -3,10 +3,8 @@ import { useHistory } from "react-router-dom";
 import CloudinaryWidget from './CloudinaryWidget';
 import API from '../utils/API'
 
-
-
 const UpdateArtist = ( {match} ) => {
-    let history = useHistory();
+    // let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
     // Array to store new artist link
@@ -18,7 +16,7 @@ const UpdateArtist = ( {match} ) => {
     const [cloudResults, setCloudResults] = useState('');
     // State of updated artist info to be stored in the DB
     const [updatedArtist, setUpdatedArtist] = useState({
-        id: artistId,
+        id: '',
         bandBio: '',
         location: '',
         bandImg: cloudResults,
@@ -54,7 +52,6 @@ const UpdateArtist = ( {match} ) => {
         try {
             await API.updateBand(artistId, updatedArtist)
             alert(updatedArtist.bandName + ' was updated')
-            history.push('/bandpage')
         } catch (err) {
             console.log(err)
         }
@@ -91,7 +88,6 @@ const UpdateArtist = ( {match} ) => {
             ...links,
             [event.target.name]: value
         })
-        console.log(links)
     }
     // Function to push the new artist link into the newlinks array and set that to updatedArtist state
     const addLink = () => {
