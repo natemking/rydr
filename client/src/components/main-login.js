@@ -27,8 +27,6 @@ const onSubmit = e =>{
                 setId(bandRes.data[0]._id)
                 history.push(`/bandpage/${bandRes.data[0]._id}`)
             })
-        }else{
-            
         }
     })
 }    
