@@ -36,8 +36,9 @@ const UpdateArtist = ( {match} ) => {
     // Retrieves artist data from the database to be used
     useEffect(() => {
         const fetchArtist = async () => {
-            const result = await API.getUser(match.params.id)
+            const result = await API.getBand(match.params.id)
             const userArtist = result.data
+            console.log(userArtist)
             setArtist(userArtist)
         }
         fetchArtist()
@@ -57,9 +58,9 @@ const UpdateArtist = ( {match} ) => {
     // Function to update the artists info in the DB
     const updateArtist = async () => {
         try {
-            await API.updateBand(artistId, updatedArtist)
-            alert(updatedArtist.bandName + ' was updated')
-            history.push('/bandpage')
+            await API.updateBandData(artistId, updatedArtist)
+            alert(artist.bandName + ' was updated')
+            history.push(`/bandpage/${artistId}`)
         } catch (err) {
             console.log(err)
         }
