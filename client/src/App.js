@@ -23,6 +23,7 @@ function App() {
   const [isLoading, setIsLoading]=useState(false);
   const [id, setId]=useState()
 
+  const idPath = ``
   return (
     <AuthProvider value ={{currentUser, isAuth, id, setId, setCurrentUser, setIsAuth} }>
     <Router>
