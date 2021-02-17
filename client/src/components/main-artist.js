@@ -4,45 +4,39 @@ import Artist from "./artist-artistBody";
 import API from "../utils/API";
 
 const BandPage = ({ match }) => {
-  const [artist, setArtist] = useState ('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [reviews, setReviews] = useState([])
+  // State for artist data
+  const [artist, setArtist] = useState ('');
+  // State for artists reviews
+  const [reviews, setReviews] = useState([]);
+  // State for loading message
+  const [isLoading, setIsLoading] = useState(true);
 
-useEffect(() => {
-  fetchArtistAndReviews();
-  
-}, []);
+  // Call DB for artist & their review data and set to state
+  useEffect(() => {
+    (async () => {
+        try {
+          const artist = await API.getUser(match.params.id);
+          const reviews = await API.getReviewByBand(match.params.id);
+          setArtist(artist.data);
+          setReviews(reviews.data);
+          setIsLoading(false);
+        } catch (err) { console.error(err) }
+      })();
+  }, [match.params.id]);
 
-// useEffect(() => {
-//   fetchReviews();
-// }, []);
-
-
-  const fetchArtistAndReviews = async () => {
-    const artist = await API.getUser(match.params.id);
-    const reviews = await API.getReviewByBand(match.params.id);
-    setArtist(artist.data);
-    setReviews(reviews.data);
-    setIsLoading(false);
-  }
-
-  // const fetchReviews = async () => {
-  //   const reviews = await API.getReviewByBand(match.params.id)
-  //   setReviews(reviews.data)
-  //   setIsLoading(false)
-  // }
-
-    return (
-      
-      <div className="d-flex flex-column mt-2 p-2 align-items-center">
-        <Artist artist={ artist } isLoading={ isLoading } />
-        <div className="d-flex flex-column flex-wrap">
-          <h1><u>Artist Reviews</u></h1>
-          <ReviewsTable reviews={ reviews } isLoading={ isLoading }/>
-        </div>
-        <hr />
+  // Render the artist page
+  return (
+    <div className="d-flex flex-column mt-2 p-2 align-items-center">
+      <Artist artist={ artist } isLoading={ isLoading } />
+      <div className="d-flex flex-column flex-wrap">
+        <h1>
+          <u>Artist Reviews</u>
+        </h1>
+        <ReviewsTable reviews={ reviews } isLoading={ isLoading }/>
       </div>
-    )
+      <hr />
+    </div>
+  )
 }
     
 export default BandPage;
