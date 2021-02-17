@@ -28,6 +28,7 @@ const CloudinaryWidget = (props) => {
                     backgroundColor: '#343A40',
                     borderRadius: '4px',
                     height: '25px',
+                    marginBottom: '10px',
                     display: btnToggle
                 }} // inline styling only or style id='cloudinary_upload_button'
                 cropping={true} // set ability to crop images -> default = true
