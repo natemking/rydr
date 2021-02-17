@@ -1,12 +1,14 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import APIVenue from './venueAPI'
 import Venue from './venueDB.js'
 import API from "../utils/API";
+import { AuthContext } from '../Context/AuthorizationContext';
 
 
 const VenuePage = () => {
+  const {isAuth}=useContext(AuthContext)
   const [selectedVenue, setSelectedVenue] = useState([])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch] = useState({
@@ -67,9 +69,9 @@ const VenuePage = () => {
         <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 venueSearch" onChange={handleChange}></input>
         <input type="number" placeholder="Set Search Radius.." name={"radius"} value={search.radius} className="mb-2 venueSearch " onChange={handleChange}></input>
         <button onClick={handleBtnSubmit} className="venueSearch venueSearchBtn">Search Venues</button>
-        <Link to="/createVenue">
+        {isAuth?<Link to="/createVenue">
         <button className="venueSearchBtn">Create Venue</button>
-        </Link>
+        </Link>:null}
       </form>
       <div className="align-items-start">
       <Venue isLoading={isLoading} venue={selectedVenue} />
