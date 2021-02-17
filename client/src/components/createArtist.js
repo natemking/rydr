@@ -44,10 +44,10 @@ const CreateArtist = () => {
 
     // Function for setting user data to user sate
     const createArtist = e => {
-        const target = e.target.name;
+        const name = e.target.name;
         const value = e.target.value;
 
-        setUser({...user, [target]: value});
+        setUser({...user, [name]: value});
     }
 
     // Validate password strength
