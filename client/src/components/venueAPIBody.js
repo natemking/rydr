@@ -1,17 +1,39 @@
-import React, {useContext} from 'react';
+import React, {useContext,  useEffect, useState} from 'react';
 import Rating from 'react-rating'
 import { Link } from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
-
+import API from "../utils/API";
 //API VENUES
 
 const VenueBody = ({venue}) => {
 const {id, isAuth} = useContext(AuthContext)
+const [repeatedVenue, setRepeatedVenue] = useState(false)
+const createReviewLink = `/createReview/${id}`
 
-    console.log(id)
-    const createReviewLink = `/createReview/${id}`
+    useEffect(() => {
 
-    return (
+        const fetchDBVenues = async () => {
+            try{
+            const results = await API.getVenues()
+            const allDBVenues = results.data
+                var i;
+                for ( i = 0; i < allDBVenues.length; i++){
+                    if (allDBVenues[i].venueName === venue.name){
+                        setRepeatedVenue(true)
+                    }
+                }
+            }
+            catch(err){
+            console.log(err)
+            }
+        }
+
+        fetchDBVenues();
+        
+        }, [venue]);
+
+
+    return (repeatedVenue) ? (null) : (
         <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
         <div className="d-flex flex-column mx-2 apitext">
         <h3><u>{venue.name}</u></h3>
