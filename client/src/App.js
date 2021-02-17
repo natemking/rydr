@@ -33,9 +33,9 @@ function App() {
           <NonUserRoutes path="/createartist" component={CreateArtist}/>
           <UserRoutes path="/bandpage/:id" component={BandPage}/>
           <Route path="/venuepage" component={VenuePage} />
-          <UserRoutes path="/createReview/:id" component={CreateReview} />
-          <UserRoutes path="/createVenue" component={CreateVenue} />
-          <UserRoutes path="/updateartist" component={UpdateArtist} />
+          <UserRoutes path="/createReview/" component={CreateReview} />
+          <UserRoutes path="/createVenue/" component={CreateVenue} />
+          <UserRoutes path="/updateartist/" component={UpdateArtist} />
         </Switch>
       </Router>
     </AuthProvider>

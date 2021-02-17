@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ArtistLinks from './artist-Links'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthorizationContext';
 
 const Artist = ({artist, isLoading}) => {
-
+const {id} = useContext(AuthContext)
     // If band photo exists render it
     const renderImg = () => {
       if (artist.bandImg) {
@@ -12,7 +13,7 @@ const Artist = ({artist, isLoading}) => {
           )
       }
     }
-
+const updateBandUrl = `/updateartist/${id}`
     // If band links exist render them
     const renderBandLinks = () => {
       if (artist.bandLinks.length > 0) {
@@ -41,7 +42,7 @@ const Artist = ({artist, isLoading}) => {
 
                 { renderBandLinks }
 
-                <Link to='/updateartist'>
+                <Link to={updateBandUrl}>
                     <button>Update Band Info</button>
                 </Link>
                 
