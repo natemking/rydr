@@ -176,6 +176,8 @@ module.exports = {
                      }})
                 res.cookie("access_token", token, {httpOnly: true, sameSite:true}); 
                 return res.status(200).json({isAuthenticated : true, token:token,  user : userName, id:_id});
+             }else{
+                 res.status(401).json({err, message:"not authenticated"})
              }
     },
     userLogout: function(req, res){
@@ -183,7 +185,6 @@ module.exports = {
             return res.json({user:{userName : ""},success : true});
     },
     userAuthenticate: function(req, res){
-        console.log(req.user)
         const {userName, _id} = req.user
             return res.status(200).send({isAuthenticated : true, user : userName, id: _id});
     },

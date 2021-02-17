@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Rating from 'react-rating'
 import VenueReviewsTable from './venueDBReviewsTable'
 import API from "../utils/API";
+import { AuthContext } from '../Context/AuthorizationContext';
+
 // DB VENUES
 
 const Venue = ({venue, isLoading}) => {
     const [reviews, setReviews] = useState([])
     const [reviewsRating, setReviewsRating] = useState("")
-    
+    const {id} = useContext(AuthContext)
+
+    console.log(id)
+    const createReviewLink = `/createReview/${id}`
+
     //GET ALL REVIEWS FOR SEARCHED VENUE
     useEffect(() => {
         const fetchReviews = async () => {
@@ -39,7 +45,7 @@ const Venue = ({venue, isLoading}) => {
             <Rating initialRating={reviewsRating} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" />
             <h5 className="m-2">{venue.venueReviews.length} Reviews</h5>
             </div>
-            <Link to="/createReview">
+            <Link to={createReviewLink}>
             <button>Add Review</button>
             </Link>
             <h3 className="m-0"><u>Address:</u></h3>

@@ -7,7 +7,7 @@ import ModalAlert from './Modal'
 
 const LogIn = () => {
 const [user, setUser]= useState({userName:"", password:"", id:""})
-const {setCurrentUser, setIsAuth, currentUser, isAuth, id, setId} = useContext(AuthContext);
+const {setCurrentUser, setIsAuth, setId} = useContext(AuthContext);
 let history = useHistory();
 
 const onChange=(e)=>{
@@ -27,6 +27,8 @@ const onSubmit = e =>{
                 setId(bandRes.data[0]._id)
                 history.push(`/bandpage/${bandRes.data[0]._id}`)
             })
+        }else{
+            
         }
     })
 }    
