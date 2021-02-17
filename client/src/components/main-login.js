@@ -17,11 +17,9 @@ const onChange=(e)=>{
 
 const onSubmit = e =>{
     e.preventDefault();
-    console.log(user)
     AuthServices.login(user)
     .then(res =>{
         if(res.isAuthenticated){
-            console.log("in if")
             setCurrentUser(res.userName)
             setIsAuth(res.isAuthenticated)
             history.push("/bandpage")

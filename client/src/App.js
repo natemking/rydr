@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import NavBar from './components/navbar'
 import Home from './components/main-home'
 import LogIn from './components/main-login'
@@ -12,14 +12,26 @@ import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserRoutes from './hocs/UserRoutes'
 import NonUserRoutes from './hocs/NonUserRoutes'
-import { AuthContext } from './Context/AuthorizationContext';
-
+import AuthProvider from './Context/AuthorizationContext';
+import AuthServices from "./Services/AuthorizationService";
 
 
 function App() {
-  const {currentUser, isAuth} = useContext(AuthContext)
+  const [currentUser, setCurrentUser]=useState({});
+  const [isAuth, setIsAuth]=useState(false);
+  const [isLoading, setIsLoading]=useState(false);
+    useEffect(() => {
+      AuthServices.isAuthenticated().then(data => {
+        console.log(data, "this is data from auth route in context")
+        setCurrentUser(data.user);
+        setIsAuth(data.isAuthenticated);
+        setIsLoading(true);
+      })
+    }, [])
+
   console.log(currentUser, isAuth, "this is in app")
   return (
+    <AuthProvider value ={{currentUser, isAuth, setCurrentUser, setIsAuth} }>
     <Router>
       <NavBar />
     <Switch>
@@ -39,6 +51,7 @@ function App() {
     <UserRoutes path="/createVenue" component={CreateVenue} />
     </Switch>
     </Router>
+    </AuthProvider>
   );
 }
 export default App;
