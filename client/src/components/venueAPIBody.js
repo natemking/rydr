@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Rating from 'react-rating'
 import { Link } from 'react-router-dom';
+import {AuthContext} from '../Context/AuthorizationContext'
 
 //API VENUES
 
 const VenueBody = ({venue}) => {
+const {id} = useContext(AuthContext)
 
+    console.log(id)
+    const createReviewLink = `/createReview/${id}`
 
     return (
         <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
@@ -15,7 +19,7 @@ const VenueBody = ({venue}) => {
         <Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" />
         <h5 className="m-2">No Reviews</h5>
         </div>
-        <Link to="/createReview">
+        <Link to={createReviewLink} >
         <button>Add Review</button>
         </Link>
         <p className="m-0">{venue.location.address}</p>
