@@ -23,8 +23,8 @@ const UpdateArtist = ( {match} ) => {
         id: artistId,
         bandBio: '',
         location: '',
-        bandImg: cloudResults,
-        bandLinks: newLinks,
+        bandImg: "",
+        bandLinks: [],
         contact: ''
     });
     // State of img upload status
@@ -54,10 +54,11 @@ const UpdateArtist = ( {match} ) => {
 
     // Function to update the artists info in the DB
     const updateArtist = async () => {
+        console.log(updatedArtist)
         try {
-            await API.updateBandData(artistId, updatedArtist)
+            await API.updateBandData(id, updatedArtist)
             alert(artist.bandName + ' was updated')
-            history.push(`/bandpage/${artistId}`)
+            history.push(`/bandpage/${id}`)
         } catch (err) {
             console.log(err)
         }
@@ -74,9 +75,10 @@ const UpdateArtist = ( {match} ) => {
         getArtistId();
         const value = event.target.value
         setUpdatedArtist({
-            ...updatedArtist,
+            ...artist,
             [event.target.name]: value,
             id: artistId,
+            bandImg: cloudResults
         })
     }
 

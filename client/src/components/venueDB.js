@@ -13,7 +13,6 @@ const Venue = ({venue, isLoading}) => {
     const [reviewsRating, setReviewsRating] = useState("")
     const {id} = useContext(AuthContext)
 
-    console.log(id)
     const createReviewLink = `/createReview/${id}`
 
     //GET ALL REVIEWS FOR SEARCHED VENUE
