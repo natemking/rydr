@@ -35,7 +35,7 @@ const UpdateArtist = ( {match} ) => {
     // Retrieves artist data from the database to be used
     useEffect(() => {
         const fetchArtist = async () => {
-            const result = await API.getUser(artistId)
+            const result = await API.getUser(match.params.id)
             const userArtist = result.data
             setArtist(userArtist)
             console.log(artist)

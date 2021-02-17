@@ -15,8 +15,8 @@ const API = {
         return axios.post('/api/dbRoutes/band/', userData)
     },
     // UPDATE USER INFO
-    updateUserData(userData){
-        return axios.put(`/api/dbRoutes/band/${userData}`)
+    updateUserData(id,userData){
+        return axios.put(`/api/dbRoutes/band/${id}`, userData)
     },
     // DELETE USER BY ID
     deleteUser(id){
