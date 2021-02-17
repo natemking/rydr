@@ -5,12 +5,12 @@ import API from '../utils/API'
 
 
 
-const UpdateArtist = () => {
+const UpdateArtist = ( ) => {
     let history = useHistory();
-    const [links, setLinks] = useState([{
-        siteName: '',
-        siteUrl: ''
-    }]);
+    // State of artist link to add to DB
+    const [links, setLinks] = useState([]);
+    // Array to store new artist link
+    const newLinks = [];
     const [artist, setArtist] = useState([]);
     // State of artist object from DB
     const [artistId, setArtistId] = useState('');
@@ -22,7 +22,7 @@ const UpdateArtist = () => {
         bandBio: '',
         location: '',
         bandImg: cloudResults,
-        bandLinks: [],
+        bandLinks: newLinks,
         contact: ''
     });
     // State of img upload status
@@ -30,8 +30,8 @@ const UpdateArtist = () => {
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
-        const fetchArtist = async () => {
-            const result = await API.getUser("60288184a737655090c921ba")
+        const fetchArtist = async ( {match} ) => {
+            const result = await API.getUser(match.params.id)
             const userArtist = result.data
             setArtist(userArtist)
         }
@@ -39,10 +39,14 @@ const UpdateArtist = () => {
     }, []);
 
     // Initializes function to update the artists info
-    const handleBtnSubmit = (event) => {
+    const handleBtnSubmit = async (event) => {
         event.preventDefault();
-        console.log("handleBtnSubmit");
+         console.log("handleBtnSubmit");
+        try{
+             await addLink();
         updateArtist();
+        } catch(err) { console.log(err)}
+    
     }
 
     // Function to update the artists info in the DB
@@ -70,7 +74,6 @@ const UpdateArtist = () => {
             ...updatedArtist,
             [event.target.name]: value,
             id: artistId,
-            bandLinks: links
         })
     }
 
@@ -81,7 +84,7 @@ const UpdateArtist = () => {
         } catch (err) { console.log(err) }
     }
 
-    // Function to push the new url into the links array
+    // Function to grab values of new artist link input and set them to state
     function createLink(event) {
         const value = event.target.value
         setLinks({
@@ -90,12 +93,15 @@ const UpdateArtist = () => {
         })
         console.log(links)
     }
-
-    // const createLink = (event) => {
-    //         const value = event.target.value
-    //         links.push(value)  
-    //         console.log(links) 
-    //     } 
+    // Function to push the new artist link into the newlinks array and set that to updatedArtist state
+    const addLink = () => {
+            newLinks.push(links)  
+            console.log(newLinks) 
+            setUpdatedArtist({
+                ...updatedArtist,
+                bandLinks : newLinks
+            })
+        } 
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
@@ -116,9 +122,9 @@ const UpdateArtist = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="artistLinks">Outside Link:</label>
-                        <input type="text" className="form-control" id="artistLinks" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl" onChange={createLink} ></input>
+                        <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl"  onChange={createLink}></input>
                         <label htmlFor="artistLinks">Outside Link Name:</label>
-                        <input type="text" className="form-control" id="artistLinks" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
+                        <input type="text" className="form-control" id="siteName" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
                         {/* <button type="submit" value={"Submit"} className="artistUpdateButton" >Add Url</button> */}
                     </div>
                     <div className="form-group">

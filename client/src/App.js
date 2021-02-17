@@ -6,7 +6,8 @@ import CreateArtist from './components/createArtist'
 import BandPage from './components/main-artist'
 import VenuePage from './components/main-venuepage'
 import CreateVenue from './components/createVenue';
-import CreateReview from './components/createReview'
+import CreateReview from './components/createReview';
+import UpdateArtist from './components/artist-Update';
 import './components/styles/main.css'
 import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,13 +28,6 @@ function App() {
     <Router>
       <NavBar />
     <Switch>
-    {/* <Route path="/login" component={LogIn}/>
-    <Route path="/createartist" component={CreateArtist}/>
-    <Route path="/createReview" component={CreateReview} />
-    <Route path="/createVenue" component={CreateVenue} />
-    <Route path="/bandpage/:id" component={BandPage}/>
-    <Route path="/updateartist" component={UpdateArtist}/>
-    <Route path="/venuepage" component={VenuePage} /> */}
     <NonUserRoutes path="/" exact component={Home}/>
     <NonUserRoutes path="/login" component={LogIn}/>
     <NonUserRoutes path="/createartist" component={CreateArtist}/>
@@ -41,6 +35,7 @@ function App() {
     <Route path="/venuepage" component={VenuePage} />
     <UserRoutes path="/createReview" component={CreateReview} />
     <UserRoutes path="/createVenue" component={CreateVenue} />
+    <UserRoutes path="/updateartist" component={UpdateArtist} />
     </Switch>
     </Router>
     </AuthProvider>
