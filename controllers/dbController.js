@@ -1,5 +1,6 @@
 const db = require('../models');
 const JWT = require('jsonwebtoken');
+const router = require('express').Router();
 
 
 // DEFINING METHODS FOR THE DB CONTROLLER TO REFERENCE IN DB ROUTES
@@ -174,7 +175,7 @@ module.exports = {
                          console.log("Verify: Async test 1: " + err.message);
                      }})
                 res.cookie("access_token", token, {httpOnly: true, sameSite:true}); 
-                return res.status(200).json({isAuthenticated : true, token:token,  userName : userName});
+                return res.status(200).json({isAuthenticated : true, token:token,  user : userName, id:_id});
              }
     },
     userLogout: function(req, res){
@@ -182,8 +183,17 @@ module.exports = {
             return res.json({user:{userName : ""},success : true});
     },
     userAuthenticate: function(req, res){
-        const {userName} = req.user;
-            return res.status(200).send({isAuthenticated : true, userName : userName});
+        console.log(req.user)
+        const {userName, _id} = req.user
+            return res.status(200).send({isAuthenticated : true, user : userName, id: _id});
+    },
+    getBandByUserId: function(req, res){
+        db.Band
+        .find({userId: req.params.id})
+        .then(dbModel =>{ 
+            console.log(dbModel)
+            res.json(dbModel)})
+        .catch(err => res.status(422).json(err))
     }
 };
 

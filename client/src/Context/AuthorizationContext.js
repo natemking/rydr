@@ -3,25 +3,29 @@ import AuthServices from "../Services/AuthorizationService";
 
 export const AuthContext = createContext();
 
-export default ({children}) =>{
-    const [user, setUser]= useState(null);
-    const [isAuthenticated, setIsAuthenicated] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+const AuthProvider = ({children}) =>{
+    const [currentUser, setCurrentUser]= useState({});
+    const [isAuth, setIsAuth] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [id, setId]=useState()
 
-    useEffect(()=>{
-        AuthServices.isAuthenticated().then(data =>{
-            setUser(data.user);
-            setIsAuthenicated(data.isAuthenticated);
-            setIsLoaded(true);
-        })
-    }, [])
+         useEffect(() => {
+             AuthServices.isAuthenticated().then(data => {
+                 console.log(data, "this is data from auth route in context")
+                 setCurrentUser(data.user);
+                 setIsAuth(data.isAuthenticated);
+                 setIsLoading(true);
+                 setId(data.id)
+             })
+         }, [])
 
     return (
         <div>
-            {!isLoaded?<h1>Loading</h1>: 
-            <AuthContext.Provider value={user, setUser, isAuthenticated,setIsAuthenicated}>
+            {!isLoading?<h1>Loading</h1>: 
+            <AuthContext.Provider value={{currentUser, setCurrentUser, isAuth,setIsAuth, setId, id}}>
                 {children}
             </AuthContext.Provider>}
         </div>
     )
 }
+export default AuthProvider

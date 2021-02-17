@@ -62,7 +62,7 @@ passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
             if (err) {throw err;}
             else{
                 if(!response){
-                    return done(null, isMatch, {message: "Passwords don't match"})
+                    return done(null, {message: "Passwords don't match"})
                 }
                 return done(null, user, {message: "Successful Login"})
             }

@@ -2,12 +2,16 @@ const router = require('express').Router();
 const dbController = require('../../controllers/dbController');
 const passport = require('../../passport');
 const JWT = require('jsonwebtoken');
+const db = require('../../models');
 
 //User routes for login, logout, and authenticate
 router.route('/user/login')
 .post(passport.authenticate('local', {session:false}),dbController.userLogin);
 router.get('/user/logout', passport.authenticate('jwt',{session : false}),dbController.userLogout);
 router.get('/user/authenticated',passport.authenticate('jwt',{session : false}),dbController.userAuthenticate);
+router.route('/user/:id')
+.get(dbController.getBandByUserId)
+
 
 // create a new band user.
 router.route('/band')

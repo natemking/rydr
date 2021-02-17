@@ -2,6 +2,10 @@
 import axios from 'axios';
 
 const API = {
+    // GET BAND BY USER ID
+    getBandByUserId(id){
+        return axios.get(`/api/dbRoutes/user/${id}`)
+    },
     // GET USER INFO BY ID
     getUser(id){
         return axios.get(`/api/dbRoutes/band/${id}`)
