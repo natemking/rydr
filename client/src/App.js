@@ -23,7 +23,14 @@ function App() {
     <Router>
       <NavBar />
     <Switch>
-    <Route path="/" exact component={Home}/>
+    {/* <Route path="/login" component={LogIn}/>
+    <Route path="/createartist" component={CreateArtist}/>
+    <Route path="/createReview" component={CreateReview} />
+    <Route path="/createVenue" component={CreateVenue} />
+    <Route path="/bandpage" component={BandPage}/>
+    <Route path="/updateartist" component={UpdateArtist}/>
+    <Route path="/venuepage" component={VenuePage} /> */}
+    <NonUserRoutes path="/" exact component={Home}/>
     <NonUserRoutes path="/login" component={LogIn}/>
     <NonUserRoutes path="/createartist" component={CreateArtist}/>
     <UserRoutes path="/bandpage" component={BandPage}/>

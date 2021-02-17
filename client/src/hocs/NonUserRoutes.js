@@ -3,10 +3,10 @@ import {Route, Redirect} from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
 
 const UserRoutes = ({component: Component, ...rest}) => {
-    const {isAuthenticated, user} = useContext(AuthContext)
+    const {isAuth, user} = useContext(AuthContext)
     return (
         <Route {...rest} render={props =>{
-            if(isAuthenticated){
+            if(isAuth){
                 return <Redirect to={{pathname: './bandpage', 
                                 state: {from: props.location}}} />
             }
