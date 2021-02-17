@@ -4,8 +4,8 @@ import CloudinaryWidget from './CloudinaryWidget';
 import AuthContext from '../Context/AuthorizationContext';
 import API from '../utils/API'
 
-const UpdateArtist = (  ) => {
-    const {id} = useContext(AuthContext);
+const UpdateArtist = () => {
+    const {id} = useContext(AuthContext)
     // let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
@@ -31,7 +31,7 @@ const UpdateArtist = (  ) => {
     // Retrieves artist data from the database to be used
     useEffect(() => {
         const fetchArtist = async () => {
-            const result = await API.getUser(id)
+            const result = await API.getUser(artistId)
             const userArtist = result.data
             setArtist(userArtist)
             console.log(artist)
@@ -53,9 +53,10 @@ const UpdateArtist = (  ) => {
     // Function to update the artists info in the DB
     const updateArtist = async () => {
         try {
-            await API.updateBand(id, updatedArtist)
+            await API.updateBand(artistId, updatedArtist)
             alert(updatedArtist.bandName + ' was updated')
-        } catch (err) {
+        }
+         catch (err) {
             console.log(err)
         }
     }
@@ -68,21 +69,22 @@ const UpdateArtist = (  ) => {
 
     // Sets the state of updatedArtist to match user input 
     function handleChange(event) {
-        console.log(id)
+        console.log(artist)
+        getArtistId();
         const value = event.target.value
         setUpdatedArtist({
             ...updatedArtist,
             [event.target.name]: value,
-            bandId: id,
+            bandId: artistId,
         })
     }
 
     // Sets state for artist id 
-    // const getArtistId = async () => {
-    //     try {
-    //         await setArtistId(artist.id);
-    //     } catch (err) { console.log(err) }
-    // }
+    const getArtistId = async () => {
+        try {
+            await setArtistId(id);
+        } catch (err) { console.log(err) }
+    }
 
     // Function to grab values of new artist link input and set them to state
     function createLink(event) {
@@ -124,10 +126,8 @@ const UpdateArtist = (  ) => {
                         <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl"  onChange={createLink}></input>
                         <label htmlFor="artistLinks">Outside Link Name:</label>
                         <input type="text" className="form-control" id="siteName" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
-                        {/* <button type="submit" value={"Submit"} className="artistUpdateButton" >Add Url</button> */}
                     </div>
                     <div className="form-group">
-                        {/* <input type="file" className="form-control-file" id="bandAvatar"></input> */}
                         <CloudinaryWidget onSuccess={handleCloudResults} />
                         <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
                     </div>
