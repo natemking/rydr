@@ -6,7 +6,7 @@ import {AuthContext} from '../Context/AuthorizationContext'
 //API VENUES
 
 const VenueBody = ({venue}) => {
-const {id} = useContext(AuthContext)
+const {id, isAuth} = useContext(AuthContext)
 
     console.log(id)
     const createReviewLink = `/createReview/${id}`
@@ -19,9 +19,9 @@ const {id} = useContext(AuthContext)
         <Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" />
         <h5 className="m-2">No Reviews</h5>
         </div>
-        <Link to={createReviewLink} >
+        {isAuth?<Link to={createReviewLink} >
         <button>Add Review</button>
-        </Link>
+        </Link>:null}
         <p className="m-0">{venue.location.address}</p>
         <p className="m-0">{venue.location.city + ", " + venue.location.state}</p>
         </div>

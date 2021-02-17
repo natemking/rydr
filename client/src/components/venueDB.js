@@ -8,6 +8,7 @@ import { AuthContext } from '../Context/AuthorizationContext';
 // DB VENUES
 
 const Venue = ({venue, isLoading}) => {
+  const{isAuth}=useContext(AuthContext)
     const [reviews, setReviews] = useState([])
     const [reviewsRating, setReviewsRating] = useState("")
     const {id} = useContext(AuthContext)
@@ -45,9 +46,9 @@ const Venue = ({venue, isLoading}) => {
             <Rating initialRating={reviewsRating} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" />
             <h5 className="m-2">{venue.venueReviews.length} Reviews</h5>
             </div>
-            <Link to={createReviewLink}>
+            {isAuth?<Link to={createReviewLink}>
             <button>Add Review</button>
-            </Link>
+            </Link>:null}
             <h3 className="m-0"><u>Address:</u></h3>
             <div className="d-flex flex-column">
             <p className="m-0">{venue.venueAddress[0]}</p>
