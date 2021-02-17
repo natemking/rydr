@@ -1,7 +1,7 @@
 # Project Rydr
 
 
-<!-- [Workout Tracker Deploy Link](https://workout-tracker-nmk.herokuapp.com/) -->
+[Rydr Deploy Link](https://rydr-app.herokuapp.com/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/natemking/rydr/blob/main/LICENSE)
 
@@ -70,11 +70,17 @@ So that I can book artists to perform
 |-------------------|-------------------------------|
 |axios              |axios                          |
 |compression        |bootstrap                      |
+|cookie-parser      |react-bootstrap                |
 |dotenv             |react-cloudinary-upload widget |
 |express            |react-google-recaptcha         |
-|if-env             |react-rating                   |
-|mongoose           |react-router-dom               |
+|express-session    |react-rating                   |        
+|if-env             |react-router-dom               |
+|jsonwebtoken       |                               |     
+|mongoose           |                               |
 |morgan             |                               |
+|passport           |                               |
+|passport-jwt       |                               |
+|passport-local     |                               |
 |concurrently (dev) |                               |
 |---------------------------------------------------|
 *** client dependencies are on top of the boilerplate's from create-react-app ***
