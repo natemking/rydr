@@ -25,21 +25,21 @@ function App() {
     <Router>
       <NavBar />
     <Switch>
-    <Route path="/" exact component={Home}/>
+    {/* <Route path="/" exact component={Home}/>
     <Route path="/login" component={LogIn}/>
     <Route path="/createartist" component={CreateArtist}/>
     <Route path="/createReview" component={CreateReview} />
     <Route path="/createVenue" component={CreateVenue} />
     <Route path="/bandpage/:id" component={BandPage}/>
     <Route path="/updateartist" component={UpdateArtist}/>
-    <Route path="/venuepage" component={VenuePage} />
-    {/* <NonUserRoutes path="/login" component={LogIn}/>
+    <Route path="/venuepage" component={VenuePage} /> */}
+    <NonUserRoutes path="/login" component={LogIn}/>
     <NonUserRoutes path="/createartist" component={CreateArtist}/>
     <UserRoutes path="/bandpage" component={BandPage}/>
     <UserRoutes path="/venuepage" component={VenuePage} />
     <UserRoutes path="/createReview" component={CreateReview} />
     <UserRoutes path="/createVenue" component={CreateVenue} />
-    <UserRoutes path="/bandpage" component={BandPage}/> */}
+    <UserRoutes path="/bandpage" component={BandPage}/>
     </Switch>
     </Router>
   );

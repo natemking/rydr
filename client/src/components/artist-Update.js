@@ -5,7 +5,7 @@ import API from '../utils/API'
 
 
 
-const UpdateArtist = () => {
+const UpdateArtist = ( ) => {
     let history = useHistory();
     const [links, setLinks] = useState([{
         siteName: '',
@@ -30,8 +30,8 @@ const UpdateArtist = () => {
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
-        const fetchArtist = async () => {
-            const result = await API.getUser("60288184a737655090c921ba")
+        const fetchArtist = async ( {match} ) => {
+            const result = await API.getUser(match.params.id)
             const userArtist = result.data
             setArtist(userArtist)
         }
