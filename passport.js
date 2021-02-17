@@ -59,10 +59,11 @@ passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
         // LASTLY CHECK IF THE PASSWORD MATCHES
         bcrypt.compare(password, user.password)
         .then (response =>{
+            console.log(response)
             if (err) {throw err;}
             else{
                 if(!response){
-                    return done(null, {message: "Passwords don't match"})
+                    return done(null, response, {message: "Passwords don't match"})
                 }
                 return done(null, user, {message: "Successful Login"})
             }
