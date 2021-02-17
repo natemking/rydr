@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import CloudinaryWidget from './CloudinaryWidget';
-import AuthContext from '../Context/AuthorizationContext';
 import API from '../utils/API'
+import { AuthContext } from '../Context/AuthorizationContext';
 
 const UpdateArtist = ( {match} ) => {
-    // const { id } = useContext(AuthContext)
-    // let history = useHistory();
+    const {id} = useContext(AuthContext)
+    let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
     // Array to store new artist link
@@ -28,6 +28,9 @@ const UpdateArtist = ( {match} ) => {
 
     // State of img upload status
     const [msgToggle, setMsgToggle] = useState('none')
+    
+
+    console.log(id)
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
@@ -81,7 +84,7 @@ const UpdateArtist = ( {match} ) => {
     // Sets state for artist id 
     const getArtistId = async () => {
         try {
-            await setArtistId(match.params.id);
+            await setArtistId(id);
         } catch (err) { console.log(err) }
     }
 
