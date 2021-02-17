@@ -25,6 +25,8 @@ const UpdateArtist = () => {
         bandLinks: [],
         contact: ''
     });
+    // State of img upload status
+    const [msgToggle, setMsgToggle] = useState('none')
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
@@ -56,8 +58,9 @@ const UpdateArtist = () => {
 
     // Cloudinary data state handler
     const handleCloudResults = (results) => {
-        setCloudResults(results)
-    }
+        setCloudResults(results);
+        setMsgToggle('block');
+    }    
 
     // Sets the state of updatedArtist to match user input 
     function handleChange(event) {
@@ -119,9 +122,9 @@ const UpdateArtist = () => {
                         {/* <button type="submit" value={"Submit"} className="artistUpdateButton" >Add Url</button> */}
                     </div>
                     <div className="form-group">
-                        <label htmlFor="bandAvatar">Upload an Avatar</label>
                         {/* <input type="file" className="form-control-file" id="bandAvatar"></input> */}
                         <CloudinaryWidget onSuccess={handleCloudResults} />
+                        <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
                     </div>
                     <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>Submit</button>
                 </form>
