@@ -29,9 +29,6 @@ const UpdateArtist = ( {match} ) => {
     });
     // State of img upload status
     const [msgToggle, setMsgToggle] = useState('none')
-    
-
-    console.log(id)
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
@@ -65,10 +62,10 @@ const UpdateArtist = ( {match} ) => {
             console.log(err)
         }
     }
-
+  
     // Cloudinary data state handler
     const handleCloudResults = (results) => {
-        setCloudResults(results);
+        setCloudResults(results.info.url);
         setMsgToggle('block');
     }    
 
@@ -113,6 +110,9 @@ const UpdateArtist = ( {match} ) => {
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
             <div className="formcontent p-2">
                 <h1 className="text-center">Update Your Artist Profile</h1>
+                <CloudinaryWidget onSuccess={handleCloudResults} />
+                <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
+
                 <form>
                     <div className="form-group">
                         <label htmlFor="artistLocation">Location (City, State):</label>
@@ -134,12 +134,10 @@ const UpdateArtist = ( {match} ) => {
                         {/* <button type="submit" value={"Submit"} className="artistUpdateButton" >Add Url</button> */}
                     </div>
                     <div className="form-group">
-                        {/* <input type="file" className="form-control-file" id="bandAvatar"></input> */}
-                        <CloudinaryWidget onSuccess={handleCloudResults} />
-                        <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
                     </div>
                     <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>Submit</button>
                 </form>
+                
             </div>
         </div>
     )
