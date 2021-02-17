@@ -16,7 +16,7 @@ const ReviewsTable = ({reviews, isLoading}) => {
             </tr>
         </thead>
       <tbody>
-          {reviews.map(review => (<ReviewBody review={review} key={review._id}/>))}
+        {reviews.map(review => (<ReviewBody review={review} key={review._id}/>))}
       </tbody>
     </table>
     )
