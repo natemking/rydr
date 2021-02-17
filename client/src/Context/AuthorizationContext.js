@@ -11,7 +11,6 @@ const AuthProvider = ({children}) =>{
 
          useEffect(() => {
              AuthServices.isAuthenticated().then(data => {
-                 console.log(data, "this is data from auth route in context")
                  setCurrentUser(data.user);
                  setIsAuth(data.isAuthenticated);
                  setIsLoading(true);

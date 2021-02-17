@@ -38,7 +38,6 @@ const LogIn = () => {
                 setIsAuth(res.isAuthenticated)
                 API.getBandByUserId(res.id)
                 .then(bandRes =>{
-                    console.log(bandRes, "this is band res")
                     setId(bandRes.data[0]._id)
                     history.push(`/bandpage/${bandRes.data[0]._id}`)
                 });

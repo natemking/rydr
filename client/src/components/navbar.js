@@ -7,13 +7,14 @@ import {AuthContext} from '../Context/AuthorizationContext'
 const NavBar = () => {
     const {isAuth, setCurrentUser, setIsAuth, setId, id} = useContext(AuthContext)
     const history = useHistory()
+    
     const imgstyle = {
         maxHeight: "70px"
     }
     const headerstyle = {
         backgroundColor: "grey"
     }
-    
+
     const logoutButton= () =>{
       AuthServices.logout()
       .then(res => {
