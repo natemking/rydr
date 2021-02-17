@@ -4,8 +4,8 @@ import CloudinaryWidget from './CloudinaryWidget';
 import AuthContext from '../Context/AuthorizationContext';
 import API from '../utils/API'
 
-const UpdateArtist = () => {
-    const {id} = useContext(AuthContext)
+const UpdateArtist = ( {match} ) => {
+    // const { id } = useContext(AuthContext)
     // let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
@@ -25,6 +25,7 @@ const UpdateArtist = () => {
         bandLinks: newLinks,
         contact: ''
     });
+
     // State of img upload status
     const [msgToggle, setMsgToggle] = useState('none')
 
@@ -42,12 +43,10 @@ const UpdateArtist = () => {
     // Initializes function to update the artists info
     const handleBtnSubmit = async (event) => {
         event.preventDefault();
-         console.log("handleBtnSubmit");
-        try{
-             await addLink();
-        updateArtist();
-        } catch(err) { console.log(err)}
-    
+        try {
+            await addLink();
+            updateArtist();
+        } catch (err) { console.log(err) }
     }
 
     // Function to update the artists info in the DB
@@ -56,7 +55,7 @@ const UpdateArtist = () => {
             await API.updateBand(artistId, updatedArtist)
             alert(updatedArtist.bandName + ' was updated')
         }
-         catch (err) {
+        catch (err) {
             console.log(err)
         }
     }
@@ -65,7 +64,7 @@ const UpdateArtist = () => {
     const handleCloudResults = (results) => {
         setCloudResults(results);
         setMsgToggle('block');
-    }    
+    }
 
     // Sets the state of updatedArtist to match user input 
     function handleChange(event) {
@@ -82,7 +81,7 @@ const UpdateArtist = () => {
     // Sets state for artist id 
     const getArtistId = async () => {
         try {
-            await setArtistId(id);
+            await setArtistId(match.params.id);
         } catch (err) { console.log(err) }
     }
 
@@ -96,13 +95,13 @@ const UpdateArtist = () => {
     }
     // Function to push the new artist link into the newlinks array and set that to updatedArtist state
     const addLink = () => {
-            newLinks.push(links)  
-            console.log(newLinks) 
-            setUpdatedArtist({
-                ...updatedArtist,
-                bandLinks : newLinks
-            })
-        } 
+        newLinks.push(links)
+        console.log(newLinks)
+        setUpdatedArtist({
+            ...updatedArtist,
+            bandLinks: newLinks
+        })
+    }
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
@@ -123,7 +122,7 @@ const UpdateArtist = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="artistLinks">Outside Link:</label>
-                        <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl"  onChange={createLink}></input>
+                        <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl" onChange={createLink}></input>
                         <label htmlFor="artistLinks">Outside Link Name:</label>
                         <input type="text" className="form-control" id="siteName" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
                     </div>
