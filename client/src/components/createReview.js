@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import VenueSelector from './createReviewVenueSelector'
 import API from '../utils/API'
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthorizationContext';
 
 const CreateReview = () => {
+  const {id} = useContext(AuthContext)
     const [allVenues, setAllVenues] = useState([])
     const [venueReview, setVenueReview] = useState({
         "venue": "",
@@ -17,7 +19,7 @@ const CreateReview = () => {
           const allVenues = result.data
           if (allVenues === undefined) {
             setAllVenues([{venueName:""}, {venueName:""}])
-            console.log("cannont reach")
+            console.log("cannot reach")
           }
           else {
             setAllVenues(allVenues)
@@ -36,7 +38,7 @@ const CreateReview = () => {
     const submitReview = async (event) => {
         event.preventDefault();
         try {
-             await API.createReview("60298124ba192320784b1d79", venueReview)
+             await API.createReview(id, venueReview)
              alert("Review created!")
              history.push("/venuepage")
         }catch(err){

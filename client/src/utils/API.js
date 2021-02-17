@@ -7,19 +7,19 @@ const API = {
         return axios.get(`/api/dbRoutes/user/${id}`)
     },
     // GET USER INFO BY ID
-    getUser(id){
+    getBand(id){
         return axios.get(`/api/dbRoutes/band/${id}`)
     },
     // CREATE NEW band
-    createUser(userData){
-        return axios.post('/api/dbRoutes/band/', userData)
+    createBand(bandData){
+        return axios.post('/api/dbRoutes/band/', bandData)
     },
-    // UPDATE USER INFO
-    updateUserData(userData){
-        return axios.put(`/api/dbRoutes/band/${userData}`)
+    // UPDATE Band INFO
+    updateBandData(id, bandData){
+        return axios.put(`/api/dbRoutes/band/${id}`, bandData)
     },
-    // DELETE USER BY ID
-    deleteUser(id){
+    // DELETE Band BY ID
+    deleteBand(id){
         return axios.delete(`/api/dbRoutes/band/${id}`)
     },
     // GET VENUE BY ID
