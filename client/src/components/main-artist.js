@@ -15,7 +15,7 @@ const BandPage = ({ match }) => {
   useEffect(() => {
     (async () => {
         try {
-          const artist = await API.getUser(match.params.id);
+          const artist = await API.getBand(match.params.id);
           const reviews = await API.getReviewByBand(match.params.id);
           setArtist(artist.data);
           setReviews(reviews.data);

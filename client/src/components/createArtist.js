@@ -106,7 +106,7 @@ const CreateArtist = () => {
             (async () => {
                 try {
                     // Create the user in the DB
-                    const res = await API.createUser(user);
+                    const res = await API.createBand(user);
                     // If there is a duplicate email address display modal and clear email input field
                     if (res.data.errors) {
                         document.getElementById('userName').value = '';

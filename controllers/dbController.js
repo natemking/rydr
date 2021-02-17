@@ -192,7 +192,6 @@ module.exports = {
         db.Band
         .find({userId: req.params.id})
         .then(dbModel =>{ 
-            console.log(dbModel)
             res.json(dbModel)})
         .catch(err => res.status(422).json(err))
     }
