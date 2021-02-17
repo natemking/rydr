@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import NavBar from './components/navbar'
 import Home from './components/main-home'
 import LogIn from './components/main-login'
@@ -20,25 +20,24 @@ import AuthServices from "./Services/AuthorizationService";
 function App() {
   const [currentUser, setCurrentUser]=useState();
   const [isAuth, setIsAuth]=useState(false);
-  const [isLoading, setIsLoading]=useState(false);
   const [id, setId]=useState()
 
   const idPath = ``
   return (
     <AuthProvider value ={{currentUser, isAuth, id, setId, setCurrentUser, setIsAuth} }>
-    <Router>
-      <NavBar />
-    <Switch>
-    <NonUserRoutes path="/" exact component={Home}/>
-    <NonUserRoutes path="/login" component={LogIn}/>
-    <NonUserRoutes path="/createartist" component={CreateArtist}/>
-    <UserRoutes path="/bandpage/:id" component={BandPage}/>
-    <Route path="/venuepage" component={VenuePage} />
-    <UserRoutes path="/createReview/:id" component={CreateReview} />
-    <UserRoutes path="/createVenue" component={CreateVenue} />
-    <UserRoutes path="/updateartist" component={UpdateArtist} />
-    </Switch>
-    </Router>
+      <Router>
+        <NavBar />
+        <Switch>
+          <NonUserRoutes path="/" exact component={Home}/>
+          <NonUserRoutes path="/login" component={LogIn}/>
+          <NonUserRoutes path="/createartist" component={CreateArtist}/>
+          <UserRoutes path="/bandpage/:id" component={BandPage}/>
+          <Route path="/venuepage" component={VenuePage} />
+          <UserRoutes path="/createReview/:id" component={CreateReview} />
+          <UserRoutes path="/createVenue" component={CreateVenue} />
+          <UserRoutes path="/updateartist" component={UpdateArtist} />
+        </Switch>
+      </Router>
     </AuthProvider>
   );
 }
