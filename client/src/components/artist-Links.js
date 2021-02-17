@@ -1,8 +1,13 @@
 import React from 'react';
 
 const ArtistLinks = ({artist, isLoading}) => {
+<<<<<<< Updated upstream
     if (artist.bandLinks === undefined){
         artist.bandLinks = ["","","","",""]
+=======
+    if (!artist.bandLinks){
+        artist.bandLinks = ["","",""]
+>>>>>>> Stashed changes
     }
     return isLoading ? (<h1>Loading....</h1>) : 
     (
