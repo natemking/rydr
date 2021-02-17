@@ -161,8 +161,6 @@ th,td {
     background-color: #b8d2a8;
 }
 
-
-
 .bg-dark{
    background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(142 165 125)) !important;
    box-shadow: inset -3em 0em 20px 0px #91ae80 !important;
