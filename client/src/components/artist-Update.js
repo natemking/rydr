@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import CloudinaryWidget from './CloudinaryWidget';
+import AuthContext from '../Context/AuthorizationContext';
 import API from '../utils/API'
 
-const UpdateArtist = ( {match} ) => {
+const UpdateArtist = (  ) => {
+    const {id} = useContext(AuthContext);
     // let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
@@ -16,7 +18,7 @@ const UpdateArtist = ( {match} ) => {
     const [cloudResults, setCloudResults] = useState('');
     // State of updated artist info to be stored in the DB
     const [updatedArtist, setUpdatedArtist] = useState({
-        id: '',
+        bandId: '',
         bandBio: '',
         location: '',
         bandImg: cloudResults,
@@ -29,9 +31,10 @@ const UpdateArtist = ( {match} ) => {
     // Retrieves artist data from the database to be used
     useEffect(() => {
         const fetchArtist = async () => {
-            const result = await API.getUser(match.params.id)
+            const result = await API.getUser(id)
             const userArtist = result.data
             setArtist(userArtist)
+            console.log(artist)
         }
         fetchArtist()
     }, []);
@@ -50,7 +53,7 @@ const UpdateArtist = ( {match} ) => {
     // Function to update the artists info in the DB
     const updateArtist = async () => {
         try {
-            await API.updateBand(artistId, updatedArtist)
+            await API.updateBand(id, updatedArtist)
             alert(updatedArtist.bandName + ' was updated')
         } catch (err) {
             console.log(err)
@@ -65,21 +68,21 @@ const UpdateArtist = ( {match} ) => {
 
     // Sets the state of updatedArtist to match user input 
     function handleChange(event) {
-        getArtistId();
+        console.log(id)
         const value = event.target.value
         setUpdatedArtist({
             ...updatedArtist,
             [event.target.name]: value,
-            id: artistId,
+            bandId: id,
         })
     }
 
     // Sets state for artist id 
-    const getArtistId = async () => {
-        try {
-            await setArtistId(artist._id);
-        } catch (err) { console.log(err) }
-    }
+    // const getArtistId = async () => {
+    //     try {
+    //         await setArtistId(artist.id);
+    //     } catch (err) { console.log(err) }
+    // }
 
     // Function to grab values of new artist link input and set them to state
     function createLink(event) {
