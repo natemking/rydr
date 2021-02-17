@@ -1,6 +1,6 @@
 import React, {createContext, useState, useEffect} from 'react';
 import AuthServices from "../Services/AuthorizationService";
-
+import API from "../utils/API"
 export const AuthContext = createContext();
 
 const AuthProvider = ({children}) =>{
@@ -15,7 +15,11 @@ const AuthProvider = ({children}) =>{
                  setCurrentUser(data.user);
                  setIsAuth(data.isAuthenticated);
                  setIsLoading(true);
-                 setId(data.id)
+
+                API.getBandByUserId(data)
+                .then(bandRes =>{
+                    setId(bandRes.data[0]._id)
+                });
              })
          }, [])
 
