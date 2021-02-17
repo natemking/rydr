@@ -30,7 +30,7 @@ function App() {
     <Route path="/createartist" component={CreateArtist}/>
     <Route path="/createReview" component={CreateReview} />
     <Route path="/createVenue" component={CreateVenue} />
-    <Route path="/bandpage" component={BandPage}/>
+    <Route path="/bandpage/:id" component={BandPage}/>
     <Route path="/updateartist" component={UpdateArtist}/>
     <Route path="/venuepage" component={VenuePage} />
     {/* <NonUserRoutes path="/login" component={LogIn}/>

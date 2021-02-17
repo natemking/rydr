@@ -3,14 +3,14 @@ import ReviewsTable from "./artist-ReviewsTable";
 import Artist from "./artist-artistBody";
 import API from "../utils/API";
 
-const BandPage = () => {
+const BandPage = ( {match} ) => {
   const [artist, setArtist] = useState ([])
   const [isLoading, setisLoading] = useState(true)
   const [reviews, setReviews] = useState([])
 
 useEffect(() => {
   const fetchArtist = async () => {
-    const result = await API.getUser("60288184a737655090c921ba")
+    const result = await API.getUser(match.params.id)
     const userArtist = result.data
       setArtist(userArtist)
       setisLoading(false)
@@ -20,7 +20,7 @@ useEffect(() => {
 
 useEffect(() => {
   const fetchReviews = async () => {
-    const reviews = await API.getReviewByBand("60288184a737655090c921ba")
+    const reviews = await API.getReviewByBand(match.params.id)
     setReviews(reviews.data)
     setisLoading(false)
   }
