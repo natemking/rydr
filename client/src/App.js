@@ -17,21 +17,13 @@ import AuthServices from "./Services/AuthorizationService";
 
 
 function App() {
-  const [currentUser, setCurrentUser]=useState({});
+  const [currentUser, setCurrentUser]=useState();
   const [isAuth, setIsAuth]=useState(false);
   const [isLoading, setIsLoading]=useState(false);
-    useEffect(() => {
-      AuthServices.isAuthenticated().then(data => {
-        console.log(data, "this is data from auth route in context")
-        setCurrentUser(data.user);
-        setIsAuth(data.isAuthenticated);
-        setIsLoading(true);
-      })
-    }, [])
+  const [id, setId]=useState()
 
-  console.log(currentUser, isAuth, "this is in app")
   return (
-    <AuthProvider value ={{currentUser, isAuth, setCurrentUser, setIsAuth} }>
+    <AuthProvider value ={{currentUser, isAuth, id, setId, setCurrentUser, setIsAuth} }>
     <Router>
       <NavBar />
     <Switch>
@@ -45,8 +37,8 @@ function App() {
     <NonUserRoutes path="/" exact component={Home}/>
     <NonUserRoutes path="/login" component={LogIn}/>
     <NonUserRoutes path="/createartist" component={CreateArtist}/>
-    <UserRoutes path="/bandpage" component={BandPage}/>
-    <UserRoutes path="/venuepage" component={VenuePage} />
+    <UserRoutes path="/bandpage/:id" component={BandPage}/>
+    <Route path="/venuepage" component={VenuePage} />
     <UserRoutes path="/createReview" component={CreateReview} />
     <UserRoutes path="/createVenue" component={CreateVenue} />
     </Switch>

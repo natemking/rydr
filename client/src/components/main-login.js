@@ -3,31 +3,40 @@ import { Link, useHistory } from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext';
 import AuthServices from '../Services/AuthorizationService'
 import ModalAlert from './Modal'
+import API from '../utils/API'
 
 const LogIn = () => {
-const [user, setUser]= useState({userName:"", password:""})
-const {setCurrentUser, setIsAuth, currentUser, isAuth} = useContext(AuthContext);
+const [user, setUser]= useState({userName:"", password:"", id:""})
+const {setCurrentUser, setIsAuth, currentUser, isAuth, id, setId} = useContext(AuthContext);
 let history = useHistory();
 
-  console.log(currentUser, isAuth, "this is in this is in main-logins")
+  console.log(currentUser, isAuth, id, "this is in main-logins")
 const onChange=(e)=>{
-    console.log(e.target.value)
     setUser({...user, [e.target.name]: e.target.value})
 }
 
-const onSubmit = e =>{
+const onSubmit = async (e) =>{
     e.preventDefault();
-    AuthServices.login(user)
-    .then(res =>{
-        if(res.isAuthenticated){
-            setCurrentUser(res.userName)
-            setIsAuth(res.isAuthenticated)
-            history.push("/bandpage")
-        }else{
-            return <ModalAlert></ModalAlert>
-        }
-    })
-}    
+    try{
+        const res = await AuthServices.login(user)
+        
+                console.log(res, "this is the response from the login route")
+            if(res.isAuthenticated){
+                setCurrentUser(res.userName)
+                setIsAuth(res.isAuthenticated)
+                const bandRes = await API.getBandByUserId(res.id)
+                console.log(bandRes.data[0])
+                setId(bandRes.data[0]._id)
+                history.push(`/bandpage/${}`)
+                // ${res.id}
+            }
+            
+            
+    }catch(err){
+        console.log(err)
+    }
+    }
+ 
 
     return (
 

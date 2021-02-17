@@ -7,7 +7,7 @@ const AuthProvider = ({children}) =>{
     const [currentUser, setCurrentUser]= useState({});
     const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [id, setId]=useState()
 
          useEffect(() => {
              AuthServices.isAuthenticated().then(data => {
@@ -15,13 +15,14 @@ const AuthProvider = ({children}) =>{
                  setCurrentUser(data.user);
                  setIsAuth(data.isAuthenticated);
                  setIsLoading(true);
+                 setId(data.id)
              })
          }, [])
 
     return (
         <div>
             {!isLoading?<h1>Loading</h1>: 
-            <AuthContext.Provider value={{currentUser, setCurrentUser, isAuth,setIsAuth}}>
+            <AuthContext.Provider value={{currentUser, setCurrentUser, isAuth,setIsAuth, setId, id}}>
                 {children}
             </AuthContext.Provider>}
         </div>
