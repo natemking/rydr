@@ -4,8 +4,8 @@ import CloudinaryWidget from './CloudinaryWidget';
 import API from '../utils/API'
 import { AuthContext } from '../Context/AuthorizationContext';
 
-const UpdateArtist = ( {match} ) => {
-    const {id} = useContext(AuthContext)
+const UpdateArtist = ({ match }) => {
+    const { id } = useContext(AuthContext)
     let history = useHistory();
     // State of artist link to add to DB
     const [links, setLinks] = useState([]);
@@ -28,7 +28,7 @@ const UpdateArtist = ( {match} ) => {
 
     // State of img upload status
     const [msgToggle, setMsgToggle] = useState('none')
-    
+
 
     console.log(id)
 
@@ -37,12 +37,11 @@ const UpdateArtist = ( {match} ) => {
         const fetchArtist = async () => {
             const result = await API.getBand(match.params.id)
             const userArtist = result.data
-            console.log(userArtist)
-            setArtist(userArtist)
             console.log(artist)
+            setArtist(userArtist)
         }
-        fetchArtist()
-    }, []);
+        fetchArtist();
+    });
 
     // Initializes function to update the artists info
     const handleBtnSubmit = async (event) => {
@@ -111,6 +110,10 @@ const UpdateArtist = ( {match} ) => {
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
             <div className="formcontent p-2">
                 <h1 className="text-center">Update Your Artist Profile</h1>
+                <div>
+                    <CloudinaryWidget onSuccess={handleCloudResults} />
+                    <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
+                </div>
                 <form>
                     <div className="form-group">
                         <label htmlFor="artistLocation">Location (City, State):</label>
@@ -130,12 +133,10 @@ const UpdateArtist = ( {match} ) => {
                         <label htmlFor="artistLinks">Outside Link Name:</label>
                         <input type="text" className="form-control" id="siteName" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
                     </div>
-                    <div className="form-group">
-                        <CloudinaryWidget onSuccess={handleCloudResults} />
-                        <h4 style={{ color: 'white', display: msgToggle }}>Image uploaded!</h4>
-                    </div>
+
                     <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>Submit</button>
                 </form>
+        
             </div>
         </div>
     )
