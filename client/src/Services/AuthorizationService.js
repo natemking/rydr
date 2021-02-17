@@ -1,4 +1,4 @@
-const AuthServices = {
+export default  {
     login: user =>{
         return fetch('/api/dbRoutes/user/login', {
             method: 'post',
@@ -27,12 +27,10 @@ const AuthServices = {
         .then(res => res.json())
         .then(data=> data)
     },
-
     isAuthenticated: () => {
         return fetch('/api/dbRoutes/user/authenticated')
         .then(res=>{
             if(res.status !== 401){
-                console.log(res)
                 return res.json().then(data=>data)
             } else{
                 return {isAuthenticated: false, user: {userName: ''}}
@@ -40,4 +38,3 @@ const AuthServices = {
         })
     }
 }
-export default AuthServices;
