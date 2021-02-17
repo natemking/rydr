@@ -55,7 +55,7 @@ const UpdateArtist = ( {match} ) => {
     // Function to update the artists info in the DB
     const updateArtist = async () => {
         try {
-            await API.updateBand(artistId, updatedArtist)
+            await API.updateUserData(id, updatedArtist)
             alert(updatedArtist.bandName + ' was updated')
         }
         catch (err) {
