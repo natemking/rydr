@@ -54,7 +54,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/login">
+            <Link to="/">
             <h4 className="mx-2 navbutton" onClick={logoutButton}>Sign Out</h4>
             </Link>
           </li>
