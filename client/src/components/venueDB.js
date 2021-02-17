@@ -32,7 +32,7 @@ const Venue = ({venue, isLoading}) => {
     }
     return isLoading ? ("") : 
     (
-        <div className="d-flex flex-row flex-wrap justify-content-center align-items-center searchedVenues">
+        <div className="d-flex flex-row flex-wrap mt-3 mb-3 p-2 venueDiv searchedVenues">
         <div className="d-flex flex-column p-2 flex-wrap">
             <h2 className="m-0"><u>{venue.venueName}</u></h2>
             <div className="d-flex flex-row align-items-center">

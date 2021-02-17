@@ -60,20 +60,22 @@ const VenuePage = () => {
 
   return (
     <div className="flex-column mt-2 p-2">
-      <div className="d-flex flex-column justify-content-center align-items-center">
-      <h1 className="text-center"><u>Search for a Venue</u></h1>
+      <div className="d-flex justify-content-center align-items-center flex-column">
+      <h1><u>Search for a Venue</u></h1>
       <form>
         <input type="text" placeholder="Search.." name={"venueName"} value={search.venueName} className="mb-2 venueSearch" onChange={handleChange}></input>
         <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <input type="number" placeholder="Set Search Radius.." name={"radius"} value={search.radius} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <button onClick={handleBtnSubmit} className="venueSearch">Search Venues</button>
+        <input type="number" placeholder="Set Search Radius.." name={"radius"} value={search.radius} className="mb-2 venueSearch " onChange={handleChange}></input>
+        <button onClick={handleBtnSubmit} className="venueSearch venueSearchBtn">Search Venues</button>
         <Link to="/createVenue">
-        <button>Create Venue</button>
+        <button className="venueSearchBtn">Create Venue</button>
         </Link>
       </form>
-      </div>
+      <div className="align-items-start">
       <Venue isLoading={isLoading} venue={selectedVenue} />
       <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} />
+      </div>
+      </div>
     </div>
   )
 }
