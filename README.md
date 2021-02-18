@@ -1,7 +1,9 @@
 # Project Rydr
 
 
-[Rydr Deploy Link](https://rydr-app.herokuapp.com/)
+* [Rydr Deploy Link](https://rydr-app.herokuapp.com/)
+
+* [Rydr Repository Link](https://github.com/natemking/rydr)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/natemking/rydr/blob/main/LICENSE)
 
@@ -18,50 +20,52 @@
 
 ---
 ## Table of Contents
- <!-- * [Description](#description)
-    + [Scope of Work](#scope-of-work)
+ * [Description](#description)
+    <!-- + [Scope of Work](#scope-of-work)
     + [React](#react)
     + [MongoDB/Mongoose](#mongodb/mongoose)
     + [Node.js](#nodejs)
-    + [HTML/CSS](#html/css)
+    + [HTML/CSS](#html/css) -->
   * [Screenshots](#screenshots)
   * [License](#license)
-  * [Credits](#credits) -->
+  * [Credits](#credits)
+  * [Authors](#authors)
 
 ## Description
 
-In today's world with all the interconnectedness that we have, there still lacks a tried and true service for musical artists to interact with venues and share those experiences in a public manner. We have LinkedIn for employers and employees to connect. We have Glassdoor for employees  to rate employers but what services do musical artists have? Are they not entering an, albeit temporary, employee-employer relationship for the extent of the gig? 
+In today's world with all the interconnectedness that we have, there still lacks a tried and true service for musical artists to interact with venues and share those experiences in a public manner. We have LinkedIn for employers and employees to connect. We have Glassdoor for employees to rate employers but what services do musical artists have? Are they not entering an, albeit temporary, employee-employer relationship for the extent of the gig? 
 
-Along comes Rydr. A social network for both artists and venues to connect with the ability for artists to rate venues. Artists can display all of their info, press kits, riders and can also rate venues. Venues can create pages to share their info and easily reach out to artists to fill open slots. By allowing artists the ability to rate venues, gone will be the days of venues mistreating the artists. 
+Along comes Rydr. A social network for artists to connect with other artist and view how venues have treated them. We allow artists the ability to rate venues, gone will be the days of venues mistreating the artists. To keep themselves honest, an artist can see others that have reviewed the venues previously.
 
-By creating a social network of available places to play across the world, bands can easily book tours and be treated in a fair manner through transparency of the modern age. In the end its the fans who benefit. 
+By creating a social network of available places to play across the world, bands can easily book tours and be treated in a fair manner through transparency of the modern age. In the end it’s the fans who benefit. 
+
 
 ### Scope of Work
+
 User Story:
 ```
 As a musical artist 
-I would like to be able to create an artist page
-So that I can share my band info, press kit, band rates, and rider
-So that venues/promoters/booker can connect to books gigs
-I would like to be able to rate venues/promoter/booker
-So that other artists can know how a venue operates and treats artists
 
-As a musical venue/promoter/booker
-I would like to create a venue/promoter/booker page
-So that I can share information about my services rendered
-So that I connect with artists
-So that I can book artists to perform
+I would like to be able to create an artist page.
+
+So that I can share my band info
+
+So that venues/promoters/booker can connect to books gigs.
+
+I would like to be able to rate venues/promoter/booker.
+
+So that other artists can know how a venue operates and treats artists.
 
 
 ``` 
-
+<!-- 
 ### React
 
 ### MongoDB/Mongoose
 
 ### Node.js
 
-### HTML/CSS
+### HTML/CSS -->
 
 ### Dependencies
 ```
@@ -87,6 +91,8 @@ So that I can book artists to perform
 ```
 
 ## Screenshots
+
+![homepage-image](./client/public/imgs/RydrMainPage.jpg)
 
 <!-- ![app gif](public/assets/screenshots/workout-tracker.gif)
 <br>
