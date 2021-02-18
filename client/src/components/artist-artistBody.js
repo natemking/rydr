@@ -18,25 +18,34 @@ const Artist = ({artist, isLoading, id}) => {
     // Render artist info
     return isLoading ? (<h1>Loading....</h1>) : (
         <div className="d-flex flex-row flex-wrap align-items-center">
-
+    
             { renderImg() }
             
-
             <div className="d-flex flex-column p-2 flex-wrap">
-                <h1>{artist.bandName}</h1>
-                <h2>{artist.location}</h2>
-                <h3>Bio:</h3>
+                <h1>
+                    {artist.bandName}
+                </h1>
+                <h2>
+                    {artist.location}
+                </h2>
+                <h3>
+                    <u>Bio:</u>
+                </h3>
 
                 <div className="d-flex bandbio">
                     <p>{artist.bandBio}</p>
                 </div>
 
-                <a href={"mailto:" + artist.contact}>
-                    { artist.contact }
-                </a>
+                <p>
+                    <u>Contact Info:</u>
+                    <br />
+                    <a href={"mailto:" + artist.contact}>
+                        { artist.contact }
+                    </a>
+                </p>
 
                 { renderBandLinks() }
-
+            
                 <Link to={updateBandUrl}>
                     <button>Update Band Info</button>
                 </Link>
