@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-import API from '../utils/API'
+import API from '../utils/API';
 import ModalAlert from './Modal';
 
 const CreateArtist = () => {

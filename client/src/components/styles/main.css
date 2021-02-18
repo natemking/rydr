@@ -10,10 +10,6 @@ h5, h3, h2, h1 {
     font-family: "Inter";
 }
 
-ul {
-    list-style: none;
-}
-
 .modal-title{
     color: black !important;
 }
@@ -34,6 +30,12 @@ a {
 
 th, td {
     text-align: center;
+}
+
+ul, li { 
+    margin-left: 0; 
+    padding-left: 0; 
+    list-style-type: none;
 }
 
 .bandphoto{
@@ -167,4 +169,14 @@ th,td {
 .bg-dark{
    background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(142 165 125)) !important;
    box-shadow: inset -3em 0em 20px 0px #91ae80 !important;
+}
+
+.artistLink__li:hover .fa-times {
+    cursor: pointer;
+    visibility: visible;
+}
+
+.fa-times {
+    margin-left: 5px;
+    visibility: hidden;
 }

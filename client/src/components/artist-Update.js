@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import CloudinaryWidget from './CloudinaryWidget';
 import API from '../utils/API';
-import Modal from './Modal'
+import Modal from './Modal';
+import ArtistLinks from './artist-Links';
 
 
 const UpdateArtist = ({ match }) => {
@@ -87,6 +88,15 @@ const UpdateArtist = ({ match }) => {
             newArtist});
     }
 
+    // If band links exist render them
+    const renderBandLinks = () => {
+        if (artist) { 
+            if (artist.bandLinks.length > 0) {
+                return (<ArtistLinks artist={ artist } title={ 'Delete' }/>) 
+            }
+        }
+    }
+
     // Render Update artist profile screen
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
@@ -136,6 +146,10 @@ const UpdateArtist = ({ match }) => {
                             </select>
                         </div>
                     </div>
+
+                    <div className="form-group">
+                        { renderBandLinks() }
+                    </div>  
 
                     <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
                         Submit
