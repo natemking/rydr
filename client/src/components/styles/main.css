@@ -10,6 +10,10 @@ h5, h3, h2, h1 {
     font-family: "Inter";
 }
 
+ul {
+    list-style: none;
+}
+
 .modal-title{
     color: black !important;
 }
@@ -40,6 +44,7 @@ th, td {
 .venueDiv{
     transition: all .2s ease-in-out;
     border-radius: 10px;
+    max-width: 1000px;
 }
 
 .venueDiv:hover{
@@ -63,6 +68,7 @@ table {
 
 th,td {
     color: white ;
+    word-wrap: break-word;
 }
 .bandbio{
     max-width: 560px;
