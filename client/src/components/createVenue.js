@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import API from '../utils/API'
+import API from '../utils/API';
+import Modal from './Modal';
 
 const CreateVenue = () => {
     const [address] = useState([])
@@ -9,7 +10,15 @@ const CreateVenue = () => {
             "venueName": newVenueName,
             "venueAddress": address
     })
+    // State for modal error message
+    const [modalMsg, setModalMsg] = useState('');
+    // State for modal visibility
+    const [show, setShow] = useState(false);
     let history = useHistory();
+
+    const handleClose = () => { setShow(false); history.push("/venuepage") };
+    const handleShow = () => setShow(true);
+
 
     const createVenue = (event) => {
         const target = event.target.name
@@ -21,8 +30,8 @@ const CreateVenue = () => {
         event.preventDefault();
         try {
              await API.createVenueByName(newVenue.venueName, newVenue)
-             alert(newVenue.venueName + " was created")
-             history.push("/venuepage")
+            setModalMsg(newVenue.venueName + ' was created');
+            handleShow();
         }catch(err){
             console.log(err)
         }
@@ -57,6 +66,7 @@ const CreateVenue = () => {
         </div>
         <button type="submit" value={"Submit"} className="artistCreateButton" onClick={postNewVenue}>Submit</button>
         </form>
+            <Modal show={show} handleClose={handleClose} error={modalMsg} title={true} />
         </div>
     </div>
     
