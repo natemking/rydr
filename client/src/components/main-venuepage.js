@@ -25,8 +25,9 @@ const VenuePage = () => {
   //MAKES THE API CALL TO SEATGEEK API
   const fetchVenuesAPI = async () => {
     try {
+      const newRadius = search.radius*1609.344;
       const url = `https://api.foursquare.com/v2/venues/search?client_id=GSIEWB3V0L4OOFEWHBX4R0K1MOB0CJOJWGLSHHEP0DPKHNP1&client_secret=IABLARJ3OWCNSLW1VR00W4IB33FK3H1MLP32XJF5JWW3LFL4&v=20180323&categoryId=4bf58dd8d48988d1e5931735`;
-      const result = await axios(`${url}&limit=10&near=${search.city}&radius=${search.radius}`)
+      const result = await axios(`${url}&limit=10&near=${search.city}&radius=${newRadius}`)
       setVenueAPI(result.data.response.venues);
       setisLoading(false)
     } catch (err) { console.error(err); }
@@ -93,7 +94,7 @@ const VenuePage = () => {
       <form>
         <input type="text" placeholder="Search.." name={"venueName"} value={search.venueName} className="mb-2 venueSearch" onChange={handleChange}></input>
         <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <input type="number" placeholder="Set Search Radius.." name={"radius"} value={search.radius} className="mb-2 venueSearch " onChange={handleChange}></input>
+        <input type="number" placeholder="How Many Miles.." name={"radius"} value={search.radius} className="mb-2 venueSearch " onChange={handleChange}></input>
         <button onClick={handleBtnSubmit} className="venueSearch venueSearchBtn">Search Venues</button>
         {isAuth?<Link to="/createVenue">
         <button className="venueSearchBtn">Create Venue</button>
