@@ -1,4 +1,4 @@
-import React, {useContext,  useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Rating from 'react-rating'
 import { Link } from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
@@ -7,49 +7,28 @@ import API from "../utils/API";
 
 const VenueBody = ({venue}) => {
 const {id, isAuth} = useContext(AuthContext)
-const [repeatedVenue, setRepeatedVenue] = useState(false)
 const createReviewLink = `/createReview/${id}`
 const [newVenue, setNewVenue] = useState({
     "venueName": venue.name,
-    "venueAddress": [venue.location.address || "", venue.location.city, venue.location.state]
+    "venueAddress": [venue.location.address || "", venue.location.city + ", " + venue.location.state, "United States"]
     })
-
-    useEffect(() => {
-
-        const fetchDBVenues = async () => {
-            try {
-                const results = await API.getVenues()
-                const allDBVenues = results.data
-                    var i;
-                    for ( i = 0; i < allDBVenues.length; i++){
-                        if (allDBVenues[i].venueName === venue.name){
-                            setRepeatedVenue(true)
-                        }
-                    }
-            }
-            catch(err) {
-            console.log(err)
-            }
-        }
-
-        fetchDBVenues();
-        
-        }, [venue]);
 
         const createDBVenue = async () => {
             try{
                 if (venue.location.address === undefined){
                     setNewVenue({
                     "venueName": venue.name,
-                    "venueAddress": ["", venue.location.city, venue.location.state]
+                    "venueAddress": ["", venue.location.city + ", " + venue.location.state, "United States"]
                     })
+                    console.log(newVenue)
                     await API.createVenueByName(venue.venueName, newVenue)
                 }
                 else{
                     setNewVenue({
                     "venueName": venue.name,
-                    "venueAddress": [venue.location.address, venue.location.city, venue.location.state]
+                    "venueAddress": [venue.location.address, venue.location.city + ", " +  venue.location.state, "United States"]
                     })
+                    console.log(newVenue)
                     await API.createVenueByName(venue.venueName, newVenue)
                 }
             }catch(err){
@@ -58,7 +37,7 @@ const [newVenue, setNewVenue] = useState({
         }
 
 
-    return (repeatedVenue) ? (null) : (
+    return (
 
         <div className="my-2 mb-2 p-2 d-flex flex-column venueDiv flex-wrap searchedVenues">
         <div className="d-flex flex-column mx-2 apitext">
