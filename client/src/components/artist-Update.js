@@ -73,10 +73,10 @@ const UpdateArtist = ({ match }) => {
     // Function to retrieve input values for the new link and set that to artist state
     const addLink = () => {
         let newArtist = artist
-        newArtist.bandLinks= [{
+        newArtist.bandLinks.push({
             siteName: document.getElementById('linkSelection').value,
             siteUrl: document.getElementById('siteUrl').value
-        }]
+        })
         setArtist({
             ...artist,
             newArtist});
