@@ -2,12 +2,13 @@ import React from 'react';
 import API from '../utils/API'
 
 
-const ArtistLinks = ({ artist, isLoading, title, bandId }) => {
+const ArtistLinks = ({ artist, isLoading, title }) => {
 
     let links;
     
     const handleOnClick = (e) => {
-      API.deleteLink(bandId, e.target.id);
+        console.log(artist._id, e.target.id)
+      API.deleteLink({bandId:artist._id, id:e.target.id});
     }
 
     // Iterate over band links for display

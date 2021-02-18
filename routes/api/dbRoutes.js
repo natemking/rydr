@@ -56,7 +56,7 @@ router.route('/reviews/venue/:venueId')
 .get(dbController.getReviewByVenue);
 
 router.route('/link/')
-.put(dbController.updateLinks)
 .get(dbController.getLinks)
-.delete(dbController.deleteLink)
+.put(dbController.deleteLink);
+
 module.exports = router
