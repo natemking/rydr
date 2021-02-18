@@ -43,12 +43,12 @@ const Venue = ({dbVenues}) => {
 
     return (
 
-      <div className="flex-row d-flex flex-wrap mt-3 mb-3 p-2 align-items-center venueDiv searchedVenues">
+      <div className="flex-column d-flex flex-wrap mt-5 mb-4 p-3 align-items-start venueDiv searchedVenues">
             <div className="flex-wrap p-2">
             <h2 className="m-0"><u>{dbVenues.venueName}</u></h2>
             <div className="flex-row align-items-center">
             <Rating initialRating={reviewsRating} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" />
-            <h5 className="m-2">{reviews.length} Reviews</h5>
+            <h5>{reviews.length} Reviews</h5>
             </div>
             {isAuth?<Link to={createReviewLink}>
             <button>Add Review</button>
