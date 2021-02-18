@@ -8,13 +8,15 @@ import Modal from './Modal'
 const UpdateArtist = ({ match }) => {
     // useHistory hook for routing
     let history = useHistory();
-
     // State of artist object from DB
-    const [artist, setArtist] = useState('');
+    const [artist, setArtist] = useState();
     // State of artist link to add to DB
-    const [links, setLinks] = useState([]);
+    const [links, setLinks] = useState({
+        siteName :"",
+        siteUrl :""
+    });
     // Array to store new artist link
-    const newLinks = [];
+    const [newLinks] = useState([]);
     // State of img upload status message
     const [msgToggle, setMsgToggle] = useState('none')
     // State for modal error message
@@ -29,7 +31,6 @@ const UpdateArtist = ({ match }) => {
             const result = await API.getBand(match.params.id)
             const userArtist = result.data
             setArtist(userArtist)
-            console.log(artist)
         }
         fetchArtist();
     }, [match.params.id]);
@@ -40,10 +41,10 @@ const UpdateArtist = ({ match }) => {
 
     // Sets the state of updatedArtist to match user input 
     function handleChange(event) {
-        setArtist({ 
-            ...artist, 
-            [event.target.name]: event.target.value, 
-            id: match.params.id 
+        setArtist({
+            ...artist,
+            [event.target.name]: event.target.value,
+            id: match.params.id
         });
     }
 
@@ -54,7 +55,7 @@ const UpdateArtist = ({ match }) => {
             bandImg: results.info.url
         });
         setMsgToggle('block');
-    }  
+    }
 
     // Function to update the artists info in the DB
     const updateArtist = async () => {
@@ -65,31 +66,34 @@ const UpdateArtist = ({ match }) => {
 
     // Initializes function to update the artists info
     const handleBtnSubmit = (event) => {
-        event.preventDefault();    
-        addLink();
+        event.preventDefault();
         updateArtist();
         setModalMsg(`${artist.bandName}'s profile was updated`);
         handleShow();
-    } 
-      
-    // Function to grab values of new artist link input and set them to state
-    function createLink(event) {
-        const value = event.target.value
-        setLinks({
-            ...links,
-            [event.target.name]: value
-        })
     }
 
-    // Function to push the new artist link into the newlinks array and set that to updatedArtist state
-    const addLink = () => {
-            newLinks.push(links)  
-            console.log(newLinks) 
-            setArtist({
-                ...artist,
-                bandLinks : newLinks
-            })
-    } 
+    // Function to grab values of new artist link input and set them to state
+    function createLink() {
+        const urlName = document.getElementById('linkSelection').value;
+        const urlAddress = document.getElementById('siteUrl').value;
+        // setLinks({
+        //     siteName : urlName,
+        //     siteUrl : urlAddress
+        // })
+        // console.log(links)
+        addLink(urlName,urlAddress);
+        console.log(artist)
+    }
+
+    // Function to push the new artist link into the newlinks array and set that to artist state
+    const addLink = (urlName,urlAddress) => {
+        let newArtist = artist
+        newArtist.bandlinks= [{
+            siteName: document.getElementById('linkSelection').value,
+            siteUrl: document.getElementById('siteUrl').value
+        }]
+        setArtist(newArtist);
+    }
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
@@ -108,7 +112,7 @@ const UpdateArtist = ({ match }) => {
                         <label htmlFor="artistLocation">
                             Location (City, State):
                         </label>
-                        <input type="text" className="form-control" id="bandLocation"  placeholder="Update Location" name="location" onChange={handleChange} />
+                        <input type="text" className="form-control" id="bandLocation" placeholder="Update Location" name="location" onChange={handleChange} />
                     </div>
 
                     <div className="form-group">
@@ -119,22 +123,6 @@ const UpdateArtist = ({ match }) => {
                     </div>
 
                     <div className="form-group">
-
-                        <label htmlFor="artistLinks">Outside Link:</label>
-                        <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Artist/Band Link" name="siteUrl" onChange={createLink}></input>
-                        <label htmlFor="artistLinks">Outside Link Name:</label>
-                        <input type="text" className="form-control" id="siteName" aria-describedby="socialMediaHelp" placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink}></input>
-                        {/* <div class="dropdown">
-                            <button class="btn dropdown-toggle artistUpdateButton" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add A Link</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" name="facebookUrl" onClick={handleChange}>Facebook</a>
-                                <a class="dropdown-item" name="instagramUrl" onClick={handleChange}>Instagram</a>
-                                <a class="dropdown-item" name="bandcampUrl" onClick={handleChange}>Bandcamp</a>
-                                <a class="dropdown-item" name="youtubeUrl" onClick={handleChange}>Youtube</a>
-                                <a class="dropdown-item" name="websiteUrl" onClick={handleChange}>Website</a>
-                            </div>
-                        </div> */}
                         <label htmlFor="artistBio">
                             Bio:
                         </label>
@@ -142,21 +130,25 @@ const UpdateArtist = ({ match }) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="artistLinks">
-                            Outside Link:
-                        </label>
-                        <input type="text" className="form-control" id="siteUrl" placeholder="Add Artist/Band Link" name="siteUrl"  onChange={createLink} />
-                        <label htmlFor="artistLinks">
-                            Outside Link Name:
-                        </label>
-                        <input type="text" className="form-control" id="siteName"  placeholder="Enter A Name For Artist/Band Link" name="siteName" onChange={createLink} />
+                        <div className="">
+                            <label htmlFor="artistLinks">Add A Link:</label>
+                            <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Url Here" name="siteUrl" ></input>
+                            <select className="artistUpdateButton" id="linkSelection" onChange={createLink}>
+                                <option>Choose A Link Type</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Bandcamp">Bandcamp</option>
+                                <option value="Youtube">Youtube</option>
+                                <option value="Website">Website</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <button type="submit" value={ "Submit" } className="artistUpdateButton" onClick={ handleBtnSubmit }>
+                    <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
                         Submit
                     </button>
                 </form>
-                <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } />
+                <Modal show={show} handleClose={handleClose} error={modalMsg} title={true} />
             </div>
         </div>
     )
