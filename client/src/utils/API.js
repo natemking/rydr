@@ -49,27 +49,36 @@ const API = {
     searchFourSquare(queryData){
         return axios.post(`/api/fourSquareRoutes/${queryData}/`)
     },
+    // create review by taking user input and band id
     createReview(id, reviewData){
         return axios.post(`/api/dbRoutes/reviews/${id}`, reviewData)
     },
+    // for future reference to update a venue review from a band
     updateReview(id){
         return axios.put(`/api/dbRoutes/reviews/${id}`)
     },
+    // for future use to delete review
     deleteReview(id){
         return axios.delete(`/api/dbRoutes/reviews/${id}`)
     },
+    // gets all reviews from a specific band
     getReviewByBand(bandId){
         return axios.get(`/api/dbRoutes/reviews/band/${bandId}`)
     },
+    // gets all reviews on a specific venue
     getReviewByVenue(venueId){
         return axios.get(`/api/dbRoutes/reviews/venue/${venueId}`)
     },
+    // recaptcha verification with token
     recaptchaUserVerify(responseToken){
         return axios.post(`/api/userverify/${responseToken}`)
             .then(response => {
                 return response ? console.log('You are human!') : console.log('No Robots allowed!');
             }
         )
+    },
+    deleteLink(id, data){
+        return axios.delete(`/api/dbRoutes/link/${id}`, data)
     }
 };
 

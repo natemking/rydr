@@ -16,7 +16,6 @@ router.route('/user/:id')
 // create a new band user.
 router.route('/band')
 .post(dbController.createUser)
-.get(dbController.findAllBand);
 
 // all routes to manipulate band data by id
 router.route('/band/:id')
@@ -32,29 +31,32 @@ router.route('/venue')
 router.route('/venue/:id')
 .get(dbController.findByIdVenue)
 .post(dbController.createVenue)
-.delete(dbController.removeVenue);
 
 // create or find venue by name
 router.route('/venue/name/:name')
 .get(dbController.findByVenueName)
 .post(dbController.createVenue);
 
-// find venue by ratings
-router.route('/venue/rating/:rating')
-.get(dbController.findByRating);
-
+// post route to create a review
 router.route('/reviews')
 .post(dbController.createReview);
 
+// route for reviews that take in id parameter
 router.route('/reviews/:id')
 .post(dbController.createReview)
 .put(dbController.updateReview)
 .delete(dbController.removeReview);
 
+// route to get reviews by band id
 router.route('/reviews/band/:authorId')
 .get(dbController.getReviewByBand);
 
+// routes to get reviews by venue id
 router.route('/reviews/venue/:venueId')
 .get(dbController.getReviewByVenue);
 
+router.route('/link/')
+.put(dbController.updateLinks)
+.get(dbController.getLinks)
+.delete(dbController.deleteLink)
 module.exports = router

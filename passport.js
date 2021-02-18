@@ -5,8 +5,6 @@ const db = require('./models');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
-
-
 const cookieExtractor = req => {
     let token = null;
     if (req && req.cookies) {
@@ -25,12 +23,16 @@ let opts = {}
 passport.use(new JwtStrategy( opts, function (jwt_payload, done) {
     db.User.findById( jwt_payload.sub
     , (err, user) => {
+        // ERROR GETTING TO DATA BASE
         if (err) {
             return done(err, false);
         }
+        // USER DOES EXIST IN THE DB AND WE RETURN THEM 
         if (user) {
             return done(null, user);
-        } else {
+        } 
+        // NO USER EXIST WITH THE ID AND RETURN FALSE
+        else {
             return done(null, false);
         }
     });

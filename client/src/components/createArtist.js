@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import API from '../utils/API';
 import ModalAlert from './Modal';
+import AuthServices from '../Services/AuthorizationService'
+import {AuthContext} from '../Context/AuthorizationContext'
 
 const CreateArtist = () => {
     // useHistory hook for routing
@@ -33,6 +35,9 @@ const CreateArtist = () => {
     const [errMsg, setErrMsg] = useState('');
     // State for modal visibility
     const [show, setShow] = useState(false);
+ 
+    // Context for authentication
+    const {setCurrentUser, setIsAuth, setId} = useContext(AuthContext);
 
     // useRef for password strength validation
     const passwordEl = useRef('');
@@ -113,8 +118,20 @@ const CreateArtist = () => {
                         setErrMsg(res.data.errors.userName.message);
                         handleShow();
                     }else {
-                        // If no errors send uer to their bandpage
-                        history.push(`/bandpage/${res.data._id}`)
+                        const resUser = await AuthServices.login(user)
+                            if (resUser.isAuthenticated) {
+                                setCurrentUser(resUser.userName)
+                                setIsAuth(resUser.isAuthenticated)
+                                API.getBandByUserId(resUser.id)
+                                    .then(bandRes => {
+                                        setId(bandRes.data[0]._id)
+                                         // If no errors send uer to their bandpage
+                                        history.push(`/updateartist/${bandRes.data[0]._id}`)
+                                    });
+                            } else {
+                                setErrMsg('Sorry you Need to fill out');
+                                handleShow();
+                            }
                     }
                 } catch (err) { console.error(err) }
             })();

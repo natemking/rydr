@@ -12,7 +12,7 @@ const Artist = ({artist, isLoading, id}) => {
 
     // If band links exist render them
     const renderBandLinks = () => {
-      if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} />) }
+      if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} bandId={id}/>) }
     }
 
     // Render artist info

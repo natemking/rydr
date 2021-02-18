@@ -18,9 +18,8 @@ module.exports = {
             res.json(band);
         } catch (err) { res.json(err) }
     },
-
+    // GETS USER BY USERNAME
     getUser: function(req,res) {
-        console.log(req.body.userName)
         db.User
         .findOne({userName: req.body.userName})
         .then(response => {
@@ -30,14 +29,16 @@ module.exports = {
             res.status(422).json(err)
         })
     },
-    
-
-    // JUST IN CASE: DON'T THINK WE'LL NEED IT
-    findAllBand: function (req, res) {
+    // ROUTE TO GET THE BAND AFTER USER LOGS IN AND IS AUTHENTICATED
+    getBandByUserId: function (req, res) {
         db.Band
-            .find(req.query).populate("postedReviews")
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+            .find({
+                userId: req.params.id
+            })
+            .then(dbModel => {
+                res.json(dbModel)
+            })
+            .catch(err => res.status(422).json(err))
     },
     // FIND Band BY ID
     findByIdBand: function (req, res) {
@@ -57,7 +58,7 @@ module.exports = {
     // UPDATE Band INFO
     updateBand: function (req, res) {
         db.Band
-            .findByIdAndUpdate( req.params.id, req.body )
+            .findByIdAndUpdate( req.params.id, req.body, {new:true})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -71,6 +72,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    // FIND ALL VENUES IN DB
     findAllVenue: function (req, res) {
         db.Venue
             .find(req.query).populate('venueReviews')
@@ -107,24 +109,6 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    // FIND VENUES BY RATING
-    // COULD BE CHANGED OUT WITH A SORT METHOD ON THE FRONTEND
-    findByRating: function (req, res) {
-        db.Venue
-            .find({rating: {$elemMatch:{rating: req.params.rating}}
-            }, req.body).populate('venueReviews')
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-    removeVenue: function (req, res) {
-    db.Venue
-        .findById({
-            _id: req.params.id
-        })
-        .then(dbModel => dbModel.remove())
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
-    },
     // NOTE -- venue will need to come in w/ the body as it's _id
     async createReview(req, res){
         try {
@@ -137,24 +121,28 @@ module.exports = {
             res.json(review)
         } catch (err) { res.status(422).json(err) }
     },
+    // UPDATE REVIEW FOR USE IN FUTURE APPLICATION
     updateReview: function (req, res){
         db.Review
         .findByIdAndUpdate(req.params.id, req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
+    // GET REVIEWS BY BAND ID
     getReviewByBand: function (req, res){
         db.Review
         .find({author: req.params.authorId})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
+    // GET REVIEWS BY VENUE ID
     getReviewByVenue: function(req, res){
         db.Review
         .find({venue: req.params.venueId})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },
+    // FOR FUTURE USE DELETE REVIEW FROM DB
     removeReview: function (req, res) {
     db.Review
         .findById({
@@ -164,6 +152,7 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+    // AUTH ROUTE TO LOGIN USER IN AND THEN SIGN A TOKEN TO THE USER FOR FURTHER AUTH
     userLogin: function(req, res){
      if (req.isAuthenticated()) {
                 const {_id, userName} = req.user;
@@ -180,23 +169,45 @@ module.exports = {
                  res.status(401).json({err, message:"not authenticated"})
              }
     },
+    // AUTH ROUTE TO LOG THE USER OUT CLEAR THE DATA AND COOKIE
     userLogout: function(req, res){
         res.clearCookie('access_token');
             return res.json({user:{userName : ""},success : true});
     },
+    // SECOND LAYER OF AUTH TO SEE IF THE TOKEN IS AUTHENTIC
     userAuthenticate: function(req, res){
         const {userName, _id} = req.user
             return res.status(200).send({isAuthenticated : true, user : userName, id: _id});
     },
-    getBandByUserId: function(req, res){
+    async updateLinks(req, res){
+        console.log(req.body)
+            db.Band.updateOne(
+        { _id: req.params.id, "bandLinks.siteName": req.body.siteName },
+        { $set: { "bandLinks.$.siteUrl" : req.body.siteUrl } }
+        ).then(data =>{
+            console.log(data)
+            return res.status(200).send(data);
+        })
+    },
+    getLinks: function (req, res){
+        console.log(req.params.id)
+        // { $set: { "bandLinks.$.siteUrl" : req.body.siteUrl } }
+            db.Band
+            .findOne({_id:req.params.id, "bandLinks.siteName": req.body.siteName })
+            .then(data =>{
+                return res.status(200).send(Data)
+            })
+            .catch(err => res.status(422).json(err))
+    },
+    deleteLink: function(req, res){
         db.Band
-        .find({userId: req.params.id})
-        .then(dbModel =>{ 
-            res.json(dbModel)})
-        .catch(err => res.status(422).json(err))
+        .findByIdAndUpdate(req.body.bandId, {$pull:{bandLinks:{_id:req.body.id}}}, {new:true})
+        .then(dbModel => res.status(200).json(dbModel))
+        .catch(err => res.status(422).json(err));
     }
 };
 
+// FUNCTION THAT CREATES THE JWT TOKEN FOR USER
 const signToken = userID => {
     return JWT.sign({
         iss: "Rydr",
