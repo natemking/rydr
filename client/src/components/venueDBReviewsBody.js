@@ -9,7 +9,6 @@ const VenueReviewBody = ({review}) => {
         const fetchArtist = async () => {
           const result = await API.getBand(review.author)
           const artistReview = result.data
-          console.log(artistReview)
           setArtistName(artistReview.bandName)
         }
         fetchArtist()
