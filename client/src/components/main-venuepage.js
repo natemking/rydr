@@ -9,7 +9,8 @@ import { AuthContext } from '../Context/AuthorizationContext';
 
 const VenuePage = () => {
   const {isAuth}=useContext(AuthContext)
-  const [selectedVenue, setSelectedVenue] = useState([])
+  const [dbVenues, setdbVenues] = useState([[]])
+  // const [selectedVenue, setSelectedVenue] = useState([])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch] = useState({
     venueName: "",
@@ -36,20 +37,41 @@ const VenuePage = () => {
 
   //MAKES DATABASE CALL TO FIND VENUE MADE ON DB
   const fetchVenues = async () => {
-    const result = await API.getVenueByName(search.venueName)
-    const venueObject = result.data[0]
-    if (venueObject === undefined) {
-      setSelectedVenue({
-        "venueName": "",
-        "venueAddress": ["", "", ""],
-        "venueReviews": [{ rating: 1 }, { rating: 1 }, { rating: 1 }]
-      })
+    const newResult = await API.getVenues()
+    const allVenues = newResult.data
+    const matchedVenues = []
+    const notmatchVenues = []
+    var i
+    
+    //IF SEARCH BAR IS EMPTY
+    for (i=0; i < allVenues.length; i++){
+
+      //IF VENUENAME SEARCH CONTAINS VENUE IN DB
+      if (allVenues[i].venueName.replace(/\s/g, "").toLowerCase().includes(search.venueName.replace(/\s/g, "").toLowerCase()) === true){
+        //IF THE VENUE IS LOCATED IN THE CITY YOU ARE SEARCHING
+        if(allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
+          matchedVenues.push(allVenues[i])
+          // setdbVenues(matchedVenues)
+        }
+        else{
+          notmatchVenues.push(allVenues[i])
+        }
+      }
+      // IF NO MATCH IN OUR DBVENUE MATCHES SEARCH NAME
+      else if((allVenues[i].venueName.replace(/\s/g, "").toLowerCase().includes(search.venueName.replace(/\s/g, "").toLowerCase()))){
+        //BUT IF IT MATCHES A CITY SEARCH
+        if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
+          matchedVenues.push(allVenues[i])
+          // setdbVenues(matchedVenues)
+        }
+        else{
+          notmatchVenues.push(allVenues[i])
+        }
+      } 
     }
-    else {
-      setSelectedVenue(venueObject)
-      setisLoading(false)
-    }
+    setdbVenues(matchedVenues)
   }
+
 
   //SETS THE SEARCH STATE
   function handleChange(event) {
@@ -73,8 +95,10 @@ const VenuePage = () => {
         <button className="venueSearchBtn">Create Venue</button>
         </Link>:null}
       </form>
-      <div className="align-items-start">
-      <Venue isLoading={isLoading} venue={selectedVenue} />
+
+      {/* WHERE VENUES SHOW UP */}
+      <div className="align-items-center">
+      {dbVenues.map(venue => (<Venue dbVenues={venue} />))}
       <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} />
       </div>
       </div>
