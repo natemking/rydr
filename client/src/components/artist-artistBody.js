@@ -1,31 +1,26 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import ArtistLinks from './artist-Links'
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthorizationContext';
 
-const Artist = ({artist, isLoading}) => {
-const {id} = useContext(AuthContext)
+const Artist = ({artist, isLoading, id}) => {
+    const updateBandUrl = `/updateartist/${id}`
+
     // If band photo exists render it
     const renderImg = () => {
-      if (artist.bandImg) {
-          return (
-              <img alt="bandphoto" className="img-fluid bandphoto" src={ artist.bandImg } />
-          )
-      }
+      if (artist.bandImg) { return ( <img alt="bandphoto" className="img-fluid bandphoto" src={ artist.bandImg } /> ) }
     }
-const updateBandUrl = `/updateartist/${id}`
+
     // If band links exist render them
     const renderBandLinks = () => {
-      if (artist.bandLinks.length > 0) {
-          <ArtistLinks artist={ artist } isLoading={isLoading} />
-      }
+      if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} />) }
     }
 
     // Render artist info
     return isLoading ? (<h1>Loading....</h1>) : (
         <div className="d-flex flex-row flex-wrap align-items-center">
 
-            { renderImg }
+            { renderImg() }
+            
 
             <div className="d-flex flex-column p-2 flex-wrap">
                 <h1>{artist.bandName}</h1>
@@ -40,12 +35,12 @@ const updateBandUrl = `/updateartist/${id}`
                     { artist.contact }
                 </a>
 
-                { renderBandLinks }
+                { renderBandLinks() }
 
                 <Link to={updateBandUrl}>
                     <button>Update Band Info</button>
                 </Link>
-                
+
             </div>
 
         </div>
