@@ -14,7 +14,7 @@ const MatchedVenue = ({venue}) => {
     const [reviewsRating, setReviewsRating] = useState("")
     // const [noVenue, setNoVenue] = useState(false)
   
-  console.log(venue)
+  // console.log(venue)
     // GET ALL REVIEWS FROM SEARCHED VENUE
     useEffect(() => {
         const fetchReviews = async () => {

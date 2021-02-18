@@ -9,7 +9,7 @@ import { AuthContext } from '../Context/AuthorizationContext';
 
 const VenuePage = () => {
   const {isAuth}=useContext(AuthContext)
-  const [dbVenues, setdbVenues] = useState([{}])
+  const [dbVenues, setdbVenues] = useState([[]])
   // const [selectedVenue, setSelectedVenue] = useState([])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch] = useState({
@@ -37,7 +37,6 @@ const VenuePage = () => {
 
   //MAKES DATABASE CALL TO FIND VENUE MADE ON DB
   const fetchVenues = async () => {
-    // const result = await API.getVenueByName(search.venueName)
     const newResult = await API.getVenues()
     const allVenues = newResult.data
     const matchedVenues = []
@@ -52,7 +51,7 @@ const VenuePage = () => {
         //IF THE VENUE IS LOCATED IN THE CITY YOU ARE SEARCHING
         if(allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
           matchedVenues.push(allVenues[i])
-          setdbVenues(matchedVenues)
+          // setdbVenues(matchedVenues)
         }
         else{
           notmatchVenues.push(allVenues[i])
@@ -63,14 +62,14 @@ const VenuePage = () => {
         //BUT IF IT MATCHES A CITY SEARCH
         if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
           matchedVenues.push(allVenues[i])
-          setdbVenues(matchedVenues)
+          // setdbVenues(matchedVenues)
         }
         else{
           notmatchVenues.push(allVenues[i])
         }
       } 
     }
-    // console.log(matchedVenues)
+    setdbVenues(matchedVenues)
   }
 
 
@@ -98,9 +97,9 @@ const VenuePage = () => {
       </form>
 
       {/* WHERE VENUES SHOW UP */}
-      <div className="align-items-start">
-      <Venue dbVenues={dbVenues} />
-      {/* <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} /> */}
+      <div className="align-items-center">
+      {dbVenues.map(venue => (<Venue dbVenues={venue} />))}
+      <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} />
       </div>
       </div>
     </div>
