@@ -101,7 +101,7 @@ const VenuePage = () => {
       </form>
 
       {/* WHERE VENUES SHOW UP */}
-      <div className="d-flex flex-column align-items-center">
+      <div className="align-items-center">
       {dbVenues.map(venue => (<Venue dbVenues={venue} />))}
       <APIVenue venuesAPI={venuesAPI} isLoading={isLoading} />
       </div>

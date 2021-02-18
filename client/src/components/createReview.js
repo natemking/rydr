@@ -69,7 +69,7 @@ const CreateReview = () => {
         </div>
         <div className="form-group">
         <label htmlFor="venueReview">Review:</label>
-        <textarea className="form-control" id="reviewText" name="reviewText" onChange={createReview} rows="3"></textarea>
+        <textarea className="form-control" id="reviewText" name="reviewText" maxlength={250} onChange={createReview} rows="3"></textarea>
         </div>        
         <div className="form-group d-flex flex-column">
         <label htmlFor="venueRating">Rate Venue (1-5):</label>
