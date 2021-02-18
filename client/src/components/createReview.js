@@ -10,11 +10,11 @@ const CreateReview = () => {
   const [modalMsg, setModalMsg] = useState('');
   // State for modal visibility
   const [show, setShow] = useState(false);
-
-  const handleClose = () => { setShow(false); history.push("/venuepage") };
+  const {id, setId}=useContext(AuthContext)
+  setId(localStorage.getItem("id"))
+  const handleClose = () => { setShow(false); history.push(`/venuepage/${id}`) };
   const handleShow = () => setShow(true);
 
-  const {id} = useContext(AuthContext)
     const [allVenues, setAllVenues] = useState([])
     const [venueReview, setVenueReview] = useState({
         "venue": "",
