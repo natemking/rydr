@@ -29,7 +29,7 @@ const VenueReviewBody = ({review}) => {
 
       <>
         <tr>
-           <td>{formatter.format(Date.parse(review.createdAt))}</td> 
+           <td >{formatter.format(Date.parse(review.createdAt))}</td> 
            <td>{artistName}</td>
            <td><Rating initialRating={review.rating} emptySymbol="fa fa-star-o fa-2x smallstars" readonly fullSymbol="fa fa-star fa-2x smallstars" /></td>
            <td>{review.reviewText}</td>
