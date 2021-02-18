@@ -10,11 +10,6 @@ const UpdateArtist = ({ match }) => {
     let history = useHistory();
     // State of artist object from DB
     const [artist, setArtist] = useState();
-    // State of artist link to add to DB
-    const [links, setLinks] = useState({
-        siteName :"",
-        siteUrl :""
-    });
     // State of img upload status message
     const [msgToggle, setMsgToggle] = useState('none')
     // State for modal error message
