@@ -29,9 +29,11 @@ const CreateVenue = () => {
     const postNewVenue = async (event) => {
         event.preventDefault();
         try {
+            createAddress()
              await API.createVenueByName(newVenue.venueName, newVenue)
             setModalMsg(newVenue.venueName + ' was created');
             handleShow();
+            
         }catch(err){
             console.log(err)
         }
@@ -40,11 +42,17 @@ const CreateVenue = () => {
     const createVenueName = (event) => {
         const value = event.target.value
         setNewVenueName(value)
+        
     }
 
-    const createAddress = (event) => {
-        const value = event.target.value
-        address.push(value)
+    const createAddress = () => {
+        let venueAddress = address
+        address.push(
+            document.getElementById('0').value,
+            document.getElementById('1').value,
+            document.getElementById('2').value
+        )
+        setNewVenue({...newVenue, venueAddress})
     }
 
     return (
@@ -59,9 +67,9 @@ const CreateVenue = () => {
         <div className="form-group">
         <label htmlFor="venueAddress">Venue Address:</label>
         <div className="d-flex flex-column">
-        <input type="text" id="venueAddress" name="0" onChange={createAddress} placeholder="Street Address 1"></input>
-        <input type="text" id="venueAddress" name="1" onChange={createAddress} placeholder="Street Address 2"></input>
-        <input type="text" id="venueAddress" name="2" onChange={createAddress} placeholder="City, State"></input>
+        <input type="text" id="0" name="0" placeholder="Street Address 1"></input>
+        <input type="text" id="1" name="1" placeholder="Street Address 2"></input>
+        <input type="text" id="2" name="2" placeholder="City, State"></input>
         </div>
         </div>
         <button type="submit" value={"Submit"} className="artistCreateButton" onClick={postNewVenue}>Submit</button>
