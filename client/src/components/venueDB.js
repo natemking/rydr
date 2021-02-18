@@ -12,7 +12,6 @@ const Venue = ({dbVenues}) => {
   const createReviewLink = `/createReview/${id}` 
   const [reviews, setReviews] = useState([])
   const [reviewsRating, setReviewsRating] = useState("")
-  
 
   useEffect(() => {
 
@@ -34,7 +33,7 @@ const Venue = ({dbVenues}) => {
   }
 
   fetchReviews();
-
+  
   },[dbVenues._id]);
     
   if (dbVenues.venueAddress === undefined){
