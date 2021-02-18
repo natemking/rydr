@@ -27,12 +27,12 @@ const BandPage = ({ match }) => {
   // Render the artist page
   return (
     <div className="d-flex flex-column mt-2 p-2 align-items-center">
-      <Artist artist={ artist } isLoading={ isLoading } />
+      <Artist artist={ artist } isLoading={ isLoading } id={match.params.id} />
       <div className="d-flex flex-column flex-wrap">
         <h1>
           <u>Artist Reviews</u>
         </h1>
-        <ReviewsTable reviews={ reviews } isLoading={ isLoading }/>
+        <ReviewsTable reviews={reviews} isLoading={isLoading} id={match.params.id} />
       </div>
       <hr />
     </div>

@@ -3,8 +3,17 @@ import VenueSelector from './createReviewVenueSelector'
 import API from '../utils/API'
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthorizationContext';
+import Modal from './Modal';
 
 const CreateReview = () => {
+  // State for modal error message
+  const [modalMsg, setModalMsg] = useState('');
+  // State for modal visibility
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => { setShow(false); history.push("/venuepage") };
+  const handleShow = () => setShow(true);
+
   const {id} = useContext(AuthContext)
     const [allVenues, setAllVenues] = useState([])
     const [venueReview, setVenueReview] = useState({
@@ -38,8 +47,8 @@ const CreateReview = () => {
         event.preventDefault();
         try {
              await API.createReview(id, venueReview)
-             alert("Review created!")
-             history.push("/venuepage")
+            setModalMsg('Review created!');
+            handleShow();
         }catch(err){
             console.log(err)
         }
@@ -73,6 +82,7 @@ const CreateReview = () => {
         </div>
         <button type="submit" value={"Submit"} onClick={submitReview} className="artistCreateButton">Submit</button>
         </form>
+        <Modal show={show} handleClose={handleClose} error={modalMsg} title={true} />
         </div>
     </div>
     
