@@ -17,17 +17,17 @@ const [newVenue, setNewVenue] = useState({
     useEffect(() => {
 
         const fetchDBVenues = async () => {
-            try{
-            const results = await API.getVenues()
-            const allDBVenues = results.data
-                var i;
-                for ( i = 0; i < allDBVenues.length; i++){
-                    if (allDBVenues[i].venueName === venue.name){
-                        setRepeatedVenue(true)
+            try {
+                const results = await API.getVenues()
+                const allDBVenues = results.data
+                    var i;
+                    for ( i = 0; i < allDBVenues.length; i++){
+                        if (allDBVenues[i].venueName === venue.name){
+                            setRepeatedVenue(true)
+                        }
                     }
-                }
             }
-            catch(err){
+            catch(err) {
             console.log(err)
             }
         }
@@ -57,10 +57,8 @@ const [newVenue, setNewVenue] = useState({
             }
         }
 
-
-
-
     return (repeatedVenue) ? (null) : (
+
         <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
         <div className="d-flex flex-column mx-2 apitext">
         <h3><u>{venue.name}</u></h3>
@@ -85,6 +83,7 @@ const [newVenue, setNewVenue] = useState({
         </thead>
         </table>
         </div>
+
     )
 }
 

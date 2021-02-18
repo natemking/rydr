@@ -2,13 +2,14 @@ import React from 'react';
 import VenueReviewBody from './venueDBReviewsBody'
 
 const VenueReviewsTable = ({reviews, isLoading}) => {
-   
+
     return isLoading ? (<h1>Loading....</h1>) : 
     (
-        <table className="table table-sm table-responsive table-striped table-bordered bandreviews mb-0">
+
+        <div className="d-flex">
+        <table className="table-bordered bandreviews">
         <thead>
             <tr>
-            <th className="text-center">Date</th>
             <th className="text-center">Band</th>
             <th className="text-center">Rating</th>
             <th className="text-center">Review</th>
@@ -18,6 +19,8 @@ const VenueReviewsTable = ({reviews, isLoading}) => {
           {reviews.map(review => (<VenueReviewBody review={review} key={review._id}/>))}
       </tbody>
     </table>
+    </div>
+    
     )
 
 }
