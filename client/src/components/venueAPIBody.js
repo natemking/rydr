@@ -57,6 +57,7 @@ const [newVenue, setNewVenue] = useState({
             }
         }
 
+
     return (repeatedVenue) ? (null) : (
 
         <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
