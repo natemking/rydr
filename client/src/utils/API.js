@@ -77,8 +77,8 @@ const API = {
             }
         )
     },
-    deleteLink(id, data){
-        return axios.delete(`/api/dbRoutes/link/${id}`, data)
+    deleteLink( data){
+        return axios.put('/api/dbRoutes/link', data)
     }
 };
 
