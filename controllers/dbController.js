@@ -178,6 +178,36 @@ module.exports = {
     userAuthenticate: function(req, res){
         const {userName, _id} = req.user
             return res.status(200).send({isAuthenticated : true, user : userName, id: _id});
+    },
+    async updateLinks(req, res){
+        console.log(req.body)
+            db.Band.updateOne(
+        { _id: req.params.id, "bandLinks.siteName": req.body.siteName },
+        { $set: { "bandLinks.$.siteUrl" : req.body.siteUrl } }
+        ).then(data =>{
+            console.log(data)
+            return res.status(200).send(data);
+        })
+    },
+    getLinks: function (req, res){
+        console.log(req.params.id)
+        // { $set: { "bandLinks.$.siteUrl" : req.body.siteUrl } }
+            db.Band
+            .findOne({_id:req.params.id, "bandLinks.siteName": req.body.siteName })
+            .then(data =>{
+                return res.status(200).send(Data)
+            })
+            .catch(err => res.status(422).json(err))
+    },
+    deleteLink: function(req, res){
+        db.Band
+        .findById(req.params.id)
+        .then(dbModel => {
+            console.log(dbModel)
+            // .remove()
+        })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
     }
 };
 
