@@ -18,6 +18,8 @@ const UpdateArtist = ({ match }) => {
     // State for modal visibility
     const [show, setShow] = useState(false);
 
+    
+
 
     // Retrieves artist data from the database to be used
     useEffect(() => {
@@ -61,6 +63,7 @@ const UpdateArtist = ({ match }) => {
     // Initializes function to update the artists info
     const handleBtnSubmit = (event) => {
         event.preventDefault();
+        addLink();
         updateArtist();
         setModalMsg(`${artist.bandName}'s profile was updated`);
         handleShow();
@@ -80,14 +83,13 @@ const UpdateArtist = ({ match }) => {
         let newArtist = artist
         newArtist.bandLinks.push({
             siteName: document.getElementById('linkSelection').value,
-            // siteUrl: document.getElementById('siteUrl').value
             siteUrl: trimURL(document.getElementById('siteUrl').value)
         })
         setArtist({
             ...artist,
             newArtist});
     }
-
+    
     // If band links exist render them
     const renderBandLinks = () => {
         if (artist) { 
@@ -105,7 +107,7 @@ const UpdateArtist = ({ match }) => {
                     Update Your Artist Profile
                 </h1>
 
-                <CloudinaryWidget onSuccess={handleCloudResults} />
+                <CloudinaryWidget onSuccess={ handleCloudResults } />
                 <h4 style={{ color: 'white', display: msgToggle }}>
                     Image uploaded!
                 </h4>
@@ -115,29 +117,29 @@ const UpdateArtist = ({ match }) => {
                         <label htmlFor="artistLocation">
                             Location (City, State):
                         </label>
-                        <input type="text" className="form-control" id="bandLocation" placeholder="Update Location" name="location" onChange={handleChange} />
+                        <input type="text" className="form-control" id="bandLocation" placeholder="Update Location" name="location" onChange={ handleChange } />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="artistContact">
                             Contact Email:
                         </label>
-                        <input type="email" className="form-control" id="artistContact" placeholder="Update Contact Email" name="contact" onChange={handleChange} />
+                        <input type="email" className="form-control" id="artistContact" placeholder="Update Contact Email" name="contact" onChange={ handleChange } />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="artistBio">
                             Bio:
                         </label>
-                        <textarea className="form-control" id="artistBio" rows="3" onChange={handleChange} name="bandBio" />
+                        <textarea className="form-control" id="artistBio" rows="3" onChange={ handleChange } name="bandBio" />
                     </div>
 
                     <div className="form-group">
                         <div className="">
                             <label htmlFor="artistLinks">Add A Link:</label>
                             <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Url Here" name="siteUrl" ></input>
-                            <select className="artistUpdateButton" id="linkSelection" onChange={addLink}>
-                                <option>Choose A Link Type</option>
+                            <select className="artistUpdateButton" id="linkSelection">
+                                <option selected disabled>Choose A Link Type</option>
                                 <option value="Facebook">Facebook</option>
                                 <option value="Instagram">Instagram</option>
                                 <option value="Bandcamp">Bandcamp</option>
@@ -151,11 +153,11 @@ const UpdateArtist = ({ match }) => {
                         { renderBandLinks() }
                     </div>  
 
-                    <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
+                    <button type="submit" value={ "Submit" } className="artistUpdateButton" onClick={ handleBtnSubmit }>
                         Submit
                     </button>
                 </form>
-                <Modal show={show} handleClose={handleClose} error={modalMsg} title={true} />
+                <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } />
             </div>
         </div>
     )
