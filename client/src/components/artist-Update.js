@@ -10,13 +10,6 @@ const UpdateArtist = ({ match }) => {
     let history = useHistory();
     // State of artist object from DB
     const [artist, setArtist] = useState();
-    // State of artist link to add to DB
-    const [links, setLinks] = useState({
-        siteName :"",
-        siteUrl :""
-    });
-    // Array to store new artist link
-    const [newLinks] = useState([]);
     // State of img upload status message
     const [msgToggle, setMsgToggle] = useState('none')
     // State for modal error message
@@ -72,27 +65,16 @@ const UpdateArtist = ({ match }) => {
         handleShow();
     }
 
-    // Function to grab values of new artist link input and set them to state
-    function createLink() {
-        const urlName = document.getElementById('linkSelection').value;
-        const urlAddress = document.getElementById('siteUrl').value;
-        // setLinks({
-        //     siteName : urlName,
-        //     siteUrl : urlAddress
-        // })
-        // console.log(links)
-        addLink(urlName,urlAddress);
-        console.log(artist)
-    }
-
-    // Function to push the new artist link into the newlinks array and set that to artist state
-    const addLink = (urlName,urlAddress) => {
+    // Function to retrieve input values for the new link and set that to artist state
+    const addLink = () => {
         let newArtist = artist
-        newArtist.bandlinks= [{
+        newArtist.bandLinks.push({
             siteName: document.getElementById('linkSelection').value,
             siteUrl: document.getElementById('siteUrl').value
-        }]
-        setArtist(newArtist);
+        })
+        setArtist({
+            ...artist,
+            newArtist});
     }
 
     return (
@@ -133,7 +115,7 @@ const UpdateArtist = ({ match }) => {
                         <div className="">
                             <label htmlFor="artistLinks">Add A Link:</label>
                             <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Url Here" name="siteUrl" ></input>
-                            <select className="artistUpdateButton" id="linkSelection" onChange={createLink}>
+                            <select className="artistUpdateButton" id="linkSelection" onChange={addLink}>
                                 <option>Choose A Link Type</option>
                                 <option value="Facebook">Facebook</option>
                                 <option value="Instagram">Instagram</option>
