@@ -32,9 +32,9 @@ function App() {
           <NonUserRoutes path="/login" component={LogIn}/>
           <NonUserRoutes path="/createartist" component={CreateArtist}/>
           <UserRoutes path="/bandpage/:id" component={BandPage}/>
-          <Route path="/venuepage" component={VenuePage} />
-          <UserRoutes path="/createReview/" component={CreateReview} />
-          <UserRoutes path="/createVenue/" component={CreateVenue} />
+          <Route path="/venuepage/:id" component={VenuePage} />
+          <UserRoutes path="/createReview/:id" component={CreateReview} />
+          <UserRoutes path="/createVenue/:id" component={CreateVenue} />
           <UserRoutes path="/updateartist/:id" component={UpdateArtist} />
         </Switch>
       </Router>

@@ -6,9 +6,10 @@ import {AuthContext} from '../Context/AuthorizationContext'
 
 const NavBar = () => {
   // setup globals to help with auth and also to help with routing
-  const {isAuth, setCurrentUser, setIsAuth, setId, id} = useContext(AuthContext)
+  const {isAuth, setCurrentUser, setIsAuth, setId} = useContext(AuthContext)
   const history = useHistory()
-  
+  const bandId = localStorage.getItem("id")
+  console.log(bandId)
   // quick style variables for components 
   const imgstyle = {
     maxHeight: "70px"
@@ -51,12 +52,12 @@ const NavBar = () => {
       return(    
         <ul className="navbar-nav ml-auto">
           <li>
-            <Link to={`/bandpage/${id}`}>
+            <Link to={`/bandpage/${bandId}`}>
             <h4 className="mx-2 navbutton">My Band Page</h4>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/venuepage">
+            <Link to={`/venuepage/${bandId}`}>
             <h4 className="mx-2 navbutton">Search Venues</h4>
             </Link>
           </li>
