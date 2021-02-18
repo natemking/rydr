@@ -48,9 +48,8 @@ const VenuePage = () => {
         //IF VENUENAME SEARCH CONTAINS VENUE IN DB
         if (allVenues[i].venueName.replace(/\s/g, "").toLowerCase().includes(search.venueName.replace(/\s/g, "").toLowerCase()) === true){
           //IF THE VENUE IS LOCATED IN THE CITY YOU ARE SEARCHING
-          if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
+          if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase()) === true){
             matchedVenues.push(allVenues[i])
-            // setdbVenues(matchedVenues)
           }
           else {
             notmatchVenues.push(allVenues[i])
@@ -59,7 +58,7 @@ const VenuePage = () => {
         // IF NO MATCH IN OUR DBVENUE MATCHES SEARCH NAME
         else if ((allVenues[i].venueName.replace(/\s/g, "").toLowerCase().includes(search.venueName.replace(/\s/g, "").toLowerCase()))){
           //BUT IF IT MATCHES A CITY SEARCH
-          if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase())=== true){
+          if (allVenues[i].venueAddress[1].replace(/\s/g, "").toLowerCase().includes(search.city.replace(/\s/g, "").toLowerCase()) === true){
             matchedVenues.push(allVenues[i])
           }
           else {
