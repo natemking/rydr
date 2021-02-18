@@ -4,7 +4,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import API from '../utils/API'
 import ModalAlert from './Modal';
 import AuthServices from '../Services/AuthorizationService'
-import AuthContext from '../Context/AuthorizationContext'
+import {AuthContext} from '../Context/AuthorizationContext'
 
 const CreateArtist = () => {
     // useHistory hook for routing
@@ -118,18 +118,21 @@ const CreateArtist = () => {
                         setErrMsg(res.data.errors.userName.message);
                         handleShow();
                     }else {
+                        console.log(user,"This is before sending to login")
                         const resUser = await AuthServices.login(user)
-                            if (res.isAuthenticated) {
-                                setCurrentUser(res.userName)
-                                setIsAuth(res.isAuthenticated)
-                                API.getBandByUserId(res.id)
+                            if (resUser.isAuthenticated) {
+                                setCurrentUser(resUser.userName)
+                                setIsAuth(resUser.isAuthenticated)
+                                API.getBandByUserId(resUser.id)
                                     .then(bandRes => {
                                         setId(bandRes.data[0]._id)
+                                         // If no errors send uer to their bandpage
                                         history.push(`/bandpage/${bandRes.data[0]._id}`)
                                     });
+                            } else {
+                                setErrMsg('Sorry you Need to fill out');
+                                handleShow();
                             }
-                        // If no errors send uer to their bandpage
-                        history.push(`/bandpage/${res.data._id}`)
                     }
                 } catch (err) { console.error(err) }
             })();
