@@ -65,18 +65,29 @@ const UpdateArtist = ({ match }) => {
         handleShow();
     }
 
+    // Function to trim off http:// or https:// from a users link input
+    const trimURL = (url) => {
+        const regex = (/^(http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gim );
+
+        url = url.toLowerCase().trim();
+
+        return regex.test(url) ? url.replace(/^(http:\/\/|https:\/\/)/, '') : url;
+    }
+    
     // Function to retrieve input values for the new link and set that to artist state
     const addLink = () => {
         let newArtist = artist
         newArtist.bandLinks.push({
             siteName: document.getElementById('linkSelection').value,
-            siteUrl: document.getElementById('siteUrl').value
+            // siteUrl: document.getElementById('siteUrl').value
+            siteUrl: trimURL(document.getElementById('siteUrl').value)
         })
         setArtist({
             ...artist,
             newArtist});
     }
 
+    // Render Update artist profile screen
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
             <div className="formcontent p-2">
