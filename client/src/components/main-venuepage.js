@@ -9,12 +9,13 @@ import { AuthContext } from '../Context/AuthorizationContext';
 
 const VenuePage = () => {
   //USE OF STATE ON VENUEMAIN PAGE
-  const {isAuth}=useContext(AuthContext)
+  const {isAuth, id, setId}=useContext(AuthContext)
   const [dbVenues, setdbVenues] = useState([[]])
   const [isLoading, setisLoading] = useState(true)
   const [search, setSearch] = useState({venueName: "", city: "", radius: "" })
   const [venuesAPI, setVenueAPI] = useState([])
-
+  setId(localStorage.getItem("id"))
+  console.log(id)
   //MAKES THE SEARCH API CALL DEPENDING ON WHAT THE NAME/CITY/RADIUS IS
   const handleBtnSubmit = (e) => {
     e.preventDefault();
@@ -95,7 +96,7 @@ const VenuePage = () => {
         <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 mx-2 venueSearch" onChange={handleChange}></input>
         <input type="number" placeholder="How Many Miles.." name={"radius"} value={search.radius} className="mb-2 mx-2 venueSearch " onChange={handleChange}></input>
         <button onClick={handleBtnSubmit} className="venueSearch venueSearchBtn">Search Venues</button>
-        {isAuth?<Link to="/createVenue">
+        {isAuth?<Link to={`/createVenue/${id}`}>
         <button className="venueSearchBtn">Create Venue</button>
         </Link>:null}
       </form>
