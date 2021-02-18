@@ -76,6 +76,9 @@ const API = {
                 return response ? console.log('You are human!') : console.log('No Robots allowed!');
             }
         )
+    },
+    deleteLink(id, data){
+        return axios.delete(`/api/dbRoutes/link/${id}`, data)
     }
 };
 

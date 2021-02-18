@@ -55,7 +55,7 @@ router.route('/reviews/band/:authorId')
 router.route('/reviews/venue/:venueId')
 .get(dbController.getReviewByVenue);
 
-router.route('/link/:id')
+router.route('/link/')
 .put(dbController.updateLinks)
 .get(dbController.getLinks)
 .delete(dbController.deleteLink)

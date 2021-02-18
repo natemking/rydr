@@ -201,12 +201,8 @@ module.exports = {
     },
     deleteLink: function(req, res){
         db.Band
-        .findById(req.params.id)
-        .then(dbModel => {
-            console.log(dbModel)
-            // .remove()
-        })
-        .then(dbModel => res.json(dbModel))
+        .findByIdAndUpdate(req.body.bandId, {$pull:{bandLinks:{_id:req.body.id}}}, {new:true})
+        .then(dbModel => res.status(200).json(dbModel))
         .catch(err => res.status(422).json(err));
     }
 };
