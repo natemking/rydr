@@ -9,6 +9,10 @@ const VenueBody = ({venue}) => {
 const {id, isAuth} = useContext(AuthContext)
 const [repeatedVenue, setRepeatedVenue] = useState(false)
 const createReviewLink = `/createReview/${id}`
+const [newVenue, setNewVenue] = useState({
+    "venueName": venue.name,
+    "venueAddress": [venue.location.address || "", venue.location.city, venue.location.state]
+    })
 
     useEffect(() => {
 
@@ -32,6 +36,29 @@ const createReviewLink = `/createReview/${id}`
         
         }, [venue]);
 
+        const createDBVenue = async () => {
+            try{
+                if (venue.location.address === undefined){
+                    setNewVenue({
+                    "venueName": venue.name,
+                    "venueAddress": ["", venue.location.city, venue.location.state]
+                    })
+                    await API.createVenueByName(venue.venueName, newVenue)
+                }
+                else{
+                    setNewVenue({
+                    "venueName": venue.name,
+                    "venueAddress": [venue.location.address, venue.location.city, venue.location.state]
+                    })
+                    await API.createVenueByName(venue.venueName, newVenue)
+                }
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+
+
 
     return (repeatedVenue) ? (null) : (
         <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
@@ -42,7 +69,7 @@ const createReviewLink = `/createReview/${id}`
         <h5 className="m-2">No Reviews</h5>
         </div>
         {isAuth?<Link to={createReviewLink} >
-        <button>Add Review</button>
+        <button onClick={createDBVenue}>Add Review</button>
         </Link>:null}
         <p className="m-0">{venue.location.address}</p>
         <p className="m-0">{venue.location.city + ", " + venue.location.state}</p>
