@@ -118,7 +118,6 @@ const CreateArtist = () => {
                         setErrMsg(res.data.errors.userName.message);
                         handleShow();
                     }else {
-                        console.log(user,"This is before sending to login")
                         const resUser = await AuthServices.login(user)
                             if (resUser.isAuthenticated) {
                                 setCurrentUser(resUser.userName)
@@ -127,7 +126,7 @@ const CreateArtist = () => {
                                     .then(bandRes => {
                                         setId(bandRes.data[0]._id)
                                          // If no errors send uer to their bandpage
-                                        history.push(`/bandpage/${bandRes.data[0]._id}`)
+                                        history.push(`/updateartist/${bandRes.data[0]._id}`)
                                     });
                             } else {
                                 setErrMsg('Sorry you Need to fill out');

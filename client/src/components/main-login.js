@@ -39,7 +39,7 @@ const LogIn = () => {
                 API.getBandByUserId(res.id)
                 .then(bandRes =>{
                     setId(bandRes.data[0]._id)
-                    history.push(`/updateartist/${bandRes.data[0]._id}`)
+                    history.push(`/bandpage/${bandRes.data[0]._id}`)
                 });
             } else {
                 document.getElementById('passwordInput').value = '';
