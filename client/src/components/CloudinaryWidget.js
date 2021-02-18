@@ -30,15 +30,9 @@ const CloudinaryWidget = (props) => {
                     height: '25px',
                     marginBottom: '10px',
                     display: btnToggle
-                }} // inline styling only or style id='cloudinary_upload_button'
-                cropping={true} // set ability to crop images -> default = true
-                onSuccess={ onSuccess } // add success callback -> returns result
-                onFailure={ onFailure } // add failure callback -> returns 'response.error' + 'response.result'
-                logging={false}
-                //customPublicId={'sample'} // set a specific custom public_id. 
-                // To use the file name as the public_id use 'use_filename={true}' parameter
-                //eager={'w_400,h_300,c_pad|w_260,h_200,c_crop'} // add eager transformations -> deafult = null
-                use_filename={false}
+                }}
+                onSuccess={ onSuccess } 
+                onFailure={ onFailure }
             />
         </>
     )
