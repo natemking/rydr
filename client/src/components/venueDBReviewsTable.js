@@ -6,7 +6,7 @@ const VenueReviewsTable = ({reviews, isLoading}) => {
     return isLoading ? (<h1>Loading....</h1>) : 
     (
 
-        <div className="d-flex">
+        <div className="d-flex justify-content-center ">
         <table className="table-bordered bandreviews">
         <thead>
             <tr>
