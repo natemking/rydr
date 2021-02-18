@@ -10,6 +10,7 @@ const VenueReviewsTable = ({reviews, isLoading}) => {
         <table className="table-bordered bandreviews">
         <thead>
             <tr>
+            <th className="text-center">Date</th>
             <th className="text-center">Band</th>
             <th className="text-center">Rating</th>
             <th className="text-center">Review</th>

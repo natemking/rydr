@@ -22,6 +22,7 @@ const CreateReview = () => {
         "reviewText": ""
     })
     let history = useHistory();
+    
     useEffect(() => {
         const fetchVenues = async () => {
           const result = await API.getVenues()
@@ -49,7 +50,7 @@ const CreateReview = () => {
              await API.createReview(id, venueReview)
             setModalMsg('Review created!');
             handleShow();
-        }catch(err){
+        } catch(err){
             console.log(err)
         }
     }
