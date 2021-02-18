@@ -32,7 +32,6 @@ const CreateReview = () => {
           }
           else {
             setAllVenues(allVenues)
-            console.log(allVenues)
           }
         }
         fetchVenues()
