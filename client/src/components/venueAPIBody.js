@@ -60,7 +60,7 @@ const [newVenue, setNewVenue] = useState({
 
     return (repeatedVenue) ? (null) : (
 
-        <div className="my-2 mb-2 p-2 d-flex flex-row venueDiv flex-wrap searchedVenues">
+        <div className="my-2 mb-2 p-2 d-flex flex-column venueDiv flex-wrap searchedVenues">
         <div className="d-flex flex-column mx-2 apitext">
         <h3><u>{venue.name}</u></h3>
         <div className="d-flex flex-row align-items-center">
@@ -73,7 +73,7 @@ const [newVenue, setNewVenue] = useState({
         <p className="m-0">{venue.location.address}</p>
         <p className="m-0">{venue.location.city + ", " + venue.location.state}</p>
         </div>
-        <table className="table table-responsive ml-auto table-striped table-bordered bandreviews apiVenueReviews">
+        <table className="table table-responsive table-striped table-bordered bandreviews apiVenueReviews">
         <thead>
             <tr>
             <th className="text-center">Date</th>

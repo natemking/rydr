@@ -32,6 +32,12 @@ th, td {
     text-align: center;
 }
 
+ul, li { 
+    margin-left: 0; 
+    padding-left: 0; 
+    list-style-type: none;
+}
+
 .bandphoto{
     max-width: 305px !important;
     height: auto;
@@ -40,6 +46,7 @@ th, td {
 .venueDiv{
     transition: all .2s ease-in-out;
     border-radius: 10px;
+    max-width: 1000px;
 }
 
 .venueDiv:hover{
@@ -63,6 +70,7 @@ table {
 
 th,td {
     color: white ;
+    word-wrap: break-word;
 }
 .bandbio{
     max-width: 560px;
@@ -161,4 +169,14 @@ th,td {
 .bg-dark{
    background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(142 165 125)) !important;
    box-shadow: inset -3em 0em 20px 0px #91ae80 !important;
+}
+
+.artistLink__li:hover .fa-times {
+    cursor: pointer;
+    visibility: visible;
+}
+
+.fa-times {
+    margin-left: 5px;
+    visibility: hidden;
 }

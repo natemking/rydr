@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-import API from '../utils/API'
+import API from '../utils/API';
 import ModalAlert from './Modal';
 import AuthServices from '../Services/AuthorizationService'
 import {AuthContext} from '../Context/AuthorizationContext'
