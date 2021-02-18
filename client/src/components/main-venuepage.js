@@ -92,9 +92,9 @@ const VenuePage = () => {
 
       {/* SEARCH INPUTS */}
       <form>
-        <input type="text" placeholder="Search.." name={"venueName"} value={search.venueName} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 venueSearch" onChange={handleChange}></input>
-        <input type="number" placeholder="How Many Miles.." name={"radius"} value={search.radius} className="mb-2 venueSearch " onChange={handleChange}></input>
+        <input type="text" placeholder="Search.." name={"venueName"} value={search.venueName} className="mb-2 mx-2 venueSearch" onChange={handleChange}></input>
+        <input type="text" placeholder="Specifiy City.." name={"city"} value={search.city} className="mb-2 mx-2 venueSearch" onChange={handleChange}></input>
+        <input type="number" placeholder="How Many Miles.." name={"radius"} value={search.radius} className="mb-2 mx-2 venueSearch " onChange={handleChange}></input>
         <button onClick={handleBtnSubmit} className="venueSearch venueSearchBtn">Search Venues</button>
         {isAuth?<Link to="/createVenue">
         <button className="venueSearchBtn">Create Venue</button>
