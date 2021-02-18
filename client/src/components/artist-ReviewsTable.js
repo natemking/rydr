@@ -11,7 +11,6 @@ const ReviewsTable = ({reviews, isLoading}) => {
             <th className="text-center">Date</th>
             <th className="text-center">Venue Name</th>
             <th className="text-center">Rating</th>
-            <th className="text-center">Venue Average</th>
             <th className="text-center">Review</th>
             </tr>
         </thead>

@@ -12,12 +12,17 @@ const ReviewBody = ({review}) => {
         fetchVenue()
       }, [review.venue]);
 
+    const formatter = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit"
+    });
+    
     return (
         <tr>
-           <td>{review.createdAt}</td>
+          <td>{formatter.format(Date.parse(review.createdAt))}</td>
            <td>{venueName}</td>
            <td><Rating initialRating={review.rating} emptySymbol="fa fa-star-o fa-2x" readonly fullSymbol="fa fa-star fa-2x" /></td>
-           <td>Venue Avg Rating</td>
            <td>{review.reviewText}</td>
         </tr>
     )
