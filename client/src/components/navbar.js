@@ -5,16 +5,19 @@ import AuthServices from "../Services/AuthorizationService"
 import {AuthContext} from '../Context/AuthorizationContext'
 
 const NavBar = () => {
-    const {isAuth, setCurrentUser, setIsAuth, setId, id} = useContext(AuthContext)
-    const history = useHistory()
+  // setup globals to help with auth and also to help with routing
+  const {isAuth, setCurrentUser, setIsAuth, setId, id} = useContext(AuthContext)
+  const history = useHistory()
+  
+  // quick style variables for components 
+  const imgstyle = {
+    maxHeight: "70px"
+  }
+  const headerstyle = {
+    backgroundColor: "grey"
+  }
     
-    const imgstyle = {
-        maxHeight: "70px"
-    }
-    const headerstyle = {
-        backgroundColor: "grey"
-    }
-
+    // creates log out functionality and calls the auth service logout route
     const logoutButton= () =>{
       AuthServices.logout()
       .then(res => {
@@ -25,6 +28,7 @@ const NavBar = () => {
       })
     }
 
+    // renders out nav buttons for non users
     const navbarLogin = () =>{
       return(
         <ul className="navbar-nav ml-auto">
@@ -41,6 +45,8 @@ const NavBar = () => {
         </ul>
       )
     }
+
+    //  renders out nav buttons for logged in users
     const navbarUser = () =>{
       return(    
         <ul className="navbar-nav ml-auto">

@@ -13,14 +13,14 @@ app.use(logger('dev'));
 app.use(express.urlencoded({
     extended: true
 }));
-
 app.use(express.json());
+app.use(cookieParser("secretcodes"));
+
 // SERVE STATIC ASSETS DEPLOYED (usually on heroku)
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
-app.use(cookieParser("secretcodes"));
 // SERVE UP STATIC ASSETS LOCALLY
 app.use(express.static('client/public'));
 
