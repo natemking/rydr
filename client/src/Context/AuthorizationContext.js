@@ -12,6 +12,7 @@ const AuthProvider = ({children}) =>{
         // set initial state for context
          useEffect(() => {
              AuthServices.isAuthenticated().then(data => {
+
                  setCurrentUser(data.user);
                  setIsAuth(data.isAuthenticated);
                  setIsLoading(true);
