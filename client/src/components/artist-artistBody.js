@@ -47,7 +47,7 @@ const Artist = ({artist, isLoading, id}) => {
                 { renderBandLinks() }
             
                 <Link to={updateBandUrl}>
-                    <button>Update Band Info</button>
+                    <button className="artistUpdateButton">Update Band Info</button>
                 </Link>
 
             </div>
