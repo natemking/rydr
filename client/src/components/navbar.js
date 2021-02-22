@@ -1,15 +1,15 @@
-import { format } from 'morgan';
-import React, {useContext} from 'react';
-import {Link, history, useHistory} from 'react-router-dom'
+import React, {useContext, useState, useEffect} from 'react';
+import {Link, useHistory} from 'react-router-dom'
 import AuthServices from "../Services/AuthorizationService"
 import {AuthContext} from '../Context/AuthorizationContext'
 
 const NavBar = () => {
   // setup globals to help with auth and also to help with routing
-  const {isAuth, setCurrentUser, setIsAuth, setId} = useContext(AuthContext)
+  const {isAuth, setCurrentUser, setIsAuth, setId, id} = useContext(AuthContext)
   const history = useHistory()
-  const bandId = localStorage.getItem("id")
-  console.log(bandId)
+  useEffect(() => {
+    setId(localStorage.getItem("id"))
+  }, [])
   // quick style variables for components 
   const imgstyle = {
     maxHeight: "70px"
@@ -25,6 +25,7 @@ const NavBar = () => {
         setCurrentUser("")
         setIsAuth(false)
         setId("")
+        localStorage.removeItem("id")
         history.push("/")
       })
     }
@@ -52,12 +53,12 @@ const NavBar = () => {
       return(    
         <ul className="navbar-nav ml-auto">
           <li>
-            <Link to={`/bandpage/${bandId}`}>
+            <Link to={`/bandpage/${id}`}>
             <h4 className="mx-2 navbutton">My Band Page</h4>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={`/venuepage/${bandId}`}>
+            <Link to={`/venuepage/${id}`}>
             <h4 className="mx-2 navbutton">Search Venues</h4>
             </Link>
           </li>

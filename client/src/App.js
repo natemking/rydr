@@ -28,11 +28,12 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
+          <Route path="/venuepage/:id" component={VenuePage} />
+          <Route exact path="/venuepage/" component={VenuePage} />
           <NonUserRoutes path="/" exact component={Home}/>
           <NonUserRoutes path="/login" component={LogIn}/>
           <NonUserRoutes path="/createartist" component={CreateArtist}/>
           <UserRoutes path="/bandpage/:id" component={BandPage}/>
-          <Route path="/venuepage/:id" component={VenuePage} />
           <UserRoutes path="/createReview/:id" component={CreateReview} />
           <UserRoutes path="/createVenue/:id" component={CreateVenue} />
           <UserRoutes path="/updateartist/:id" component={UpdateArtist} />
