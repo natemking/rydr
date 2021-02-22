@@ -80,24 +80,19 @@ const UpdateArtist = ({ match }) => {
     
     // Function to retrieve input values for the new link and set that to artist state
     const addLink = () => {
-        let newArtist = artist
-        newArtist.bandLinks.push({
-            siteName: document.getElementById('linkSelection').value,
-            siteUrl: trimURL(document.getElementById('siteUrl').value)
-        })
-        setArtist({
-            ...artist,
-            newArtist});
-    }
-    
-    // If band links exist render them
-    const renderBandLinks = () => {
-        if (artist) { 
-            if (artist.bandLinks.length > 0) {
-                return (<ArtistLinks artist={ artist } title={ 'Delete' }/>) 
-            }
+        const linkValue = document.getElementById('siteUrl').value;
+        const linkType = document.getElementById('linkSelection').value;
+        let newArtist = artist;
+        
+        if(linkValue !== '' && linkType !== 'Choose A Link Type'){
+            newArtist.bandLinks.push({
+                siteName: linkType,
+                siteUrl: trimURL(linkValue)
+            });
+            setArtist({ ...artist, newArtist });
         }
     }
+    
 
     // Render Update artist profile screen
     return (
@@ -148,10 +143,6 @@ const UpdateArtist = ({ match }) => {
                             </select>
                         </div>
                     </div>
-
-                    <div className="form-group">
-                        { renderBandLinks() }
-                    </div>  
 
                     <button type="submit" value={ "Submit" } className="artistUpdateButton" onClick={ handleBtnSubmit }>
                         Submit
