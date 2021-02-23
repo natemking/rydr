@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Rating from 'react-rating'
 import { Link } from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
@@ -7,6 +7,7 @@ import API from "../utils/API";
 
 const VenueBody = ({venue}) => {
 const {id, isAuth} = useContext(AuthContext)
+const [isDuplicate, setIsDuplicate] = useState(false);
 const createReviewLink = `/createReview/${id}`
 const [newVenue, setNewVenue] = useState({
     "venueName": venue.name,
@@ -28,7 +29,6 @@ const [newVenue, setNewVenue] = useState({
                     "venueName": venue.name,
                     "venueAddress": [venue.location.address, venue.location.city + ", " +  venue.location.state, "United States"]
                     })
-                    console.log(newVenue)
                     await API.createVenueByName(venue.venueName, newVenue)
                 }
             }catch(err){
@@ -36,8 +36,28 @@ const [newVenue, setNewVenue] = useState({
             }
         }
 
+useEffect(() => {
+    const compairDB = async () => {
+        try{
+            const dbVenues = await API.getVenues()
+            const dbVenue = dbVenues.data
+            const dbVenueName = dbVenue.map(venue => venue.venueName)
+            const duplicateFinder = dbVenueName.map(venue => venue)
+            if ( duplicateFinder.includes(venue.name) ) {
+                setIsDuplicate(true)
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    compairDB()
 
-    return (
+}, [venue.name])
+
+
+
+    return isDuplicate ? null : (
 
         <div className="my-2 mb-2 p-2 d-flex flex-column venueDiv flex-wrap searchedVenues">
         <div className="d-flex flex-column mx-2 apitext">

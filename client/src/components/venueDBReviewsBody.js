@@ -1,4 +1,3 @@
-import { format } from 'morgan';
 import React, { useEffect, useState } from 'react';
 import Rating from 'react-rating'
 import API from "../utils/API";
@@ -27,6 +26,7 @@ const VenueReviewBody = ({review}) => {
 
     return (
 
+
       <>
         <tr>
            <td >{formatter.format(Date.parse(review.createdAt))}</td> 
@@ -36,6 +36,7 @@ const VenueReviewBody = ({review}) => {
         </tr>
       </>
       
+
     )
 }
 

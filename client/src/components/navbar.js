@@ -9,7 +9,6 @@ const NavBar = () => {
   const {isAuth, setCurrentUser, setIsAuth, setId} = useContext(AuthContext)
   const history = useHistory()
   const bandId = localStorage.getItem("id")
-  console.log(bandId)
   // quick style variables for components 
   const imgstyle = {
     maxHeight: "70px"
