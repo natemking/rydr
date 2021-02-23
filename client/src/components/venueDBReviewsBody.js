@@ -29,6 +29,7 @@ const VenueReviewBody = ({review}) => {
 
     return (
 
+
       <>
         <tr>
            <td >{formatter.format(Date.parse(review.createdAt))}</td> 
@@ -38,6 +39,7 @@ const VenueReviewBody = ({review}) => {
         </tr>
       </>
       
+
     )
 }
 

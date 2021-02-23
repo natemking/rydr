@@ -15,7 +15,6 @@ const VenuePage = () => {
   const [search, setSearch] = useState({venueName: "", city: "", radius: "" })
   const [venuesAPI, setVenueAPI] = useState([])
   setId(localStorage.getItem("id"))
-  console.log(id)
   //MAKES THE SEARCH API CALL DEPENDING ON WHAT THE NAME/CITY/RADIUS IS
   const handleBtnSubmit = (e) => {
     e.preventDefault();
