@@ -5,6 +5,8 @@
 
 * [Rydr Repository Link](https://github.com/natemking/rydr)
 
+* [Rydr Demo Video Link](https://youtu.be/DFGs32pqozE)
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/natemking/rydr/blob/main/LICENSE)
 
 ![html5 badge](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=flat&logo=html5&logoColor=white)
