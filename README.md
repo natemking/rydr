@@ -1,7 +1,7 @@
 # Project Rydr
 
 
-* [Rydr Deploy Link](https://rydr-app.herokuapp.com/)
+* [Rydr Deploy Link](https://rydr.vps.natemking.dev/)
 
 * [Rydr Repository Link](https://github.com/natemking/rydr)
 
