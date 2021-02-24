@@ -17,7 +17,6 @@ const VenueReviewBody = ({review}) => {
     });
 
     useEffect(() => {
-
           const fetchArtist = async () => {
           const result = await API.getBand(review.author)
           const artistReview = result.data
