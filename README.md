@@ -23,11 +23,6 @@
 ---
 ## Table of Contents
  * [Description](#description)
-    <!-- + [Scope of Work](#scope-of-work)
-    + [React](#react)
-    + [MongoDB/Mongoose](#mongodb/mongoose)
-    + [Node.js](#nodejs)
-    + [HTML/CSS](#html/css) -->
   * [Screenshots](#screenshots)
   * [License](#license)
   * [Credits](#credits)
@@ -96,11 +91,11 @@ So that other artists can know how a venue operates and treats artists.
 
 ![homepage-image](./client/public/imgs/RydrMainPage.jpg)
 
-<!-- ![app gif](public/assets/screenshots/workout-tracker.gif)
+![app gif](./client/public/imgs/rydr.gif)
 <br>
 
 _App Functionality_
-<br> -->
+<br>
 
 
 ## License
