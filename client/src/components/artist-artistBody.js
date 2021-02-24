@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 const Artist = ({artist, isLoading, id}) => {
     const userId = localStorage.getItem("id");
     const updateBandUrl = `/updateartist/${id}`;
-    console.log(window.location.href)
     const url = window.location.href;
     const bandId = url.substring(url.lastIndexOf('/') +1);
-    console.log("bandId:", bandId, "passed id from state:", id, "url path:", url, "userId from local:", userId );
     // If band photo exists render it
     const renderImg = () => {
       if (artist.bandImg) { return ( <img alt="bandphoto" className="img-fluid bandphoto" src={ artist.bandImg } /> ) }
@@ -50,7 +48,7 @@ const Artist = ({artist, isLoading, id}) => {
 
                 { renderBandLinks() }
                 {userId !== bandId ? null :
-                <Link to={updateBandUrl}>
+                <Link to={updateBandUrl} value={id}>
                     <button className="artistUpdateButton">Update Band Info</button>
                 </Link>}
             </div>
