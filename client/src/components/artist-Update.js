@@ -102,7 +102,7 @@ const UpdateArtist = ({ match }) => {
                     Update Your Artist Profile
                 </h1>
 
-                <CloudinaryWidget onSuccess={ handleCloudResults } />
+                <CloudinaryWidget onSuccess={ handleCloudResults } title='Add a pic'/>
                 <h4 style={{ color: 'white', display: msgToggle }}>
                     Image uploaded!
                 </h4>
