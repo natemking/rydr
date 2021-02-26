@@ -26,6 +26,9 @@ const Artist = ({artist, isLoading, id}) => {
             <div className="d-flex flex-column p-2 flex-wrap">
                 <h1>
                     {artist.bandName}
+                        <span>
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </span>
                 </h1>
                 <h2>
                     {artist.location}
