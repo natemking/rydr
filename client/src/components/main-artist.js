@@ -30,7 +30,7 @@ const BandPage = ({ match }) => {
     setEdit(true)
   }
 
-  // Render the artist page
+  // Render the artist page. If in edit mode the Artist reviews are not rendered
   return (
     <div className="d-flex flex-column mt-2 p-2 align-items-center">
       <Artist artist={ artist } isLoading={ isLoading } id={match.params.id} edit={ edit } handleEdit={ handleEdit } />

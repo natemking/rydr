@@ -17,7 +17,7 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
 
     // If band links exist render them
     const renderBandLinks = () => {
-      if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} />) }
+      if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} edit={ edit } />) }
     }
 
     // Render artist info
@@ -35,9 +35,11 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
                 <>
                     <h1>
                         {artist.bandName}
-                            <span>
+                            { userId !== bandId ? null :
+                                <span>
                                 <i class="fa fa-pencil" aria-hidden="true" onClick={ handleEdit }></i>
                             </span>
+                            }
                     </h1>
                     <h2>
                         {artist.location}
