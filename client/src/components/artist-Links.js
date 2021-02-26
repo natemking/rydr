@@ -2,6 +2,7 @@ import React from 'react';
 import API from '../utils/API'
 
 
+
 const ArtistLinks = ({ artist, isLoading, title, id, edit }) => {
     const userId = localStorage.getItem("id");
     const updateBandUrl = `/updateartist/${id}`;

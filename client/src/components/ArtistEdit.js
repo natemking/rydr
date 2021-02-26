@@ -1,18 +1,20 @@
 import React from 'react';
 
-const ArtistEdit = ({ artist, renderBandLinks }) => {
+const ArtistEdit = ({ artist, renderBandLinks, create }) => {
+  
     return (
         <form>
-            <h1>
-                {artist.bandName}
-                
-            </h1>
-
-            
-            <div className='form-group'>
-                <input type="text" className="form-control" id="bandLocation"  name="location"  />
-            </div>
-
+            { create ? null :
+                <>
+                    <h1>
+                        { artist.bandName }
+                    </h1>
+        
+                    <div className='form-group'>
+                        <input type="text" className="form-control" id="bandLocation"  name="location"  />
+                    </div>
+                </>
+            }
 
             <div className='form-group'>
                 <h3>
