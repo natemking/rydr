@@ -181,3 +181,12 @@ th,td {
     visibility: hidden;
     color: #61DD71;
 }
+
+.fa-pencil {
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.fa-pencil:hover {
+    cursor: pointer;
+}

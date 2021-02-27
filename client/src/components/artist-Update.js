@@ -4,6 +4,7 @@ import CloudinaryWidget from './CloudinaryWidget';
 import API from '../utils/API';
 import Modal from './Modal';
 import ArtistLinks from './artist-Links';
+import ArtistEdit from './ArtistEdit';
 
 
 const UpdateArtist = ({ match }) => {
@@ -19,8 +20,6 @@ const UpdateArtist = ({ match }) => {
     const [show, setShow] = useState(false);
 
     
-
-
     // Retrieves artist data from the database to be used
     useEffect(() => {
         const fetchArtist = async () => {
@@ -99,15 +98,17 @@ const UpdateArtist = ({ match }) => {
         <div className="d-flex flex-column justify-content-center align-items-center mt-5">
             <div className="formcontent p-2">
                 <h1 className="text-center">
-                    Update Your Artist Profile
+                    Create Your Artist Profile
                 </h1>
 
-                <CloudinaryWidget onSuccess={ handleCloudResults } />
+                <CloudinaryWidget onSuccess={ handleCloudResults } title='Add a pic'/>
                 <h4 style={{ color: 'white', display: msgToggle }}>
                     Image uploaded!
                 </h4>
 
-                <form>
+                <ArtistEdit create={ true } />
+
+                {/* <form>
                     <div className="form-group">
                         <label htmlFor="artistLocation">
                             Location (City, State):
@@ -147,7 +148,7 @@ const UpdateArtist = ({ match }) => {
                     <button type="submit" value={ "Submit" } className="artistUpdateButton" onClick={ handleBtnSubmit }>
                         Submit
                     </button>
-                </form>
+                </form> */}
                 <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } />
             </div>
         </div>

@@ -2,7 +2,8 @@ import React from 'react';
 import API from '../utils/API'
 
 
-const ArtistLinks = ({ artist, isLoading, title, id }) => {
+
+const ArtistLinks = ({ artist, isLoading, title, id, edit }) => {
     const userId = localStorage.getItem("id");
     const updateBandUrl = `/updateartist/${id}`;
     const url = window.location.href;
@@ -19,7 +20,7 @@ const ArtistLinks = ({ artist, isLoading, title, id }) => {
             <a href={`https://${link.siteUrl}`} target='_blank' rel='noreferrer'>
                 {link.siteName}
             </a>
-            {userId !== bandId ? null :
+            { !edit ? null :
             <span>
                 <i className="fa fa-times" aria-hidden="true" id={link._id} onClick={handleOnClick}></i>
             </span>
