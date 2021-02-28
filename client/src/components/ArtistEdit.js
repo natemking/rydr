@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ArtistLinkInput from './ArtistLinkInput';
 
-const ArtistEdit = ({ artist, renderBandLinks, create }) => {
-  
+const ArtistEdit = ({ artist, renderBandLinks, create }) => {   
+    const [addLink, setAddLink] = useState([<ArtistLinkInput />]);
+    
+    const addLinkInput = () => {
+        setAddLink([...addLink, <ArtistLinkInput />])
+    }
+
     return (
         <form>
             { create ? null :
@@ -34,23 +40,21 @@ const ArtistEdit = ({ artist, renderBandLinks, create }) => {
             </div>
 
             <div className="form-group">
-                <div className="">
+                <div>
                     <label htmlFor="artistLinks">Add A Link:</label>
-                    <input type="text" className="form-control" id="siteUrl" aria-describedby="socialMediaHelp" placeholder="Add Url Here" name="siteUrl" ></input>
-                    <select className="artistUpdateButton" id="linkSelection">
-                        <option selected disabled>Choose A Link Type</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Instagram">Instagram</option>
-                        <option value="Bandcamp">Bandcamp</option>
-                        <option value="Youtube">Youtube</option>
-                        <option value="Website">Website</option>
-                    </select>
+                    { addLink.map(input => (input)) }
                 </div>
             </div>
-
+        
+            <span>
+                <p>
+                    <i className="fa fa-plus" aria-hidden="true" onClick={addLinkInput}></i>
+                    Add another link
+                </p>
+            </span>
 
             { renderBandLinks }
-          
+            
             <button className="artistUpdateButton">Save</button>
                 
         </form>
