@@ -30,7 +30,7 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
             </div>
             
             <div className="d-flex flex-column p-2 flex-wrap">
-                { edit ? <ArtistEdit artist={ artist } id={ id } renderBandLinks= { renderBandLinks() } /> :
+                { edit ? <ArtistEdit artist={ artist } id={ id } renderBandLinks= { renderBandLinks() } handleEdit={ handleEdit }/> :
                 
                 <>
                     <h1>

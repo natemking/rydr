@@ -35,13 +35,13 @@ const UpdateArtist = ({ match }) => {
     const handleShow = () => setShow(true);
 
     // Sets the state of updatedArtist to match user input 
-    function handleChange(event) {
-        setArtist({
-            ...artist,
-            [event.target.name]: event.target.value,
-            id: match.params.id
-        });
-    }
+    // function handleChange(event) {
+    //     setArtist({
+    //         ...artist,
+    //         [event.target.name]: event.target.value,
+    //         id: match.params.id
+    //     });
+    // }
 
     // Cloudinary widget, send url results to the artist state
     const handleCloudResults = (results) => {
@@ -149,7 +149,7 @@ const UpdateArtist = ({ match }) => {
                         Submit
                     </button>
                 </form> */}
-                <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } />
+                {/* <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } /> */}
             </div>
         </div>
     )

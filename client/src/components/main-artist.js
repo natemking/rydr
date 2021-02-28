@@ -27,7 +27,8 @@ const BandPage = ({ match }) => {
   }, [match.params.id]);
 
   const handleEdit = () => {
-    setEdit(true)
+    // setEdit(true)
+    edit ? setEdit(false) : setEdit(true);
   }
 
   // Render the artist page. If in edit mode the Artist reviews are not rendered
