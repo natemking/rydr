@@ -37,7 +37,7 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
                         {artist.bandName}
                             { userId !== bandId ? null :
                                 <span>
-                                <i class="fa fa-pencil" aria-hidden="true" onClick={ handleEdit }></i>
+                                <i className="fa fa-pencil" aria-hidden="true" onClick={ handleEdit }></i>
                             </span>
                             }
                     </h1>
