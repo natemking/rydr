@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
 import Modal from './Modal';
 
 const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
-    // useHistory hook for routing
-    let history = useHistory();
     // State of artist object from DB
     const [editArtist, setEditArtist] = useState(artist);   
-    const [addLink, setAddLink] = useState([<ArtistLinkInput key={Date.now()} />]);
+    const [addLink, setAddLink] = useState([<ArtistLinkInput key={Date.now()} linkId={ 0 }/>]);
     // State for modal error message
     const [modalMsg, setModalMsg] = useState('');
     // State for modal visibility
     const [show, setShow] = useState(false);
-
+    
    const handleChange = (e) => {
         setEditArtist({
             ...editArtist,
@@ -25,7 +22,7 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
     console.log(editArtist);
 
     const addLinkInput = () => {
-        setAddLink([...addLink, <ArtistLinkInput key={ Date.now() }/>])
+        setAddLink([...addLink, <ArtistLinkInput key={ Date.now() } linkId={ addLink.length }/>])
     }
 
     // Modal functions for closing and showing
@@ -59,19 +56,35 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
 
     // Function to retrieve input values for the new link and set that to artist state
     const editLink = () => {
-        const linkValue = document.getElementById('siteUrl').value;
-        const linkType = document.getElementById('linkSelection').value;
-        let newArtist = artist;
+        // const linkValue = document.getElementById('siteUrl').value;
+        // const linkType = document.getElementById('linkSelection').value;
+        // let newArtist = editArtist;
 
-        if (linkValue !== '' && linkType !== 'Link Type') {
-            newArtist.bandLinks.push({
-                siteName: linkType,
-                siteUrl: trimURL(linkValue)
-            });
-            setEditArtist({ ...artist, newArtist });
-        }
+        addLink.forEach((link,i )=> {
+            const linkValue = document.getElementById(`siteUrl${i}`).value;
+            const linkType = document.getElementById(`linkSelection${i}`).value;
+            let newArtist = editArtist;
+
+            if (linkValue !== '' && linkType !== 'Link Type') {
+
+                newArtist.bandLinks.push({
+                    siteName: linkType,
+                    siteUrl: trimURL(linkValue)
+                });
+                setEditArtist({ ...artist, newArtist });
+            }
+        });
+
+        // if (linkValue !== '' && linkType !== 'Link Type') {
+
+        //     newArtist.bandLinks.push({
+        //         siteName: linkType,
+        //         siteUrl: trimURL(linkValue)
+        //     });
+        //     setEditArtist({ ...editArtist, newArtist });
+        // }
     }
-
+    console.log(addLink);
     return (
         <>
             <form>
@@ -139,8 +152,10 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
                     </p>
                 </span>
     
-                { renderBandLinks }
+                {/* { React.cloneElement(renderBandLinks, { updateArtist: updateArtist() }) } */}
                 
+                { renderBandLinks }
+
                 <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
                     Save
                 </button>

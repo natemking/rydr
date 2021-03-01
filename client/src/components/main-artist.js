@@ -24,7 +24,7 @@ const BandPage = ({ match }) => {
           setIsLoading(false);
         } catch (err) { console.error(err) }
       })();
-  }, [match.params.id]);
+  }, [match.params.id, edit]);
 
   const handleEdit = () => {
     // setEdit(true)
