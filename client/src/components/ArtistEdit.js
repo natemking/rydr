@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
 import Modal from './Modal';
@@ -6,11 +6,15 @@ import Modal from './Modal';
 const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
     // State of artist object from DB
     const [editArtist, setEditArtist] = useState(artist);   
-    const [addLink, setAddLink] = useState([<ArtistLinkInput key={Date.now()} linkId={ 0 }/>]);
+    const [addLink, setAddLink] = useState([]);
     // State for modal error message
     const [modalMsg, setModalMsg] = useState('');
     // State for modal visibility
     const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        artist.bandLinks.forEach(link => addLinkInput())
+    }, [artist.bandLinks]);
     
    const handleChange = (e) => {
         setEditArtist({
@@ -19,10 +23,9 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
             // id: match.params.id
         });
     }
-    console.log(editArtist);
 
     const addLinkInput = () => {
-        setAddLink([...addLink, <ArtistLinkInput key={ Date.now() } linkId={ addLink.length }/>])
+        setAddLink([...addLink, <ArtistLinkInput key={Date.now()} linkId={ addLink.length } links={artist.bandLinks} />])
     }
 
     // Modal functions for closing and showing
@@ -56,10 +59,6 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
 
     // Function to retrieve input values for the new link and set that to artist state
     const editLink = () => {
-        // const linkValue = document.getElementById('siteUrl').value;
-        // const linkType = document.getElementById('linkSelection').value;
-        // let newArtist = editArtist;
-
         addLink.forEach((link,i )=> {
             const linkValue = document.getElementById(`siteUrl${i}`).value;
             const linkType = document.getElementById(`linkSelection${i}`).value;
@@ -71,7 +70,7 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
                     siteName: linkType,
                     siteUrl: trimURL(linkValue)
                 });
-                setEditArtist({ ...artist, newArtist });
+                setEditArtist({ ...editArtist, newArtist });
             }
         });
 
@@ -84,7 +83,7 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
         //     setEditArtist({ ...editArtist, newArtist });
         // }
     }
-    console.log(addLink);
+
     return (
         <>
             <form>
@@ -152,9 +151,9 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
                     </p>
                 </span>
     
-                {/* { React.cloneElement(renderBandLinks, { updateArtist: updateArtist() }) } */}
+                { React.cloneElement(renderBandLinks, { updateArtist: 'test' }) }
                 
-                { renderBandLinks }
+                {/* { renderBandLinks } */}
 
                 <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
                     Save

@@ -8,13 +8,14 @@ const ArtistLinks = ({ artist, isLoading, title, id, edit, updateArtist }) => {
     const updateBandUrl = `/updateartist/${id}`;
     const url = window.location.href;
     const bandId = url.substring(url.lastIndexOf('/') + 1);
-
+   
     
     // On click remove user link from DB and DOM
     const handleOnClick = (e) => {
         API.deleteLink({bandId:artist._id, id:e.target.id});
         document.getElementById(e.target.id).parentNode.parentNode.remove();
-        // updateArtist();
+        console.log(artist);
+        
     }
 
     // Iterate over band links for display. 
