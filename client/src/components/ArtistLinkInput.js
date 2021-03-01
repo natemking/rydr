@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ArtistLinkInput = ({ links, linkId  }) => {
-   console.log(links);
+
     return (
         <div className='d-flex flex-row mb-3'>
             <input 

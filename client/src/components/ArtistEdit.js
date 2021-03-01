@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
 import Modal from './Modal';
@@ -12,9 +12,17 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
     // State for modal visibility
     const [show, setShow] = useState(false);
 
+    
+
     useEffect(() => {
-        artist.bandLinks.forEach(link => addLinkInput())
-    }, [artist.bandLinks]);
+        let linkInputs = [...addLink]
+        artist.bandLinks.forEach((link, i) => {
+            linkInputs.push(<ArtistLinkInput key={ i } linkId={ i } links={ artist.bandLinks } />)
+        })    
+        setAddLink(linkInputs)  
+    },[]);
+   
+   console.log(addLink);
     
    const handleChange = (e) => {
         setEditArtist({
@@ -25,7 +33,7 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
     }
 
     const addLinkInput = () => {
-        setAddLink([...addLink, <ArtistLinkInput key={Date.now()} linkId={ addLink.length } links={artist.bandLinks} />])
+        setAddLink([...addLink, <ArtistLinkInput key={addLink.length} linkId={ addLink.length } links={ editArtist.bandLinks } />])
     }
 
     // Modal functions for closing and showing
@@ -59,11 +67,13 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
 
     // Function to retrieve input values for the new link and set that to artist state
     const editLink = () => {
+        editArtist.bandLinks = [];
+
         addLink.forEach((link,i )=> {
             const linkValue = document.getElementById(`siteUrl${i}`).value;
             const linkType = document.getElementById(`linkSelection${i}`).value;
             let newArtist = editArtist;
-
+            
             if (linkValue !== '' && linkType !== 'Link Type') {
 
                 newArtist.bandLinks.push({
@@ -83,6 +93,8 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
         //     setEditArtist({ ...editArtist, newArtist });
         // }
     }
+
+ 
 
     return (
         <>
