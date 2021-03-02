@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
@@ -18,10 +18,9 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
     // State for modal visibility
     const [show, setShow] = useState(false);
     // State for the linkId to be deleted
-    const [deleteId, setDeleteId] = useState('');
+    const [deleteId, setDeleteId] = useState(null);
 
-    
-
+  
     // If it is the create profile page, create state is set to true
     useEffect(() => {
         window.location.hash.includes('updateartist') ? setCreatePage(true) : setCreatePage(false);
@@ -42,8 +41,8 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
     // Render Input fields for band links that are stored in DB
     useEffect(() => {
         let linkInputs = [...addLink]
-        if (artist) {
-            artist.bandLinks.forEach((link, i) => {
+        if (artist && !show) {
+            editArtist.bandLinks.forEach((link, i) => {
                 linkInputs.push(
                     <ArtistLinkInput
                         key={i}
@@ -56,13 +55,19 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
             setAddLink(linkInputs);  
         }        
     },[]);
-
+    
     // Update state of link list when delete id changes
     useEffect(() => {
-        const deleteLink = addLink.filter(link => link.key !== deleteId);
-        return addLink.length > 0 ? setAddLink(deleteLink) : null;
+        if (deleteId !== null){
+            const deleteLink = addLink.filter(link => link.key !== deleteId);
+            const updatedArtist = editArtist;
+
+            updatedArtist.bandLinks.splice(deleteId, 1);
+            setEditArtist(updatedArtist);
+
+            return addLink.length > 0 ? setAddLink(deleteLink) : null;
+        }
     }, [deleteId]);
-    
     
     // Handle input change
     const handleChange = (e) => {
@@ -98,7 +103,7 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
 
     // Function to trim off http:// or https:// from a users link input
     const trimURL = (url) => {
-        const regex = (/^(http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gim);
+        const regex = (/^(http:\/\/|https:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gim);
 
         url = url.toLowerCase().trim();
 
@@ -114,7 +119,7 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
             const linkType = document.getElementById(`linkSelection${i}`).value;
             const newArtist = editArtist;
             
-            if (linkValue !== '' && linkType !== 'Link Type') {
+            if (linkValue !== '' && linkType !== 'DEFAULT') {
 
                 newArtist.bandLinks.push({
                     siteName: linkType,

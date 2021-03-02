@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import API from '../utils/API'
 
 
 
-const ArtistLinks = ({ artist, isLoading, title, id, edit, updateArtist }) => {
-    const userId = localStorage.getItem("id");
-    const updateBandUrl = `/updateartist/${id}`;
-    const url = window.location.href;
-    const bandId = url.substring(url.lastIndexOf('/') + 1);
-   
-    
+const ArtistLinks = ({ artist, isLoading, title, edit }) => {
+  
     // On click remove user link from DB and DOM
     const handleOnClick = (e) => {
         API.deleteLink({bandId:artist._id, id:e.target.id});
         document.getElementById(e.target.id).parentNode.parentNode.remove();
-        console.log(artist);
-        
     }
 
     // Iterate over band links for display. 

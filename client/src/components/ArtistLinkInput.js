@@ -4,7 +4,7 @@ const ArtistLinkInput = ({ links, linkId, remove }) => {
 
     // On click remove user link from DB and DOM
     const handleOnClick = (e) => {
-        remove(e.target.id); 
+        remove(e.target.id);
     }
 
     return (
