@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
+import { useHistory } from "react-router-dom";
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
 import Modal from './Modal';
 
-const ArtistEdit = ({ artist, create, handleEdit }) => {
-    // State of artist object from DB
+const ArtistEdit = ({ artist, create, handleEdit, id }) => {
+    // useHistory hook for routing
+    let history = useHistory();
+    // State for artist object from DB
     const [editArtist, setEditArtist] = useState(artist);
-    // State of the bands links   
+    // State of page for profile create vs profile edit
+    const [createPage, setCreatePage] = useState(false);
+    // State for bands links   
     const [addLink, setAddLink] = useState([]);
     // State for modal error message
     const [modalMsg, setModalMsg] = useState('');
@@ -15,6 +20,25 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
     // State for the linkId to be deleted
     const [deleteId, setDeleteId] = useState('');
 
+    
+
+    // If it is the create profile page, create state is set to true
+    useEffect(() => {
+        window.location.hash.includes('updateartist') ? setCreatePage(true) : setCreatePage(false);
+    }, []);
+
+    // For the 'Create Profile' screen. Get the artist data and set newArtist state
+    useEffect(() => {
+        if (createPage){
+            (async () => {
+                try {
+                    const artist = await API.getBand(id);
+                    setEditArtist(artist.data);
+                } catch (err) { console.error(err) }
+            })();
+        }
+    }, [createPage]);
+  
     // Render Input fields for band links that are stored in DB
     useEffect(() => {
         let linkInputs = [...addLink]
@@ -45,26 +69,16 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
         setEditArtist({
             ...editArtist,
             [e.target.name]: e.target.value,
-            // id: match.params.id
         });
     }
 
     // Render a link input field
-    const addLinkInput = () => {
-        window.location.hash.includes('updateartist') ?
-            setAddLink([...addLink,
-                <ArtistLinkInput
-                    key={addLink.length}
-                    linkId={addLink.length} 
-                    links={ [] }
-                />
-            ])
-                :     
+    const addLinkInput = () => {    
             setAddLink([...addLink, 
                 <ArtistLinkInput 
                     key={ addLink.length } 
                     linkId={ addLink.length } 
-                    links={ editArtist.bandLinks } 
+                    links={ createPage ? [] : editArtist.bandLinks } 
                     remove={ deleteLinkInput }
                 />
             ])
@@ -95,11 +109,10 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
     const editLink = () => {
         if (editArtist) { editArtist.bandLinks = [] }
         
-       
         addLink.forEach((link,i )=> {
             const linkValue = document.getElementById(`siteUrl${i}`).value;
             const linkType = document.getElementById(`linkSelection${i}`).value;
-            let newArtist = editArtist;
+            const newArtist = editArtist;
             
             if (linkValue !== '' && linkType !== 'Link Type') {
 
@@ -112,17 +125,21 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
         });
     }
 
-    // Initializes function to update the artists info
+    // Initializes function to update the artists info 
     const handleBtnSubmit = (event) => {
         event.preventDefault();
         editLink();
         updateArtist();
-        setModalMsg(`${artist.bandName}'s profile was updated`);
+        localStorage.setItem("id", `${id}`)
+        setModalMsg(`${editArtist.bandName}'s profile was updated`);
         handleShow();
     }
 
     // Modal functions for closing and showing
-    const handleClose = () => { setShow(false); handleEdit() };
+    const handleClose = () => { 
+        setShow(false); 
+        createPage ? history.push(`/bandpage/${id}`) : handleEdit()
+    };
     const handleShow = () => setShow(true);
 
     // Render edit form
@@ -157,7 +174,7 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
                             className="form-control" 
                             id="artistBio" 
                             rows="3" 
-                            value={ artist ? editArtist.bandBio: null } 
+                            value={ artist ? editArtist.bandBio: undefined } 
                             onChange={handleChange} 
                             name="bandBio" 
                         />
@@ -174,7 +191,7 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
                         id="artistContact" 
                         placeholder="Add Contact Email" 
                         name="contact" 
-                        value={artist ? editArtist.contact : null}
+                        value={ artist ? editArtist.contact : undefined }
                         onChange={ handleChange } 
                     />
                 </div>
@@ -189,7 +206,7 @@ const ArtistEdit = ({ artist, create, handleEdit }) => {
                 <span>
                     <p>
                         <i className="fa fa-plus" aria-hidden="true" onClick={ addLinkInput }></i>
-                        Add another link
+                        Add a link
                     </p>
                 </span>
     

@@ -28,9 +28,11 @@ const ArtistLinkInput = ({ links, linkId, remove }) => {
                     <option value='Youtube'>Youtube</option>
                     <option value='Website'>Website</option>
             </select>
-            <span>
-                <i className="fa fa-times" aria-hidden="true" id={linkId} onClick={ handleOnClick } />
-            </span>
+            { !window.location.hash.includes('updateartist') ? 
+                <span>
+                    <i className="fa fa-times" aria-hidden="true" id={linkId} onClick={ handleOnClick } />
+                </span> : null
+            }
         </div>
     );
 }
