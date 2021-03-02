@@ -38,6 +38,10 @@ ul, li {
     list-style-type: none;
 }
 
+select {
+    margin: 0 5px !important;
+}
+
 .bandphoto{
     max-width: 305px !important;
     height: auto;
@@ -171,14 +175,13 @@ th,td {
    box-shadow: inset -3em 0em 20px 0px #91ae80 !important;
 }
 
-.artistLink__li:hover .fa-times {
-    cursor: pointer;
-    visibility: visible;
+.fa-times {
+    margin-left: 7px;
+    color: #61DD71;
 }
 
-.fa-times {
-    margin-left: 5px;
-    visibility: hidden;
+.fa-plus {
+    margin-right: 7px;
     color: #61DD71;
 }
 
@@ -187,6 +190,6 @@ th,td {
     margin-left: 10px;
 }
 
-.fa-pencil:hover {
+.fa-pencil:hover, .fa-times:hover, .fa-plus:hover {
     cursor: pointer;
 }

@@ -31,6 +31,7 @@ const CloudinaryWidget = (props) => {
                     margin: '10px 0',
                     display: btnToggle
                 }}
+                cropping={ false }
                 onSuccess={ onSuccess } 
                 onFailure={ onFailure }
             />

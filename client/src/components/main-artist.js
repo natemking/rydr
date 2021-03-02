@@ -24,10 +24,11 @@ const BandPage = ({ match }) => {
           setIsLoading(false);
         } catch (err) { console.error(err) }
       })();
-  }, [match.params.id]);
+  }, [match.params.id, edit]);
 
   const handleEdit = () => {
-    setEdit(true)
+    // setEdit(true)
+    edit ? setEdit(false) : setEdit(true);
   }
 
   // Render the artist page. If in edit mode the Artist reviews are not rendered
