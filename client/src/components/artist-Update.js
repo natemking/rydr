@@ -106,7 +106,9 @@ const UpdateArtist = ({ match }) => {
                     Image uploaded!
                 </h4>
 
-                <ArtistEdit create={ true } />
+                <ArtistEdit create={true} />
+
+                
 
                 {/* <form>
                     <div className="form-group">

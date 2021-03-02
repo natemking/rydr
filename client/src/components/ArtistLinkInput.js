@@ -1,6 +1,11 @@
 import React from 'react';
 
-const ArtistLinkInput = ({ links, linkId  }) => {
+const ArtistLinkInput = ({ links, linkId, remove }) => {
+
+    // On click remove user link from DB and DOM
+    const handleOnClick = (e) => {
+        remove(e.target.id); 
+    }
 
     return (
         <div className='d-flex flex-row mb-3'>
@@ -23,6 +28,9 @@ const ArtistLinkInput = ({ links, linkId  }) => {
                     <option value='Youtube'>Youtube</option>
                     <option value='Website'>Website</option>
             </select>
+            <span>
+                <i className="fa fa-times" aria-hidden="true" id={linkId} onClick={ handleOnClick } />
+            </span>
         </div>
     );
 }

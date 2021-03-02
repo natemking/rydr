@@ -1,30 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ArtistLinkInput from './ArtistLinkInput';
 import API from '../utils/API';
 import Modal from './Modal';
 
-const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
+const ArtistEdit = ({ artist, create, handleEdit }) => {
     // State of artist object from DB
-    const [editArtist, setEditArtist] = useState(artist);   
+    const [editArtist, setEditArtist] = useState(artist);
+    // State of the bands links   
     const [addLink, setAddLink] = useState([]);
     // State for modal error message
     const [modalMsg, setModalMsg] = useState('');
     // State for modal visibility
     const [show, setShow] = useState(false);
+    // State for the linkId to be deleted
+    const [deleteId, setDeleteId] = useState('');
 
-    
-
+    // Render Input fields for band links that are stored in DB
     useEffect(() => {
         let linkInputs = [...addLink]
-        artist.bandLinks.forEach((link, i) => {
-            linkInputs.push(<ArtistLinkInput key={ i } linkId={ i } links={ artist.bandLinks } />)
-        })    
-        setAddLink(linkInputs)  
+        if (artist) {
+            artist.bandLinks.forEach((link, i) => {
+                linkInputs.push(
+                    <ArtistLinkInput
+                        key={i}
+                        linkId={i}
+                        links={artist.bandLinks}
+                        remove={deleteLinkInput}
+                    />
+                );
+            });
+            setAddLink(linkInputs);  
+        }        
     },[]);
-   
-   console.log(addLink);
+
+    // Update state of link list when delete id changes
+    useEffect(() => {
+        const deleteLink = addLink.filter(link => link.key !== deleteId);
+        return addLink.length > 0 ? setAddLink(deleteLink) : null;
+    }, [deleteId]);
     
-   const handleChange = (e) => {
+    
+    // Handle input change
+    const handleChange = (e) => {
         setEditArtist({
             ...editArtist,
             [e.target.name]: e.target.value,
@@ -32,28 +49,37 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
         });
     }
 
+    // Render a link input field
     const addLinkInput = () => {
-        setAddLink([...addLink, <ArtistLinkInput key={addLink.length} linkId={ addLink.length } links={ editArtist.bandLinks } />])
+        window.location.hash.includes('updateartist') ?
+            setAddLink([...addLink,
+                <ArtistLinkInput
+                    key={addLink.length}
+                    linkId={addLink.length} 
+                    links={ [] }
+                />
+            ])
+                :     
+            setAddLink([...addLink, 
+                <ArtistLinkInput 
+                    key={ addLink.length } 
+                    linkId={ addLink.length } 
+                    links={ editArtist.bandLinks } 
+                    remove={ deleteLinkInput }
+                />
+            ])
     }
 
-    // Modal functions for closing and showing
-    const handleClose = () => { setShow(false); handleEdit()  };
-    const handleShow = () => setShow(true);
-
+    // Get the linkInput id to be deleted and set it to state
+    const deleteLinkInput = (id) => {
+        setDeleteId(id);
+    }
+   
     // Function to update the artists info in the DB
     const updateArtist = async () => {
         try {
             await API.updateBandData(editArtist._id, editArtist);
         } catch (err) { console.log(err) }
-    }
-
-    // Initializes function to update the artists info
-    const handleBtnSubmit = (event) => {
-        event.preventDefault();
-        editLink();
-        updateArtist();
-        setModalMsg(`${artist.bandName}'s profile was updated`);
-        handleShow();
     }
 
     // Function to trim off http:// or https:// from a users link input
@@ -67,8 +93,9 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
 
     // Function to retrieve input values for the new link and set that to artist state
     const editLink = () => {
-        editArtist.bandLinks = [];
-
+        if (editArtist) { editArtist.bandLinks = [] }
+        
+       
         addLink.forEach((link,i )=> {
             const linkValue = document.getElementById(`siteUrl${i}`).value;
             const linkType = document.getElementById(`linkSelection${i}`).value;
@@ -83,19 +110,22 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
                 setEditArtist({ ...editArtist, newArtist });
             }
         });
-
-        // if (linkValue !== '' && linkType !== 'Link Type') {
-
-        //     newArtist.bandLinks.push({
-        //         siteName: linkType,
-        //         siteUrl: trimURL(linkValue)
-        //     });
-        //     setEditArtist({ ...editArtist, newArtist });
-        // }
     }
 
- 
+    // Initializes function to update the artists info
+    const handleBtnSubmit = (event) => {
+        event.preventDefault();
+        editLink();
+        updateArtist();
+        setModalMsg(`${artist.bandName}'s profile was updated`);
+        handleShow();
+    }
 
+    // Modal functions for closing and showing
+    const handleClose = () => { setShow(false); handleEdit() };
+    const handleShow = () => setShow(true);
+
+    // Render edit form
     return (
         <>
             <form>
@@ -145,7 +175,7 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
                         placeholder="Add Contact Email" 
                         name="contact" 
                         value={artist ? editArtist.contact : null}
-                        onChange={handleChange} 
+                        onChange={ handleChange } 
                     />
                 </div>
     
@@ -158,22 +188,23 @@ const ArtistEdit = ({ artist, renderBandLinks, create, handleEdit }) => {
             
                 <span>
                     <p>
-                        <i className="fa fa-plus" aria-hidden="true" onClick={addLinkInput}></i>
+                        <i className="fa fa-plus" aria-hidden="true" onClick={ addLinkInput }></i>
                         Add another link
                     </p>
                 </span>
     
-                { React.cloneElement(renderBandLinks, { updateArtist: 'test' }) }
-                
-                {/* { renderBandLinks } */}
-
-                <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={handleBtnSubmit}>
+                <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={ handleBtnSubmit }>
                     Save
                 </button>
                     
             </form>
 
-            <Modal show={ show } handleClose={ handleClose } error={ modalMsg } title={ true } />
+            <Modal 
+                show={ show } 
+                handleClose={ handleClose } 
+                error={ modalMsg } 
+                title={ true }
+            />
         </>
     );
 }

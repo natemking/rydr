@@ -1,12 +1,11 @@
 import React from 'react';
 import ArtistLinks from './artist-Links'
-import { Link } from 'react-router-dom';
 import ArtistEdit from './ArtistEdit';
 import CloudinaryWidget from './CloudinaryWidget';
+import API from '../utils/API'
 
 const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
     const userId = localStorage.getItem("id");
-    const updateBandUrl = `/updateartist/${id}`;
     const url = window.location.href;
     const bandId = url.substring(url.lastIndexOf('/') +1);
 
@@ -20,13 +19,19 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
       if (artist.bandLinks.length > 0) { return (<ArtistLinks artist={ artist } isLoading={isLoading} edit={ edit } />) }
     }
 
-    // Render artist info
+    // Handle Cloudinary results if user updates pic
+    const handleCloudResults = (results) => {
+        API.updateBandData(artist._id, { bandImg: results.info.url });
+        window.location.reload();
+    }
+
+    // Render artist info. If in Edit mode the ArtistEdit component is rendered
     return isLoading ? (<h1>Loading....</h1>) : (
         <div className="d-flex flex-row flex-wrap align-items-center">
     
             <div className='d-flex flex-column'>
                 { renderImg() }
-                { edit ? <CloudinaryWidget  title='Update pic'/> : null }
+                { edit ? <CloudinaryWidget  title='Update pic' onSuccess={ handleCloudResults }/> : null }
             </div>
             
             <div className="d-flex flex-column p-2 flex-wrap">
@@ -62,10 +67,6 @@ const Artist = ({artist, isLoading, id, edit, handleEdit }) => {
                 
 
                 { renderBandLinks() }
-                {/* {userId !== bandId ? null :
-                <Link to={updateBandUrl} value={id}>
-                    <button className="artistUpdateButton">Update Band Info</button>
-                </Link>} */}
                 </>
                 }
             </div>
