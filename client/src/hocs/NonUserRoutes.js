@@ -3,7 +3,7 @@ import {Route, Redirect} from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
 // blocking routes for logged in users
 const UserRoutes = ({component: Component, ...rest}) => {
-    const {isAuth, user, id} = useContext(AuthContext)
+    const {isAuth, id} = useContext(AuthContext)
     const bandpage = `/bandpage/${id}`
     return (
         // set up the route properties

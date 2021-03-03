@@ -14,7 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserRoutes from './hocs/UserRoutes'
 import NonUserRoutes from './hocs/NonUserRoutes'
 import AuthProvider from './Context/AuthorizationContext';
-import AuthServices from "./Services/AuthorizationService";
 
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
   const [isAuth, setIsAuth]=useState(false);
   const [id, setId]=useState()
 
-  const idPath = ``
   return (
     <AuthProvider value ={{currentUser, isAuth, id, setId, setCurrentUser, setIsAuth} }>
       <Router>

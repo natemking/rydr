@@ -3,7 +3,7 @@ import {Route, Redirect} from 'react-router-dom';
 import {AuthContext} from '../Context/AuthorizationContext'
 // blocking access to non users
 const UserRoutes = ({component: Component, ...rest}) => {
-    const {isAuth, user} = useContext(AuthContext)
+    const {isAuth } = useContext(AuthContext)
     return (
         // setup route properties
         <Route {...rest} render={props =>{

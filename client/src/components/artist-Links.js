@@ -2,11 +2,9 @@ import React from 'react';
 import API from '../utils/API'
 
 
-const ArtistLinks = ({ artist, isLoading, title, id }) => {
-    const userId = localStorage.getItem("id");
-    const updateBandUrl = `/updateartist/${id}`;
-    const url = window.location.href;
-    const bandId = url.substring(url.lastIndexOf('/') + 1);
+
+const ArtistLinks = ({ artist, isLoading, title, edit }) => {
+  
     // On click remove user link from DB and DOM
     const handleOnClick = (e) => {
         API.deleteLink({bandId:artist._id, id:e.target.id});
@@ -19,9 +17,9 @@ const ArtistLinks = ({ artist, isLoading, title, id }) => {
             <a href={`https://${link.siteUrl}`} target='_blank' rel='noreferrer'>
                 {link.siteName}
             </a>
-            {userId !== bandId ? null :
+            { !edit ? null :
             <span>
-                <i className="fa fa-times" aria-hidden="true" id={link._id} onClick={handleOnClick}></i>
+                <i className="fa fa-times" aria-hidden="true" id={link._id} onClick={ handleOnClick }></i>
             </span>
             }
             <br />
