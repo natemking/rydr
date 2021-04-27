@@ -60,7 +60,7 @@ const LogIn = () => {
                 Better Your Artist Experience
             </h1>
             
-            <div className="d-flex justify-content-center mt-4">
+            <div className="d-flex flex-column justify-content-center mt-4">
                 <form className="formcontent p-2">
                     <div className="form-group ">
                         <label htmlFor="emailInput">
@@ -86,7 +86,11 @@ const LogIn = () => {
                         </button>
                     </Link>
                 </form>
-
+                <p>
+                    Sample LogIn: <br />
+                    U: natemking@gmail.com
+                    P: Password!2
+                </p>
                 <Modal show={show} handleClose={handleClose} error={errMsg} />
                 
             </div>

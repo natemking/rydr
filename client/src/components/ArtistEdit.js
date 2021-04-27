@@ -218,6 +218,9 @@ const ArtistEdit = ({ artist, create, handleEdit, id }) => {
                 <button type="submit" value={"Submit"} className="artistUpdateButton" onClick={ handleBtnSubmit }>
                     Save
                 </button>
+                <button type="submit" value={"Cancel"} className="artistUpdateButton ml-3" onClick={ handleClose }>
+                    Cancel
+                </button>
                     
             </form>
 
